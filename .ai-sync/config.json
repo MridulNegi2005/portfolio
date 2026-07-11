@@ -1,0 +1,6 @@
+{
+  "project": "portfolio",
+  "initialized_at": "2026-07-12T01:50:20+05:30",
+  "agents": ["claude-code", "codex", "antigravity"],
+  "version": "1.0"
+}
