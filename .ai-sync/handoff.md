@@ -4,16 +4,16 @@ Last updated by: Codex
 
 ## Current Task
 
-Mobile-responsive refinement of the portfolio.
+Publish the mobile-responsive update and sitemap support to `main`.
 
 ## In Progress
 
-None — implementation complete on `mobile-responsive`.
+Sitemap and robots files added; validation and push pending.
 
 ## Next Steps
 
-Review and merge `mobile-responsive` when ready. Use `pre-mobile-responsive-2026-07-12` to return to the pre-mobile baseline.
+Validate the sitemap and push `main` to `origin`.
 
 ## Key Files Modified
 
-`index.html`, `.ai-sync/`, `AGENTS.md`, `CLAUDE.md`, `GEMINI.md`
+`index.html`, `sitemap.xml`, `robots.txt`, `.ai-sync/`, `AGENTS.md`, `CLAUDE.md`, `GEMINI.md`
