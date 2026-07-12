@@ -372,16 +372,21 @@ footer{border-top:1px solid var(--line);padding:36px 0}
   .cta-row{display:grid;grid-template-columns:1fr;gap:10px;margin-top:30px}.btn{justify-content:center;padding:14px 18px}
   .hero-meta{display:grid;grid-template-columns:1fr 1fr;gap:20px 14px;margin-top:42px;padding-top:24px}.hero-meta div:last-child{grid-column:1/-1}.hero-meta .k{font-size:1.25rem}
   .shared-files{gap:12px}.context-bar{padding:16px;gap:12px;align-items:flex-start}.context-bar .tag{display:none}
-  .tools{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-ms-overflow-style:none;gap:12px;padding-bottom:8px}
-  .tools::-webkit-scrollbar{display:none}
-  .tool{flex:0 0 85%;scroll-snap-align:center;padding:16px}.tool p{font-size:.82rem;line-height:1.45}
-  .tools-dots{display:flex;justify-content:center;gap:8px;margin:8px 0 24px;align-items:center;height:12px}
-  .tools-dots .dot{width:5px;height:5px;border-radius:50%;background:var(--line-strong);transition:.3s var(--ease)}
-  .tools-dots .dot.adjacent{width:6px;height:6px;background:var(--ink-dim)}
-  .tools-dots .dot.active{width:8px;height:8px;background:var(--accent)}
+  .tools{gap:12px}.tool{padding:16px}.tool p{font-size:.82rem;line-height:1.45}
   .pipe{gap:12px;margin-top:24px}.stage-head{padding:15px 40px 15px 15px}
   .case-head{padding:24px 20px}.case .detail{padding-left:20px;padding-right:20px}.case .detail-grid{gap:24px}
-  .stack-x{padding:10px}.stack-panel{padding:24px 20px;min-height:278px}.stx-lead{gap:14px}.stx-ghost{font-size:3rem}.stx-desc{font-size:.98rem;line-height:1.55}
+  .stack-x{padding:10px}
+  .stack-panel{border:none;background:transparent;padding:0;min-height:500px;perspective:1000px;overflow:visible;touch-action:pan-y;margin-bottom:24px}
+  .stack-panel::before{display:none}
+  .stx-panel{position:absolute;inset:0;background:var(--bg-2);border:1px solid var(--line);border-radius:16px;padding:28px 24px;box-shadow:0 15px 35px -5px rgba(0,0,0,0.6);display:block;animation:none}
+  .stx-lead{gap:14px}.stx-ghost{font-size:3rem}.stx-desc{font-size:.98rem;line-height:1.55}
+  .stack-tabs{gap:16px;padding:12px 0 16px;scroll-snap-type:x mandatory;scrollbar-width:none;-ms-overflow-style:none;justify-content:center}
+  .stack-tabs::-webkit-scrollbar{display:none}
+  .stx-tab{flex:0 0 auto;width:44px;min-width:44px;height:44px;padding:0;border-radius:50%;justify-content:center;align-items:center;scroll-snap-align:center;background:transparent;border:2px solid var(--accent);transition:transform 0.28s cubic-bezier(.2,.9,.2,1), opacity 0.28s ease, border-color 0.3s ease, background 0.3s ease}
+  .stx-tab .lb, .stx-tab .ct{display:none}
+  .stx-tab .ix{font-size:.95rem;font-weight:bold;color:var(--accent);line-height:1}
+  .stx-tab.active{background:var(--accent)}
+  .stx-tab.active .ix{color:var(--bg)}
   .phi-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
   .principle{padding:18px 14px;min-height:160px}.principle h3{font-size:1.02rem;margin:12px 0 8px;line-height:1.15}.principle p{font-size:.8rem;line-height:1.45}
   .timeline{margin-top:52px;padding-top:42px}.tl{padding-left:29px}.tl-item{padding-bottom:30px}.tl-item::before{left:-29px}
@@ -713,7 +718,7 @@ footer{border-top:1px solid var(--line);padding:36px 0}
       <div class="links">
         <a class="chan" href="https://github.com/MridulNegi2005" target="_blank" rel="noopener"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.3 4.3 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12 12 0 0 0-6 0C6.7 2.3 5.6 2.6 5.6 2.6a4.3 4.3 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>GitHub</a>
         <a class="chan" href="https://www.linkedin.com/in/mridulnegi/" target="_blank" rel="noopener"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 13v4"/></svg>LinkedIn</a>
-        <a class="chan" href="mailto:simranseth48@gmail.com"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Email</a>
+        <a class="chan" href="mailto:negimridul2005@gmail.com"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Email</a>
         <a class="chan" href="#" download><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>Résumé</a>
       </div>
     </div>
@@ -810,38 +815,110 @@ footer{border-top:1px solid var(--line);padding:36px 0}
   });
   window.addEventListener('resize',function(){document.querySelectorAll('.case.open .case-wrap').forEach(function(w){w.style.maxHeight=w.firstElementChild.scrollHeight+'px';});},{passive:true});
 
-  // stack, interactive category panels
+  // stack, playing card swipe behavior
   var stabs=document.querySelectorAll('.stx-tab'), spanels=document.querySelectorAll('.stx-panel');
-  stabs.forEach(function(t){
+  var sTabsCont=document.querySelector('.stack-tabs'), sPanelCont=document.querySelector('.stack-panel');
+  var sActive = 0, isDragging = false, startX = 0, currentX = 0;
+  var cardRots = [];
+  spanels.forEach(function(p, i){ cardRots[i] = i===1 ? 6 : i===2 ? -7 : i===3 ? 3 : 0; });
+  
+  function updateStackMobile(animate=true){
+    if(window.innerWidth>600) { 
+      stabs.forEach(function(t, i){ 
+        t.style.opacity=''; t.style.transform=''; 
+        t.classList.toggle('active', i===sActive);
+      }); 
+      spanels.forEach(function(p, i){ 
+        p.style=''; p.classList.toggle('active', i===sActive); 
+      });
+      return; 
+    }
+    
+    stabs.forEach(function(t,i){
+      var dist=Math.abs(i-sActive);
+      var op=sActive===i ? 1 : Math.max(0.12, 1-dist*0.28);
+      var sc=sActive===i ? 1 : 1-Math.min(dist*0.03, 0.12);
+      t.style.opacity=op; t.style.transform='scale('+sc+')';
+      t.classList.toggle('active', i===sActive);
+    });
+    
+    spanels.forEach(function(p,i){
+      p.style.display = 'block';
+      p.style.transition = animate ? 'transform 0.5s cubic-bezier(0.2,0.9,0.2,1), opacity 0.5s ease, filter 0.5s ease' : 'none';
+      var relIdx = (i - sActive + spanels.length) % spanels.length;
+      var dx = 0, dy = 0, rot = 0, sc = 1, op = 1, z = 10 - relIdx, br = 1;
+      
+      if(relIdx === 0) {
+        dx = currentX;
+        rot = currentX * 0.05;
+      } else if(relIdx === 1) {
+        dx = 15; dy = 20; rot = cardRots[i]; sc = 0.95; br = 0.75;
+      } else if(relIdx === 2) {
+        dx = -12; dy = 38; rot = cardRots[i]; sc = 0.90; br = 0.55;
+      } else if(relIdx === 3) {
+        dx = 5; dy = 52; rot = cardRots[i]; sc = 0.85; z = 7; br = 0.4;
+      }
+      
+      p.style.zIndex = z;
+      p.style.opacity = op;
+      p.style.filter = 'brightness('+br+')';
+      p.style.transform = 'translate3d('+dx+'px, '+dy+'px, 0) scale('+sc+') rotate('+rot+'deg)';
+    });
+  }
+
+  stabs.forEach(function(t, i){
     t.addEventListener('click',function(){
-      var i=t.getAttribute('data-i');
-      stabs.forEach(function(x){x.classList.toggle('active',x===t);});
-      spanels.forEach(function(p){p.classList.toggle('active',p.getAttribute('data-i')===i);});
+      var prevActive = sActive;
+      sActive = i;
+      if(prevActive !== sActive) cardRots[prevActive] = (Math.random() > 0.5 ? 1 : -1) * (3 + Math.random() * 8);
+      if(window.innerWidth<=600 && sTabsCont){
+        var cRect=sTabsCont.getBoundingClientRect(), tRect=t.getBoundingClientRect();
+        var targetLeft = sTabsCont.scrollLeft + (tRect.left - cRect.left) - cRect.width/2 + tRect.width/2;
+        sTabsCont.scrollTo({left: targetLeft, behavior: 'smooth'});
+      }
+      updateStackMobile();
     });
   });
 
-  // mobile tools dots
-  if(window.innerWidth<=600){
-    var ts=document.querySelector('.tools');
-    if(ts){
-      var dW=document.createElement('div'); dW.className='tools-dots';
-      var dts=[];
-      ts.querySelectorAll('.tool').forEach(function(t,i){
-        var d=document.createElement('span'); d.className='dot'+(i===0?' active':'')+(i===1?' adjacent':'');
-        dW.appendChild(d); dts.push(d);
-      });
-      ts.parentNode.insertBefore(dW,ts.nextSibling);
-      ts.addEventListener('scroll',function(){
-        var sc=ts.scrollLeft, w=ts.clientWidth;
-        var idx=Math.round(sc/w);
-        dts.forEach(function(d,i){
-          d.className='dot';
-          if(i===idx) d.classList.add('active');
-          else if(i===idx-1||i===idx+1) d.classList.add('adjacent');
-        });
-      },{passive:true});
-    }
+  if(sPanelCont) {
+    sPanelCont.addEventListener('touchstart', function(e){
+      if(window.innerWidth>600) return;
+      isDragging = true; startX = e.touches[0].clientX; currentX = 0;
+      updateStackMobile(false);
+    }, {passive:true});
+    sPanelCont.addEventListener('touchmove', function(e){
+      if(!isDragging || window.innerWidth>600) return;
+      currentX = e.touches[0].clientX - startX;
+      updateStackMobile(false);
+    }, {passive:true});
+    sPanelCont.addEventListener('touchend', function(e){
+      if(!isDragging || window.innerWidth>600) return;
+      isDragging = false;
+      var threshold = 80;
+      if(Math.abs(currentX) > threshold) {
+        var dir = currentX > 0 ? 1 : -1;
+        currentX = dir * window.innerWidth;
+        updateStackMobile(true);
+        setTimeout(function(){
+          var prevActive = sActive;
+          sActive = (sActive + 1) % spanels.length;
+          cardRots[prevActive] = (Math.random() > 0.5 ? 1 : -1) * (3 + Math.random() * 8);
+          currentX = 0;
+          updateStackMobile(true);
+          if(sTabsCont){
+            var t = stabs[sActive], cRect=sTabsCont.getBoundingClientRect(), tRect=t.getBoundingClientRect();
+            sTabsCont.scrollTo({left: sTabsCont.scrollLeft + (tRect.left - cRect.left) - cRect.width/2 + tRect.width/2, behavior: 'smooth'});
+          }
+        }, 300);
+      } else {
+        currentX = 0;
+        updateStackMobile(true);
+      }
+    });
   }
+
+  window.addEventListener('resize', function(){ updateStackMobile(); }, {passive:true});
+  updateStackMobile();
 
   // real-time distortion grid, the grid refracts around the cursor like a water drop
   (function(){

@@ -33,3 +33,10 @@ Rolling work log shared between Codex, Claude Code, and Antigravity.
 **Notes:** Ready for next tasks.
 
 ---
+## [2026-07-12 23:00] — Antigravity
+**Task:** Implemented a swipeable playing-card stack interface for the mobile 'Engineering Stack' section.
+**Changes:** Updated `index.html` to convert the mobile `.stack-panel` into absolute-positioned physical cards that scale, rotate, and stagger backward. Rewrote touch handling JS so dragging the top card reveals the rest of the deck in real time, with a flick-to-swap mechanic. Changed pagination tabs to 44px round dots with no shadow.
+**Status:** completed
+**Notes:** Implementation plan approved by user and executed.
+
+---
