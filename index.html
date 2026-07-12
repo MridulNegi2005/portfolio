@@ -844,24 +844,25 @@ footer{border-top:1px solid var(--line);padding:36px 0}
     
     spanels.forEach(function(p,i){
       p.style.display = 'block';
-      p.style.transition = animate ? 'transform 0.5s cubic-bezier(0.2,0.9,0.2,1), opacity 0.5s ease, filter 0.5s ease' : 'none';
+      p.style.transition = animate ? 'transform 0.5s cubic-bezier(0.2,0.9,0.2,1), opacity 0.5s ease, filter 0.5s ease, box-shadow 0.5s ease' : 'none';
       var relIdx = (i - sActive + spanels.length) % spanels.length;
-      var dx = 0, dy = 0, rot = 0, sc = 1, op = 1, z = 10 - relIdx, br = 1;
+      var dx = 0, dy = 0, rot = 0, sc = 1, op = 1, z = 10 - relIdx, br = 1, ig = 0;
       
       if(relIdx === 0) {
         dx = currentX;
         rot = currentX * 0.05;
       } else if(relIdx === 1) {
-        dx = 15; dy = 20; rot = cardRots[i]; sc = 0.95; br = 0.75;
+        dx = 15; dy = 20; rot = cardRots[i]; sc = 0.95; br = 0.75; ig = 25;
       } else if(relIdx === 2) {
-        dx = -12; dy = 38; rot = cardRots[i]; sc = 0.90; br = 0.55;
+        dx = -12; dy = 38; rot = cardRots[i]; sc = 0.90; br = 0.55; ig = 12;
       } else if(relIdx === 3) {
-        dx = 5; dy = 52; rot = cardRots[i]; sc = 0.85; z = 7; br = 0.4;
+        dx = 5; dy = 52; rot = cardRots[i]; sc = 0.85; z = 7; br = 0.4; ig = 5;
       }
       
       p.style.zIndex = z;
       p.style.opacity = op;
       p.style.filter = 'brightness('+br+')';
+      p.style.boxShadow = ig > 0 ? '0 15px 35px -5px rgba(0,0,0,0.6), inset 0 0 60px color-mix(in srgb, var(--accent) '+ig+'%, transparent)' : '';
       p.style.transform = 'translate3d('+dx+'px, '+dy+'px, 0) scale('+sc+') rotate('+rot+'deg)';
     });
   }
@@ -915,6 +916,26 @@ footer{border-top:1px solid var(--line);padding:36px 0}
         updateStackMobile(true);
       }
     });
+    
+    if (window.IntersectionObserver) {
+      var hintObserver = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if(entry.isIntersecting && window.innerWidth<=600){
+            setTimeout(function(){
+              if(!isDragging && currentX === 0) {
+                currentX = -65;
+                updateStackMobile(true);
+                setTimeout(function(){
+                  if(!isDragging) { currentX = 0; updateStackMobile(true); }
+                }, 350);
+              }
+            }, 700);
+            hintObserver.disconnect();
+          }
+        });
+      }, {threshold: 0.6});
+      hintObserver.observe(sPanelCont);
+    }
   }
 
   window.addEventListener('resize', function(){ updateStackMobile(); }, {passive:true});
