@@ -1,14 +1,14 @@
 # Agent Handoff
 
-Last updated by: Codex
+Last updated by: Antigravity
 
 ## Current Task
 
-Publish the mobile-responsive update and sitemap support to `main`.
+Mobile responsiveness tweaks, UI animations, and UX improvements.
 
 ## In Progress
 
-Sitemap and robots files added; validation and push pending.
+No active tasks.
 
 ## Next Steps
 
@@ -16,4 +16,4 @@ Validate the sitemap and push `main` to `origin`.
 
 ## Key Files Modified
 
-`index.html`, `sitemap.xml`, `robots.txt`, `.ai-sync/`, `AGENTS.md`, `CLAUDE.md`, `GEMINI.md`
+`index.html`

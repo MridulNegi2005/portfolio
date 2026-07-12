@@ -25,3 +25,11 @@ Rolling work log shared between Codex, Claude Code, and Antigravity.
 **Notes:** Mobile QA screenshot is in `.ai-sync/artifacts/mobile-hero.png`. The branch is ready for review; return to `main` or the rollback tag to restore the desktop baseline.
 
 ---
+
+## [2026-07-12 20:44] — Antigravity
+**Task:** Mobile responsiveness tweaks and UI animations.
+**Changes:** `index.html` (mobile layout refinements, touch-tracking WebGL grid, scroll-driven card hover effect, staggered plus/toggle wave animations, tools mobile carousel, blurple tap-highlight fix).
+**Status:** completed
+**Notes:** Ready for next tasks.
+
+---
