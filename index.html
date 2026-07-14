@@ -95,6 +95,9 @@ nav.scrolled{background:rgba(10,11,13,.72);backdrop-filter:blur(16px) saturate(1
 .nav-cta{border:1px solid var(--line-strong);color:var(--ink)!important;padding:9px 15px!important}
 .nav-cta:hover{border-color:var(--accent);background:var(--accent-glow)}
 .nav-cta::after{display:none}
+.nav-resume{display:inline-flex;align-items:center;gap:6px;border-color:var(--accent-deep)!important;color:var(--accent-bright)!important;background:radial-gradient(120% 120% at 30% 20%,var(--accent-glow),transparent 65%)}
+.nav-resume svg{width:13px;height:13px}
+.nav-resume:hover{border-color:var(--accent)!important;background:var(--accent-glow)}
 .menu-btn{display:none;background:none;border:1px solid var(--line-strong);color:var(--ink);width:42px;height:38px;border-radius:9px;cursor:pointer;font-size:1.1rem}
 @media(max-width:860px){
   .nav-links{position:fixed;inset:0 0 auto 0;top:0;flex-direction:column;align-items:stretch;gap:0;background:rgba(10,11,13,.96);backdrop-filter:blur(20px);padding:86px 22px 26px;transform:translateY(-102%);transition:transform .45s var(--ease);border-bottom:1px solid var(--line)}
@@ -174,7 +177,8 @@ section,header{scroll-margin-top:78px}
 .context-bar .t b{font-family:var(--font-mono);font-size:.86rem;letter-spacing:.02em}
 .context-bar .t span{display:block;color:var(--ink-dim);font-size:.86rem;margin-top:2px}
 .context-bar .tag{margin-left:auto;font-family:var(--font-mono);font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);border:1px solid var(--accent-deep);padding:5px 10px;border-radius:100px;white-space:nowrap}
-.feeder{height:34px;width:1px;background:linear-gradient(var(--accent),transparent);margin:0 auto;position:relative}
+.feeder{height:36px;width:1px;background:linear-gradient(var(--accent),var(--accent-deep));margin:0 auto;position:relative}
+.feeder::after{content:"";position:absolute;left:50%;bottom:-2px;width:6px;height:6px;border-right:1.5px solid var(--accent);border-bottom:1.5px solid var(--accent);transform:translateX(-50%) rotate(45deg)}
 .tools{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .tool{border:1px solid var(--line);border-radius:12px;background:var(--bg-2);padding:18px}
 .tool .th{display:flex;align-items:center;gap:10px;margin-bottom:10px}
@@ -196,9 +200,11 @@ section,header{scroll-margin-top:78px}
 
 /* pipeline accordion */
 .pipe{margin-top:30px;display:grid;grid-template-columns:repeat(4,1fr);gap:14px;align-items:start}
-@media(max-width:820px){.pipe{grid-template-columns:1fr 1fr}}
-@media(max-width:520px){.pipe{grid-template-columns:1fr}}
-.stage{position:relative;border:1px solid var(--line);border-radius:12px;background:var(--surface);overflow:hidden;transition:border-color .35s var(--ease),background .35s var(--ease),box-shadow .35s var(--ease)}
+@media(max-width:760px){.pipe{grid-template-columns:1fr}}
+.stage{position:relative;border:1px solid var(--line);border-radius:12px;background:var(--surface);transition:border-color .35s var(--ease),background .35s var(--ease),box-shadow .35s var(--ease)}
+/* flow arrows between pipeline stages: right on desktop, down on mobile */
+.pipe .stage:not(:last-child)::after{content:"";position:absolute;z-index:2;width:8px;height:8px;pointer-events:none;border-top:1.5px solid var(--accent-deep);border-right:1.5px solid var(--accent-deep);right:-11px;top:29px;transform:rotate(45deg)}
+@media(max-width:760px){.pipe .stage:not(:last-child)::after{right:auto;top:auto;left:50%;bottom:-11px;border-top:none;border-bottom:1.5px solid var(--accent-deep);transform:translateX(-50%) rotate(45deg)}}
 .stage.open{border-color:var(--accent-deep);background:var(--surface-2);box-shadow:0 16px 44px -28px #000}
 .stage-head{width:100%;text-align:left;background:none;border:none;color:inherit;cursor:pointer;font-family:inherit;padding:16px 42px 16px 16px;display:flex;flex-direction:column;gap:9px}
 .stage-head .num{font-family:var(--font-mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
@@ -378,7 +384,8 @@ footer{border-top:1px solid var(--line);padding:36px 0}
   .stack-x{padding:10px}
   .stack-panel{border:none;background:transparent;padding:0;min-height:500px;perspective:1000px;overflow:visible;touch-action:pan-y;margin-bottom:24px}
   .stack-panel::before{display:none}
-  .stx-panel{position:absolute;inset:0;background:var(--bg-2);border:1px solid var(--line);border-radius:16px;padding:28px 24px;box-shadow:0 15px 35px -5px rgba(0,0,0,0.6);display:block;animation:none}
+  .stx-panel{position:absolute;inset:0;background:var(--bg-2);border:1px solid var(--line);border-radius:16px;padding:28px 24px;box-shadow:0 15px 35px -5px rgba(0,0,0,0.6);display:block;animation:none;transition:none;backface-visibility:hidden}
+  .stack-panel.animating .stx-panel{transition:transform .5s cubic-bezier(.2,.9,.2,1),opacity .45s ease,filter .45s ease,box-shadow .45s ease}
   .stx-lead{gap:14px}.stx-ghost{font-size:3rem}.stx-desc{font-size:.98rem;line-height:1.55}
   .stack-tabs{gap:16px;padding:12px 0 16px;scroll-snap-type:x mandatory;scrollbar-width:none;-ms-overflow-style:none;justify-content:center}
   .stack-tabs::-webkit-scrollbar{display:none}
@@ -412,6 +419,7 @@ footer{border-top:1px solid var(--line);padding:36px 0}
       <a href="#work">Work</a>
       <a href="#stack">Stack</a>
       <a href="#contact" class="nav-cta">Contact</a>
+      <a href="Mridul_Negi_Resume.pdf" download="Mridul_Negi_Resume.pdf" class="nav-cta nav-resume">Résumé <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v11m0 0 4-4m-4 4-4-4M5 19h14"/></svg></a>
     </div>
     <button class="menu-btn" id="menuBtn" aria-label="Menu">≡</button>
   </div>
@@ -719,7 +727,7 @@ footer{border-top:1px solid var(--line);padding:36px 0}
         <a class="chan" href="https://github.com/MridulNegi2005" target="_blank" rel="noopener"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.3 4.3 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12 12 0 0 0-6 0C6.7 2.3 5.6 2.6 5.6 2.6a4.3 4.3 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>GitHub</a>
         <a class="chan" href="https://www.linkedin.com/in/mridulnegi/" target="_blank" rel="noopener"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 13v4"/></svg>LinkedIn</a>
         <a class="chan" href="mailto:negimridul2005@gmail.com"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Email</a>
-        <a class="chan" href="#" download><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>Résumé</a>
+        <a class="chan" href="Mridul_Negi_Resume.pdf" download="Mridul_Negi_Resume.pdf"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>Résumé</a>
       </div>
     </div>
   </div>
@@ -815,131 +823,144 @@ footer{border-top:1px solid var(--line);padding:36px 0}
   });
   window.addEventListener('resize',function(){document.querySelectorAll('.case.open .case-wrap').forEach(function(w){w.style.maxHeight=w.firstElementChild.scrollHeight+'px';});},{passive:true});
 
-  // stack, playing card swipe behavior
+  // stack, playing-card deck (mobile). desktop = tabbed panel.
   var stabs=document.querySelectorAll('.stx-tab'), spanels=document.querySelectorAll('.stx-panel');
   var sTabsCont=document.querySelector('.stack-tabs'), sPanelCont=document.querySelector('.stack-panel');
-  var sActive = 0, isDragging = false, startX = 0, currentX = 0;
-  var cardRots = [];
-  spanels.forEach(function(p, i){ cardRots[i] = i===1 ? 6 : i===2 ? -7 : i===3 ? 3 : 0; });
-  
-  function updateStackMobile(animate=true){
-    if(window.innerWidth>600) { 
-      stabs.forEach(function(t, i){ 
-        t.style.opacity=''; t.style.transform=''; 
-        t.classList.toggle('active', i===sActive);
-      }); 
-      spanels.forEach(function(p, i){ 
-        p.style=''; p.classList.toggle('active', i===sActive); 
-      });
-      return; 
+  var N=spanels.length;
+  var sActive=0, dragging=false, startX=0, startY=0, curX=0, lockAxis=null, dragT=0, dragRaf=0;
+  var cardRots=[]; spanels.forEach(function(p,i){ cardRots[i]=[0,6,-7,3][i]||0; });
+  function isMobile(){ return window.innerWidth<=600; }
+  function setAnimating(on){ if(sPanelCont) sPanelCont.classList.toggle('animating', on); }
+
+  function restFor(relIdx){
+    if(relIdx===1) return {dx:15,dy:20,sc:0.95,z:9,br:0.85,ig:25};
+    if(relIdx===2) return {dx:-12,dy:38,sc:0.90,z:8,br:0.70,ig:12};
+    if(relIdx>=3)  return {dx:5,dy:52,sc:0.85,z:7,br:0.55,ig:5};
+    return {dx:0,dy:0,sc:1,z:10,br:1,ig:0};
+  }
+  function paintCard(p,s){
+    p.style.zIndex=s.z;
+    p.style.opacity=1;
+    p.style.filter='brightness('+s.br+')';
+    p.style.boxShadow=s.ig>0
+      ? '0 15px 35px -5px rgba(0,0,0,0.6), inset 0 0 60px color-mix(in srgb, var(--accent) '+s.ig+'%, transparent)'
+      : '0 15px 35px -5px rgba(0,0,0,0.6)';
+    p.style.transform='translate3d('+s.dx+'px,'+s.dy+'px,0) scale('+s.sc+') rotate('+s.rot+'deg)';
+  }
+  // full resting layout — runs only on active-change / drag-end / resize, never per touchmove
+  function applyResting(){
+    if(!isMobile()){
+      stabs.forEach(function(t,i){ t.style.opacity=''; t.style.transform=''; t.classList.toggle('active', i===sActive); });
+      spanels.forEach(function(p,i){ p.removeAttribute('style'); p.classList.toggle('active', i===sActive); });
+      return;
     }
-    
     stabs.forEach(function(t,i){
       var dist=Math.abs(i-sActive);
-      var op=sActive===i ? 1 : Math.max(0.12, 1-dist*0.28);
-      var sc=sActive===i ? 1 : 1-Math.min(dist*0.03, 0.12);
-      t.style.opacity=op; t.style.transform='scale('+sc+')';
+      t.style.opacity = i===sActive ? 1 : Math.max(0.12, 1-dist*0.28);
+      t.style.transform = 'scale('+(i===sActive?1:1-Math.min(dist*0.03,0.12))+')';
       t.classList.toggle('active', i===sActive);
     });
-    
     spanels.forEach(function(p,i){
-      p.style.display = 'block';
-      p.style.transition = animate ? 'transform 0.5s cubic-bezier(0.2,0.9,0.2,1), opacity 0.5s ease, filter 0.5s ease, box-shadow 0.5s ease' : 'none';
-      var relIdx = (i - sActive + spanels.length) % spanels.length;
-      var dx = 0, dy = 0, rot = 0, sc = 1, op = 1, z = 10 - relIdx, br = 1, ig = 0;
-      
-      if(relIdx === 0) {
-        dx = currentX;
-        rot = currentX * 0.05;
-      } else if(relIdx === 1) {
-        dx = 15; dy = 20; rot = cardRots[i]; sc = 0.95; br = 0.85; ig = 25;
-      } else if(relIdx === 2) {
-        dx = -12; dy = 38; rot = cardRots[i]; sc = 0.90; br = 0.70; ig = 12;
-      } else if(relIdx === 3) {
-        dx = 5; dy = 52; rot = cardRots[i]; sc = 0.85; z = 7; br = 0.55; ig = 5;
-      }
-      
-      p.style.zIndex = z;
-      p.style.opacity = op;
-      p.style.filter = 'brightness('+br+')';
-      p.style.boxShadow = ig > 0 ? '0 15px 35px -5px rgba(0,0,0,0.6), inset 0 0 60px color-mix(in srgb, var(--accent) '+ig+'%, transparent)' : '';
-      p.style.transform = 'translate3d('+dx+'px, '+dy+'px, 0) scale('+sc+') rotate('+rot+'deg)';
+      var relIdx=(i - sActive + N) % N;
+      var s=restFor(relIdx); s.rot = relIdx===0 ? 0 : cardRots[i];
+      p.style.display='block';
+      paintCard(p,s);
     });
   }
+  // per-move: move ONLY the front card (rAF-batched), no restyle of the others
+  function dragFront(){
+    dragRaf=0;
+    var front=spanels[sActive];
+    front.style.transform='translate3d('+curX+'px,0,0) scale(1) rotate('+(curX*0.04)+'deg)';
+  }
 
-  stabs.forEach(function(t, i){
+  stabs.forEach(function(t,i){
     t.addEventListener('click',function(){
-      var prevActive = sActive;
-      sActive = i;
-      if(prevActive !== sActive) cardRots[prevActive] = (sActive % 2 === 0 ? 1 : -1) * (4 + Math.random() * 6);
-      if(window.innerWidth<=600 && sTabsCont){
-        var cRect=sTabsCont.getBoundingClientRect(), tRect=t.getBoundingClientRect();
-        var targetLeft = sTabsCont.scrollLeft + (tRect.left - cRect.left) - cRect.width/2 + tRect.width/2;
-        sTabsCont.scrollTo({left: targetLeft, behavior: 'smooth'});
+      if(i!==sActive) cardRots[sActive]=(i%2===0?1:-1)*(4+Math.random()*6);
+      sActive=i;
+      setAnimating(true); applyResting();
+      if(isMobile() && sTabsCont){
+        var cR=sTabsCont.getBoundingClientRect(), tR=t.getBoundingClientRect();
+        sTabsCont.scrollTo({left: sTabsCont.scrollLeft + (tR.left-cR.left) - cR.width/2 + tR.width/2, behavior:'smooth'});
       }
-      updateStackMobile();
     });
   });
 
-  if(sPanelCont) {
+  if(sPanelCont){
     sPanelCont.addEventListener('touchstart', function(e){
-      if(window.innerWidth>600) return;
-      isDragging = true; startX = e.touches[0].clientX; currentX = 0;
-      updateStackMobile(false);
+      if(!isMobile()) return;
+      dragging=true; lockAxis=null; curX=0;
+      startX=e.touches[0].clientX; startY=e.touches[0].clientY; dragT=performance.now();
+      setAnimating(false);
+      spanels[sActive].style.willChange='transform';
     }, {passive:true});
+
     sPanelCont.addEventListener('touchmove', function(e){
-      if(!isDragging || window.innerWidth>600) return;
-      currentX = e.touches[0].clientX - startX;
-      updateStackMobile(false);
-    }, {passive:true});
-    sPanelCont.addEventListener('touchend', function(e){
-      if(!isDragging || window.innerWidth>600) return;
-      isDragging = false;
-      var threshold = 80;
-      if(Math.abs(currentX) > threshold) {
-        var dir = currentX > 0 ? 1 : -1;
-        currentX = dir * window.innerWidth;
-        updateStackMobile(true);
-        setTimeout(function(){
-          var prevActive = sActive;
-          sActive = (sActive + 1) % spanels.length;
-          cardRots[prevActive] = (sActive % 2 === 0 ? 1 : -1) * (4 + Math.random() * 6);
-          currentX = 0;
-          updateStackMobile(true);
-          if(sTabsCont){
-            var t = stabs[sActive], cRect=sTabsCont.getBoundingClientRect(), tRect=t.getBoundingClientRect();
-            sTabsCont.scrollTo({left: sTabsCont.scrollLeft + (tRect.left - cRect.left) - cRect.width/2 + tRect.width/2, behavior: 'smooth'});
-          }
-        }, 300);
-      } else {
-        currentX = 0;
-        updateStackMobile(true);
+      if(!dragging || !isMobile()) return;
+      var dx=e.touches[0].clientX-startX, dy=e.touches[0].clientY-startY;
+      if(lockAxis===null){
+        if(Math.abs(dx)>Math.abs(dy)+6) lockAxis='x';
+        else if(Math.abs(dy)>Math.abs(dx)+6) lockAxis='y';
+        else return;
       }
-    });
-    
-    if (window.IntersectionObserver) {
-      var hintObserver = new IntersectionObserver(function(entries){
-        entries.forEach(function(entry){
-          if(entry.isIntersecting && window.innerWidth<=600){
+      if(lockAxis!=='x') return;        // vertical intent → let the page scroll
+      e.preventDefault();               // committed horizontal drag → own the gesture
+      curX=dx;
+      if(!dragRaf) dragRaf=requestAnimationFrame(dragFront);
+    }, {passive:false});
+
+    function endDrag(){
+      if(!dragging) return;
+      dragging=false;
+      spanels[sActive].style.willChange='';
+      if(dragRaf){ cancelAnimationFrame(dragRaf); dragRaf=0; }
+      if(!isMobile()){ curX=0; lockAxis=null; return; }
+      var threshold=Math.max(90, window.innerWidth*0.30);
+      var advance = lockAxis==='x' && Math.abs(curX)>threshold;
+      setAnimating(true);
+      if(advance){
+        var dir=curX>0?1:-1, flung=spanels[sActive];
+        flung.style.transform='translate3d('+(dir*window.innerWidth)+'px,0,0) scale(1) rotate('+(dir*9)+'deg)';
+        flung.style.opacity='0';
+        setTimeout(function(){
+          cardRots[sActive]=(dir>0?1:-1)*(4+Math.random()*6);
+          sActive=(sActive+1)%N;               // forward-only
+          flung.style.transition='none';       // snap the flung card to the back without a fly-back
+          applyResting();
+          requestAnimationFrame(function(){ flung.style.transition=''; });
+          if(sTabsCont){
+            var t=stabs[sActive], cR=sTabsCont.getBoundingClientRect(), tR=t.getBoundingClientRect();
+            sTabsCont.scrollTo({left: sTabsCont.scrollLeft + (tR.left-cR.left) - cR.width/2 + tR.width/2, behavior:'smooth'});
+          }
+        }, 260);
+      } else {
+        applyResting();                        // snap back
+      }
+      curX=0; lockAxis=null;
+    }
+    sPanelCont.addEventListener('touchend', endDrag);
+    sPanelCont.addEventListener('touchcancel', endDrag);
+
+    if(window.IntersectionObserver){
+      var hintObserver=new IntersectionObserver(function(entries){
+        entries.forEach(function(en){
+          if(en.isIntersecting && isMobile()){
             setTimeout(function(){
-              if(!isDragging && currentX === 0) {
-                currentX = -65;
-                updateStackMobile(true);
-                setTimeout(function(){
-                  if(!isDragging) { currentX = 0; updateStackMobile(true); }
-                }, 350);
+              if(!dragging){
+                setAnimating(true); curX=-55; dragFront();
+                setTimeout(function(){ if(!dragging){ curX=0; applyResting(); } }, 380);
               }
             }, 700);
             hintObserver.disconnect();
           }
         });
-      }, {threshold: 0.6});
+      }, {threshold:0.6});
       hintObserver.observe(sPanelCont);
     }
   }
 
-  window.addEventListener('resize', function(){ updateStackMobile(); }, {passive:true});
-  updateStackMobile();
+  window.addEventListener('resize', function(){ setAnimating(false); applyResting(); }, {passive:true});
+  applyResting();
 
   // real-time distortion grid, the grid refracts around the cursor like a water drop
   (function(){
@@ -1043,6 +1064,35 @@ void main(){\n\
         if(e.pointerType==='mouse'){aT=0;kick();}
       },{passive:true});
       document.addEventListener('pointerleave',function(){aT=0;kick();});
+
+      // mobile: gyroscope tilt drives the lens ambiently (no fallback if unsupported)
+      var coarse = window.matchMedia && window.matchMedia('(pointer:coarse)').matches;
+      if(coarse && window.DeviceOrientationEvent){
+        var gLastTouch=0, cx0=window.innerWidth/2, cy0=window.innerHeight/2, lastG=0, lastB=0;
+        ['touchstart','touchmove'].forEach(function(ev){ window.addEventListener(ev,function(){ gLastTouch=performance.now(); },{passive:true}); });
+        function onOrient(e){
+          if(e.gamma==null && e.beta==null) return;             // no sensor data
+          if(performance.now()-gLastTouch < 700) return;        // touch is driving the lens
+          var g=Math.max(-45,Math.min(45, e.gamma||0));         // left-right tilt
+          var b=Math.max(-40,Math.min(40, (e.beta||45)-45));    // front-back, neutral ~45deg
+          if(Math.abs(g-lastG)<0.4 && Math.abs(b-lastB)<0.4) return; // deadzone: stay idle when still
+          lastG=g; lastB=b;
+          mx=(cx0 + (g/45)*cx0*0.9) * DPR;
+          my=(cy0 + (b/40)*cy0*0.7) * DPR;
+          if(!seeded){cmx=mx;cmy=my;seeded=true;}
+          aT=Math.max(aT,0.5); kick();                          // faint ambient presence
+        }
+        var addOrient=function(){ window.addEventListener('deviceorientation', onOrient, {passive:true}); };
+        if(typeof DeviceOrientationEvent.requestPermission==='function'){
+          var reqGyro=function(){                                // iOS 13+ needs a user gesture
+            DeviceOrientationEvent.requestPermission().then(function(s){ if(s==='granted') addOrient(); }).catch(function(){});
+            window.removeEventListener('touchend', reqGyro); window.removeEventListener('click', reqGyro);
+          };
+          window.addEventListener('touchend', reqGyro, {passive:true});
+          window.addEventListener('click', reqGyro);
+        } else { addOrient(); }
+        window.addEventListener('resize', function(){ cx0=window.innerWidth/2; cy0=window.innerHeight/2; }, {passive:true});
+      }
     }
     function onScroll(){ sT=(window.scrollY||document.documentElement.scrollTop||0)*DPR*PARALLAX; kick(); }
     window.addEventListener('scroll',onScroll,{passive:true}); onScroll();

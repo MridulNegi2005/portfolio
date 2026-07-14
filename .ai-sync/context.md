@@ -33,3 +33,18 @@ Rolling work log shared between Codex, Claude Code, and Antigravity.
 **Notes:** Ready for next tasks.
 
 ---
+
+## [2026-07-15 01:34] — Claude Code
+**Task:** Desktop content/polish pass, then mobile refinement (in progress).
+**Changes (completed since last sync):** `index.html` —
+- Replaced placeholder Featured Work with 3 real projects sourced from resume + cloned repos: **Mahoraga** (RL combat env, FastAPI + Qwen2.5-3B LoRA), **The Loop** (FastAPI/React campus platform), **Cosmic Bot** (`royalbot` Discord bot); each with a "View on GitHub" link.
+- Added downloadable résumé (`Mridul_Negi_Resume.pdf` in repo root) + gold "Résumé" nav button + contact link.
+- Swapped approximated AI logos for **official brand silhouettes** (Claude / Antigravity / Codex), all tinted to `--accent-bright` gold; **renamed the third tool Gemini → Antigravity** (kept `GEMINI.md` file label).
+- Real GitHub/LinkedIn links wired; footer de-cheesed; year 2025 → 2026; removed all em dashes.
+- WebGL grid: fixed page-wide with **scroll parallax** (35%), fixed the **backwards-scroll** direction bug; opaque render fix (was invisible/black).
+- Header: monogram mark + name `mridulnegi`; full institute name; `overflow-x:clip` fix so anchor nav actually scrolls.
+- Added `DESIGN.md` (palette, fonts, signature elements).
+**Status:** in-progress
+**Notes:** NOW WORKING ON (approved plan): (1) fix mobile stack playing-card **jitter** (per-move restyle of all 4 cards → front-card-only + rAF + axis-lock) and raise swipe **threshold** to max(90, 30% width), forward-only; (2) add **gyroscope-tilt** ambient effect for the mobile grid lens (no idle-drift fallback — do nothing if unsupported); (3) add **workflow pipeline arrows** — feeder chevrons + stage-to-stage arrows (→ desktop / ↓ mobile). All in `index.html`. Do NOT hand-merge an old `mobile-responsive` branch over this — current `main`/working `index.html` is ahead of the 07-12 log.
+
+---
