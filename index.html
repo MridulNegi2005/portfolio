@@ -99,11 +99,17 @@ nav.scrolled{background:rgba(10,11,13,.72);backdrop-filter:blur(16px) saturate(1
 .nav-resume svg{width:13px;height:13px}
 .nav-resume:hover{border-color:var(--accent)!important;background:var(--accent-glow)}
 .menu-btn{display:none;background:none;border:1px solid var(--line-strong);color:var(--ink);width:42px;height:38px;border-radius:9px;cursor:pointer;font-size:1.1rem}
+.nav-actions{display:flex;align-items:center;gap:10px;position:relative;z-index:52}
+.nav-resume-mobile{display:none}
 @media(max-width:860px){
   .nav-links{position:fixed;inset:0 0 auto 0;top:0;flex-direction:column;align-items:stretch;gap:0;background:rgba(10,11,13,.96);backdrop-filter:blur(20px);padding:86px 22px 26px;transform:translateY(-102%);transition:transform .45s var(--ease);border-bottom:1px solid var(--line)}
   .nav-links.open{transform:translateY(0)}
   .nav-links a{padding:15px 8px;font-size:.8rem;border-bottom:1px solid var(--line)}
   .nav-links a::after{display:none}
+  .nav-links a.nav-cta{border:1px solid var(--line-strong);border-radius:11px;text-align:center;justify-content:center;padding:15px!important;margin-top:12px}
+  .nav-links .nav-resume{display:none}
+  .nav-resume-mobile{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:.66rem;letter-spacing:.07em;text-transform:uppercase;font-weight:600;color:#1a1204;background:linear-gradient(180deg,var(--accent-bright),var(--accent));border:1px solid var(--accent-deep);padding:10px 13px;border-radius:9px}
+  .nav-resume-mobile svg{width:13px;height:13px}
   .menu-btn{display:block;z-index:51}
 }
 
@@ -199,12 +205,17 @@ section,header{scroll-margin-top:78px}
 .stance-row p b{color:var(--ink);font-weight:600}
 
 /* pipeline accordion */
-.pipe{margin-top:30px;display:grid;grid-template-columns:repeat(4,1fr);gap:14px;align-items:start}
-@media(max-width:760px){.pipe{grid-template-columns:1fr}}
+.pipe{margin-top:30px;display:flex;align-items:flex-start;gap:0}
+.pipe .stage{flex:1 1 0;min-width:0}
+.parrow{flex:0 0 auto;align-self:flex-start;margin-top:24px;padding:0 4px;color:var(--accent-deep);display:flex;align-items:center;justify-content:center}
+.parrow svg{width:20px;height:20px;display:block;transition:transform .3s var(--ease)}
+@media(max-width:760px){
+  .pipe{flex-direction:column;align-items:stretch}
+  .pipe .stage{width:100%}
+  .parrow{align-self:center;margin:5px 0;padding:0}
+  .parrow svg{transform:rotate(90deg)}
+}
 .stage{position:relative;border:1px solid var(--line);border-radius:12px;background:var(--surface);transition:border-color .35s var(--ease),background .35s var(--ease),box-shadow .35s var(--ease)}
-/* flow arrows between pipeline stages: right on desktop, down on mobile */
-.pipe .stage:not(:last-child)::after{content:"";position:absolute;z-index:2;width:8px;height:8px;pointer-events:none;border-top:1.5px solid var(--accent-deep);border-right:1.5px solid var(--accent-deep);right:-11px;top:29px;transform:rotate(45deg)}
-@media(max-width:760px){.pipe .stage:not(:last-child)::after{right:auto;top:auto;left:50%;bottom:-11px;border-top:none;border-bottom:1.5px solid var(--accent-deep);transform:translateX(-50%) rotate(45deg)}}
 .stage.open{border-color:var(--accent-deep);background:var(--surface-2);box-shadow:0 16px 44px -28px #000}
 .stage-head{width:100%;text-align:left;background:none;border:none;color:inherit;cursor:pointer;font-family:inherit;padding:16px 42px 16px 16px;display:flex;flex-direction:column;gap:9px}
 .stage-head .num{font-family:var(--font-mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
@@ -224,7 +235,9 @@ section,header{scroll-margin-top:78px}
 .stage:hover .stage-head .plus{color:var(--accent);border-color:var(--accent-deep);transform:scale(1.08);animation:none}
 .stage.open .stage-head .plus{transform:rotate(45deg);color:var(--accent);border-color:var(--accent-deep);animation:none}
 .stage.open:hover .stage-head .plus{transform:rotate(45deg) scale(1.08)}
-.stage-body{max-height:0;overflow:hidden;transition:max-height .42s var(--ease)}
+.stage-body{max-height:0;overflow:hidden;transition:max-height .46s cubic-bezier(.4,0,.2,1)}
+.stage-inner{opacity:0;transform:translateY(-6px);transition:opacity .34s ease .04s,transform .4s cubic-bezier(.22,1,.36,1) .04s}
+.stage.open .stage-inner{opacity:1;transform:none}
 .stage-inner p{margin:0;padding:0 16px 16px;color:var(--ink-dim);font-size:.86rem;line-height:1.55}
 .flow-caption{margin-top:30px;color:var(--ink-soft);font-size:1.02rem;font-family:var(--font-display);font-style:italic;max-width:640px;border-left:2px solid var(--accent-deep);padding-left:18px}
 
@@ -379,13 +392,13 @@ footer{border-top:1px solid var(--line);padding:36px 0}
   .hero-meta{display:grid;grid-template-columns:1fr 1fr;gap:20px 14px;margin-top:42px;padding-top:24px}.hero-meta div:last-child{grid-column:1/-1}.hero-meta .k{font-size:1.25rem}
   .shared-files{gap:12px}.context-bar{padding:16px;gap:12px;align-items:flex-start}.context-bar .tag{display:none}
   .tools{gap:12px}.tool{padding:16px}.tool p{font-size:.82rem;line-height:1.45}
-  .pipe{gap:12px;margin-top:24px}.stage-head{padding:15px 40px 15px 15px}
+  .pipe{gap:0;margin-top:24px}.stage-head{padding:15px 40px 15px 15px}
   .case-head{padding:24px 20px}.case .detail{padding-left:20px;padding-right:20px}.case .detail-grid{gap:24px}
   .stack-x{padding:10px}
   .stack-panel{border:none;background:transparent;padding:0;min-height:500px;perspective:1000px;overflow:visible;touch-action:pan-y;margin-bottom:24px}
   .stack-panel::before{display:none}
   .stx-panel{position:absolute;inset:0;background:var(--bg-2);border:1px solid var(--line);border-radius:16px;padding:28px 24px;box-shadow:0 15px 35px -5px rgba(0,0,0,0.6);display:block;animation:none;transition:none;backface-visibility:hidden}
-  .stack-panel.animating .stx-panel{transition:transform .5s cubic-bezier(.2,.9,.2,1),opacity .45s ease,filter .45s ease,box-shadow .45s ease}
+  .stack-panel.animating .stx-panel{transition:transform .42s cubic-bezier(.22,1,.36,1),opacity .3s ease,filter .42s ease,box-shadow .42s ease}
   .stx-lead{gap:14px}.stx-ghost{font-size:3rem}.stx-desc{font-size:.98rem;line-height:1.55}
   .stack-tabs{gap:16px;padding:12px 0 16px;scroll-snap-type:x mandatory;scrollbar-width:none;-ms-overflow-style:none;justify-content:center}
   .stack-tabs::-webkit-scrollbar{display:none}
@@ -421,7 +434,10 @@ footer{border-top:1px solid var(--line);padding:36px 0}
       <a href="#contact" class="nav-cta">Contact</a>
       <a href="Mridul_Negi_Resume.pdf" download="Mridul_Negi_Resume.pdf" class="nav-cta nav-resume">Résumé <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v11m0 0 4-4m-4 4-4-4M5 19h14"/></svg></a>
     </div>
-    <button class="menu-btn" id="menuBtn" aria-label="Menu">≡</button>
+    <div class="nav-actions">
+      <a href="Mridul_Negi_Resume.pdf" download="Mridul_Negi_Resume.pdf" class="nav-resume-mobile">Résumé <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v11m0 0 4-4m-4 4-4-4M5 19h14"/></svg></a>
+      <button class="menu-btn" id="menuBtn" aria-label="Menu">≡</button>
+    </div>
   </div>
 </nav>
 
@@ -521,14 +537,17 @@ footer{border-top:1px solid var(--line);padding:36px 0}
           <button class="stage-head" aria-expanded="false"><span class="num">Stage 01</span><span class="st">Work journal</span><span class="plus"></span></button>
           <div class="stage-body"><div class="stage-inner"><p>A shared decision log. Every action, fix, and issue gets written down, so any tool, or me next week, can pick up exactly where things left off.</p></div></div>
         </div>
+        <div class="parrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></div>
         <div class="stage">
           <button class="stage-head" aria-expanded="false"><span class="num">Stage 02</span><span class="st">Cross-AI handoff</span><span class="plus"></span></button>
           <div class="stage-body"><div class="stage-inner"><p>One tool can request another's opinion; the answer lands in the same journal. No repeated work, no wasted tokens, no lost reasoning between tools.</p></div></div>
         </div>
+        <div class="parrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></div>
         <div class="stage">
           <button class="stage-head" aria-expanded="false"><span class="num">Stage 03</span><span class="st">Security review</span><span class="plus"></span></button>
           <div class="stage-body"><div class="stage-inner"><p>Before anything is published I review the diff for exposed secrets and obvious risks. Secrets live in gitignored env files, never in the repo.</p></div></div>
         </div>
+        <div class="parrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></div>
         <div class="stage">
           <button class="stage-head" aria-expanded="false"><span class="num">Stage 04</span><span class="st">Human check → ship</span><span class="plus"></span></button>
           <div class="stage-body"><div class="stage-inner"><p>The final gate is me reading the code, confirming it does what it should, then committing and deploying. The tools accelerate; the judgment stays mine.</p></div></div>
@@ -920,19 +939,22 @@ footer{border-top:1px solid var(--line);padding:36px 0}
       setAnimating(true);
       if(advance){
         var dir=curX>0?1:-1, flung=spanels[sActive];
-        flung.style.transform='translate3d('+(dir*window.innerWidth)+'px,0,0) scale(1) rotate('+(dir*9)+'deg)';
+        flung.style.transition='transform .34s cubic-bezier(.4,0,.6,1),opacity .34s ease';
+        void flung.offsetWidth;                // reflow: lock in the dragged position as the start
+        flung.style.transform='translate3d('+(dir*(window.innerWidth+90))+'px,0,0) rotate('+(dir*11)+'deg)';
         flung.style.opacity='0';
         setTimeout(function(){
           cardRots[sActive]=(dir>0?1:-1)*(4+Math.random()*6);
           sActive=(sActive+1)%N;               // forward-only
-          flung.style.transition='none';       // snap the flung card to the back without a fly-back
-          applyResting();
+          flung.style.transition='none';       // snap the flung card to the back, no fly-back
+          flung.style.opacity='1';
+          applyResting();                      // the rest of the deck slides forward (via .animating)
           requestAnimationFrame(function(){ flung.style.transition=''; });
           if(sTabsCont){
             var t=stabs[sActive], cR=sTabsCont.getBoundingClientRect(), tR=t.getBoundingClientRect();
             sTabsCont.scrollTo({left: sTabsCont.scrollLeft + (tR.left-cR.left) - cR.width/2 + tR.width/2, behavior:'smooth'});
           }
-        }, 260);
+        }, 340);
       } else {
         applyResting();                        // snap back
       }
@@ -1065,9 +1087,10 @@ void main(){\n\
       },{passive:true});
       document.addEventListener('pointerleave',function(){aT=0;kick();});
 
-      // mobile: gyroscope tilt drives the lens ambiently (no fallback if unsupported)
+      // mobile: gyroscope tilt drives the lens ambiently. Android only — we deliberately
+      // skip iOS (requestPermission exists there) so it never shows a motion-permission prompt.
       var coarse = window.matchMedia && window.matchMedia('(pointer:coarse)').matches;
-      if(coarse && window.DeviceOrientationEvent){
+      if(coarse && window.DeviceOrientationEvent && typeof DeviceOrientationEvent.requestPermission!=='function'){
         var gLastTouch=0, cx0=window.innerWidth/2, cy0=window.innerHeight/2, lastG=0, lastB=0;
         ['touchstart','touchmove'].forEach(function(ev){ window.addEventListener(ev,function(){ gLastTouch=performance.now(); },{passive:true}); });
         function onOrient(e){
@@ -1082,15 +1105,7 @@ void main(){\n\
           if(!seeded){cmx=mx;cmy=my;seeded=true;}
           aT=Math.max(aT,0.5); kick();                          // faint ambient presence
         }
-        var addOrient=function(){ window.addEventListener('deviceorientation', onOrient, {passive:true}); };
-        if(typeof DeviceOrientationEvent.requestPermission==='function'){
-          var reqGyro=function(){                                // iOS 13+ needs a user gesture
-            DeviceOrientationEvent.requestPermission().then(function(s){ if(s==='granted') addOrient(); }).catch(function(){});
-            window.removeEventListener('touchend', reqGyro); window.removeEventListener('click', reqGyro);
-          };
-          window.addEventListener('touchend', reqGyro, {passive:true});
-          window.addEventListener('click', reqGyro);
-        } else { addOrient(); }
+        window.addEventListener('deviceorientation', onOrient, {passive:true});
         window.addEventListener('resize', function(){ cx0=window.innerWidth/2; cy0=window.innerHeight/2; }, {passive:true});
       }
     }
