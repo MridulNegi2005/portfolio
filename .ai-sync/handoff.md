@@ -1,38 +1,22 @@
 # Active Handoff
-> Last updated by: Claude Code
-> Timestamp: 2026-07-15T01:34:00
+> Last updated by: Antigravity
+> Timestamp: 2026-07-17T02:40:00
 
 ## Current Task
-Mobile refinement of the portfolio (`index.html`) — **COMPLETED, ready for review.**
+Content updates and UI alignment fixes — **COMPLETED, ready for next steps.**
 
 ## Done this session
-1. **Card-deck jitter + threshold** — mobile stack swipe refactored: `touchmove` moves only
-   the front card (rAF-batched); background cards styled once via `applyResting()`; axis-lock
-   with non-passive `preventDefault` on horizontal; `.stack-panel.animating` class drives
-   transitions (no per-move `style.transition`). Threshold raised `80 → max(90, 30% width)`
-   (=112px @375). Velocity flick removed (was too easy to trigger). Forward-only kept.
-   Verified: front follows finger, background static per move, 70px swipe = no advance,
-   200px = advance once.
-2. **Gyroscope tilt** — `deviceorientation` maps gamma/beta → lens `mx/my` with low ambient
-   `aT`, deadzone when still; iOS `requestPermission` on first tap; **no fallback** if
-   unsupported; gated to `(pointer:coarse)` and skipped under reduced-motion.
-   (Not runtime-testable in a desktop pane — verified by code review + clean parse.)
-3. **Pipeline arrows** — feeder lines got downward chevrons; stage-to-stage flow arrows added
-   (→ desktop / ↓ mobile); `.pipe` simplified to 4-col desktop / 1-col ≤760px; removed
-   `overflow:hidden` from `.stage` (accordion body clips itself) so gutter arrows aren't
-   clipped. Verified both layouts, accordion still opens.
+1. **Degree & Name updates**: Changed degree from B.Tech CS to B.E. Computer Engineering and updated shortened names to full name "Mridul Negi".
+2. **Nav bar alignment fix**: Fixed an issue where the top navigation links appeared inset by hiding the empty mobile-actions container on desktop, allowing `justify-content: space-between` to snap the links to the right edge.
+3. **Copywriting adjustments**: Reframed the "Method" section in the ID card to "Human-led engineering" (instead of AI-assisted, human-owned) to better reflect the user's focus on engineering work, and updated the Cosmic Bot project to indicate it has been live for 6 years.
+4. **Stack grouping**: Temporarily grouped the stack items by category to avoid one tool overshadowing others, but then reverted it back per user request to maintain the original design.
 
 ## Next Steps
-Review on a real phone (gyro + swipe feel). Then this is deploy-ready. Remember to `git add`
-`Mridul_Negi_Resume.pdf` alongside `index.html` when publishing.
+Review the content updates and alignment fixes. If all looks good, the site is deploy-ready.
 
 ## Key Files Modified
-- `index.html` (in progress — CSS ~168-215 & ~355-400, pipe HTML ~514-532, stack JS ~822-946, grid IIFE ~1019-1068)
-- `Mridul_Negi_Resume.pdf` (added, repo root — must be deployed alongside index.html)
-- `DESIGN.md` (added)
-- `.ai-sync/context.md` (this handoff)
+- `index.html` (Content updates, alignment CSS fix)
+- `.ai-sync/context.md` (this log)
 
 ## ⚠️ Note for the next agent
-The current working `index.html` is **ahead** of the 2026-07-12 log entries. Do not restore
-or hand-merge the old `mobile-responsive` branch over it — you'll lose the real projects,
-résumé, logos, and grid fixes. Branch from current state instead.
+The current working `index.html` has recent layout alignment and copy changes. Do not restore old branches.

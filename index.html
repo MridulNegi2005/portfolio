@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Mridul · Systems-minded software engineer</title>
-<meta name="description" content="B.Tech CS student at Thapar. I build practical software with a disciplined, AI-assisted workflow, self-hosted cloud infrastructure, and human judgment on quality and security." />
+<title>Mridul Negi · Systems-minded software engineer</title>
+<meta name="description" content="B.E. Computer Engineering student at Thapar. I build practical software with a disciplined, AI-assisted workflow, self-hosted cloud infrastructure, and human judgment on quality and security." />
 <link rel="canonical" href="https://mridulnegi.dev/" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://mridulnegi.dev/" />
@@ -82,7 +82,7 @@ section{position:relative;padding:clamp(80px,11vw,150px) 0}
 nav{position:fixed;top:0;left:0;right:0;z-index:50;transition:background .4s var(--ease),border-color .4s,backdrop-filter .4s}
 nav.scrolled{background:rgba(10,11,13,.72);backdrop-filter:blur(16px) saturate(140%);border-bottom:1px solid var(--line)}
 .nav-inner{max-width:var(--maxw);margin:0 auto;padding:16px 28px;display:flex;align-items:center;justify-content:space-between}
-.brand{display:flex;align-items:center;gap:11px;font-family:var(--font-mono);font-size:.82rem;letter-spacing:.04em}
+.brand{display:flex;align-items:center;gap:11px;font-family:var(--font-mono);font-size:.82rem;letter-spacing:.04em;margin-left:-8px}
 .brand .mark{width:30px;height:30px;border:1px solid var(--line-strong);border-radius:8px;display:grid;place-items:center;color:var(--accent);background:radial-gradient(120% 120% at 30% 20%,rgba(201,154,82,.16),transparent 60%)}
 .brand .mark svg{width:16px;height:16px;display:block}
 .brand b{font-weight:600;color:var(--ink)}
@@ -99,9 +99,10 @@ nav.scrolled{background:rgba(10,11,13,.72);backdrop-filter:blur(16px) saturate(1
 .nav-resume svg{width:13px;height:13px}
 .nav-resume:hover{border-color:var(--accent)!important;background:var(--accent-glow)}
 .menu-btn{display:none;background:none;border:1px solid var(--line-strong);color:var(--ink);width:42px;height:38px;border-radius:9px;cursor:pointer;font-size:1.1rem}
-.nav-actions{display:flex;align-items:center;gap:10px;position:relative;z-index:52}
+.nav-actions{display:none;align-items:center;gap:10px;position:relative;z-index:52}
 .nav-resume-mobile{display:none}
 @media(max-width:860px){
+  .nav-actions{display:flex;}
   .nav-links{position:fixed;inset:0 0 auto 0;top:0;flex-direction:column;align-items:stretch;gap:0;background:rgba(10,11,13,.96);backdrop-filter:blur(20px);padding:86px 22px 26px;transform:translateY(-102%);transition:transform .45s var(--ease);border-bottom:1px solid var(--line)}
   .nav-links.open{transform:translateY(0)}
   .nav-links a{padding:15px 8px;font-size:.8rem;border-bottom:1px solid var(--line)}
@@ -448,7 +449,7 @@ footer{border-top:1px solid var(--line);padding:36px 0}
     <div class="orb b"></div>
   </div>
   <div class="wrap hero-inner">
-    <div class="status reveal in"><span class="tick"></span> B.Tech CS · Thapar Institute of Engineering &amp; Technology · Patiala</div>
+    <div class="status reveal in"><span class="tick"></span> B.E. Computer Engineering · Thapar Institute of Engineering &amp; Technology · Patiala</div>
     <h1 class="reveal in d1">Software, built with <em>structure,</em> context, and execution.</h1>
     <p class="sub reveal in d2">I'm a computer science student who ships <b>practical software</b> the way an engineer should, a disciplined AI-assisted workflow, <b>self-hosted cloud infrastructure</b>, centralized context across tools, and human judgment on quality and security.</p>
     <div class="cta-row reveal in d3">
@@ -480,12 +481,12 @@ footer{border-top:1px solid var(--line);padding:36px 0}
       <aside class="id-card reveal d2">
         <div class="id-head">
           <div class="av">M</div>
-          <div class="nm">Mridul<small>Software Engineer · Student</small></div>
+          <div class="nm">Mridul Negi<small>Software Engineer · Student</small></div>
         </div>
         <div class="row"><span class="k">Focus</span><span class="v">Backend & systems<small>Python · full-stack delivery</small></span></div>
-        <div class="row"><span class="k">Studying</span><span class="v">B.Tech Computer Science<small>Thapar Institute of Engineering &amp; Technology, Patiala</small></span></div>
+        <div class="row"><span class="k">Studying</span><span class="v">B.E. Computer Engineering<small>Thapar Institute of Engineering &amp; Technology, Patiala</small></span></div>
         <div class="row"><span class="k">Infra</span><span class="v">Self-hosted<small>Oracle Cloud · Google Cloud</small></span></div>
-        <div class="row"><span class="k">Method</span><span class="v">AI-assisted, human-owned<small>context · logs · review</small></span></div>
+        <div class="row"><span class="k">Method</span><span class="v">Human-led engineering<small>AI-accelerated · context · review</small></span></div>
         <div class="row"><span class="k">Status</span><span class="v" style="color:var(--accent-bright)">Open to internships</span></div>
       </aside>
     </div>
@@ -644,9 +645,9 @@ footer{border-top:1px solid var(--line);padding:36px 0}
         <button class="case-head" aria-expanded="false">
           <span class="idx">03</span>
           <div class="tt">
-            <div class="tags"><span>Production</span><span>3 years live</span><span>Async</span></div>
+            <div class="tags"><span>Production</span><span>6 years live</span><span>Async</span></div>
             <h3>Cosmic Bot</h3>
-            <p class="one">A production Discord bot serving a live community for over three years: 6K+ lines, 25+ modular cogs, 70+ commands, still running.</p>
+            <p class="one">A production Discord bot serving a live community for over six years: 6K+ lines, 25+ modular cogs, 70+ commands, still running.</p>
           </div>
           <span class="toggle" aria-hidden="true"></span>
         </button>
@@ -655,7 +656,7 @@ footer{border-top:1px solid var(--line);padding:36px 0}
             <div><h4>What it does</h4><p>A full community toolkit: music, leveling, moderation, and admin tooling, maintained continuously in production rather than shipped once and forgotten. Long enough in service that the interesting work became keeping it fast and stable under real load.</p></div>
             <div><h4>What made it interesting</h4><p>A Lavalink / wavelink music pipeline, and a migration of core database access from synchronous psycopg2 to async pooling (aiopg / asyncpg) to stop the event loop from blocking. Leveling renders rank cards on the fly with Pillow, and a hot cog load / unload / reload interface allows updates without downtime.</p></div>
             <div class="stack-line"><span>Python</span><span>py-cord</span><span>PostgreSQL</span><span>Lavalink · wavelink</span><span>asyncpg</span><span>Pillow</span></div>
-            <p class="outcome">Three years in production across 25+ cogs and 70+ commands, still serving its community today.</p>
+            <p class="outcome">Six years in production across 25+ cogs and 70+ commands, still serving its community today.</p>
             <a class="case-link" href="https://github.com/MridulNegi2005/royalbot" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.3 4.3 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12 12 0 0 0-6 0C6.7 2.3 5.6 2.6 5.6 2.6a4.3 4.3 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>View on GitHub</a>
           </div>
         </div></div>
@@ -754,7 +755,7 @@ footer{border-top:1px solid var(--line);padding:36px 0}
 
 <footer>
   <div class="wrap foot">
-    <span>© <span id="yr"></span> Mridul · Patiala, India</span>
+    <span>© <span id="yr"></span> Mridul Negi · Patiala, India</span>
     <span>Vanilla HTML, CSS &amp; WebGL · no framework, no page builder</span>
     <a href="#top">Back to top ↑</a>
   </div>

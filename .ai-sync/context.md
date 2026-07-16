@@ -48,3 +48,9 @@ Rolling work log shared between Codex, Claude Code, and Antigravity.
 **Notes:** NOW WORKING ON (approved plan): (1) fix mobile stack playing-card **jitter** (per-move restyle of all 4 cards → front-card-only + rAF + axis-lock) and raise swipe **threshold** to max(90, 30% width), forward-only; (2) add **gyroscope-tilt** ambient effect for the mobile grid lens (no idle-drift fallback — do nothing if unsupported); (3) add **workflow pipeline arrows** — feeder chevrons + stage-to-stage arrows (→ desktop / ↓ mobile). All in `index.html`. Do NOT hand-merge an old `mobile-responsive` branch over this — current `main`/working `index.html` is ahead of the 07-12 log.
 
 ---
+
+## [2026-07-17 02:40] — Antigravity
+**Task:** Content updates and UI alignment fixes based on user feedback.
+**Changes:** `index.html` (changed degree to "B.E. Computer Engineering", updated name to "Mridul Negi", fixed nav bar spacing/alignment by hiding empty action container on desktop, reframed "Method" to "Human-led engineering" to center user ownership, updated Cosmic Bot description to reflect 6 years live, fixed Stack headers grouping by category so tools are evenly represented — then reverted this last grouping change back to singular tools per user preference).
+**Status:** completed
+**Notes:** The desktop and mobile layouts are polished and content is accurate.
