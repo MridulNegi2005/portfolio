@@ -95,3 +95,11 @@ Rolling work log shared between Codex, Claude Code, and Antigravity.
 **Status:** completed
 **Notes:** The mobile view for the cinematic demo is fully functional, properly readable without tiny un-zoomable text, and highly interactive.
 ---
+
+## [2026-08-06 02:35] — Antigravity
+**Task:** Demo section polish — native brand icons, glassmorphism label, GFM table rendering, mobile UX cleanup.
+**Changes:** index.html (Antigravity full-color SVG inlined in demo JS, Claude native fill, glassmorphism label with center-to-corner spring animation, GFM table parser in render(), mobile cards removed, sidebar arrows enlarged, fast-forward trigger at 120 chars, tool badge CSS reverted to golden).
+**Status:** completed
+**Notes:** Implementation plan for Options 1 (Design Polish — 3D ID card tilt, spacing, typography) and 3 (Copywriting — meta/hero/ID card rewrites) is drafted but awaiting user approval. The Antigravity icon in the demo uses a complex multi-layer SVG with masks and filters — do not simplify. The source SVG lives on Desktop (ntigravity-color.svg) but is NOT in the repo; it's inlined in JS.
+
+---
