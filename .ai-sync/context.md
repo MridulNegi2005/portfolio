@@ -54,3 +54,44 @@ Rolling work log shared between Codex, Claude Code, and Antigravity.
 **Changes:** `index.html` (changed degree to "B.E. Computer Engineering", updated name to "Mridul Negi", fixed nav bar spacing/alignment by hiding empty action container on desktop, reframed "Method" to "Human-led engineering" to center user ownership, updated Cosmic Bot description to reflect 6 years live, fixed Stack headers grouping by category so tools are evenly represented — then reverted this last grouping change back to singular tools per user preference).
 **Status:** completed
 **Notes:** The desktop and mobile layouts are polished and content is accurate.
+
+---
+
+## [2026-07-23 19:21] — Claude Code
+**Task:** Mobile polish fixes, then a new **cinematic cross-agent-sync demo section** built from the user's real Claude + Antigravity screenshots.
+**Changes:** all in `index.html` —
+- **Mobile stack card deck:** fixed jitter (per-move restyle of all 4 cards → front-card-only transform, rAF-batched, axis-lock with non-passive `preventDefault`; `.stack-panel.animating` class drives transitions instead of inline `style.transition`). Swipe threshold raised `80 → max(90, 30% width)`; velocity flick removed (too easy to trigger); forward-only kept. Restored the fling-out animation (explicit `.34s` transition + matched timeout; it was being cut off by a 260ms/500ms mismatch). Removed a global `will-change` that was hurting rather than helping.
+- **Pipeline arrows:** replaced pseudo-element gutter arrows (rendered *behind* the boxes) with real flex `.parrow` elements — `→` desktop / `↓` mobile; `.pipe` simplified to 4-col desktop / 1-col ≤760px; removed `overflow:hidden` from `.stage` (body clips itself). Feeder lines got downward chevrons.
+- **Gyro tilt** on the mobile WebGL grid lens — **Android only**; deliberately skipped on iOS (never prompts for motion permission). No idle-drift fallback.
+- **Mobile nav:** Contact/Résumé no longer collide (full-width buttons, 12px gap); **Résumé moved OUT of the hamburger** into the nav bar as a gold highlight button (desktop unchanged). Pipeline expand softened (content fade/slide on `.stage-inner`).
+- **Wording accuracy:** removed `JOURNAL.md` everywhere (it never existed) → the real `context.md` (rolling log) + `handoff.md` (active handoff); swept stray "journal" copy.
+- **NEW `#demo` section — "03 / Cross-agent sync, live":** a pure CSS/JS cinematic sequence (no video) with **two realistic app windows** modeled on the user's actual screenshots — Claude desktop (Home/Code tabs, sessions sidebar, `negim` chip, bottom input with Bypass permissions · Opus 4.8 · Medium) and Antigravity (menu bar, Projects tree, `Gemini 3.1 Pro (High)`) — plus a **bottom taskbar** that switches windows via a **magnified cursor click**. 6 labelled beats: Prompt → Plan → Write files → Update journal → Handoff → Continue in another agent. Uses **real content**: the actual portfolio brief, and Antigravity's real "third card too dark" fix (`#0e1013`, Card 2 85% / Card 3 70% / Card 4 55%, "1 file changed +3 −3"). Plays once on scroll + Replay; reduced-motion → static end state; mobile → left-to-right card carousel with arrows.
+- Nav gained a **Sync** anchor; section eyebrows renumbered 01–08.
+**Status:** completed
+**Notes:** Verified in-browser (no console errors) via DOM/state checks — screenshots are unavailable in this environment, so **visual timing/feel is unverified**; the user should watch the demo run on a real screen and report pacing. A `window.__demo` hook (`play/run/reset/final`) is left in `index.html` for driving the demo in tests — safe to strip before deploy. Gyro tilt could not be runtime-tested (no sensor). `Mridul_Negi_Resume.pdf` must be deployed alongside `index.html` or the résumé links 404.
+
+---
+
+## [2026-07-26 01:00] — Claude Code
+**Task:** Design a logo for the site and add a favicon (the site had **no favicon at all** before this).
+**Changes:**
+- **Logo — "editorial M".** Replaced the geometric chevron mark in the nav with a **serif capital M set in Fraunces 600** (the site's own display face) in `--accent-bright` gold. Rationale: the mark *is* the typography, tying the brand to the headline font instead of bolting on a separate geometric symbol. Tile border changed `--line-strong` → `--accent-deep` to match the icon, plus a hover state (border brightens to `--accent` + 3px `--accent-glow` ring).
+  - Drawn as inline `<svg><text>` rather than a text node so the baseline is explicit and centering is deterministic at any size. Construction: **cap height = 50% of tile** (12 of 24 viewBox units), baseline `y=17.9` at `font-size:17`.
+  - Verified live: font resolves to Fraunces 600, cap = exactly 50% of tile, optical centre off by 0.1 units (~0.1px). The **cap box** is centred, not the em box — that's the detail that usually makes letter-in-a-box marks look subtly wrong.
+- **Icon set generated** (Pillow 10.4 + Georgia Bold, supersampled 8× then LANCZOS-downscaled): `favicon.svg` (primary, scalable), `favicon-32.png` (fallback), `favicon.ico` (16/32/48 legacy), `apple-touch-icon.png` (180px, **full-bleed** — no self-rounding, since iOS applies its own squircle mask). All four verified serving HTTP 200.
+- `index.html` head: added the three `<link rel="icon">`/`apple-touch-icon` tags + `theme-color` (`#0a0b0d`) so mobile browser chrome matches the page.
+- `DESIGN.md`: new **Logo & icons** section (construction rules table + icon-file table + deploy note); also fixed a **stale `CONTEXT.md`/`JOURNAL.md` reference** that had been missed when the site copy was corrected — it now documents the real `.ai-sync/context.md` + `handoff.md`.
+**Status:** completed
+**Notes:** No console errors. **Screenshots remain unavailable in this environment** (browser pane not compositing frames), so the nav mark's final appearance is measured-but-unseen — the user should eyeball it. The PNG icons *were* inspected directly and look correct. Known cosmetic seam: the nav mark is true **Fraunces**, while the PNG/ICO icons use **Georgia Bold** (favicons cannot load web fonts); visually interchangeable at 16–32px, but tracing the Fraunces M to a vector path would make every size share one outline if exactness is ever wanted.
+
+## [2026-07-31 02:42] — Antigravity
+**Task:** Make demo section mobile-friendly, fix scrolling bugs, and enhance markdown rendering.
+**Changes:** index.html —
+- Completely refactored the #demo cinematic cross-agent sync section for mobile, replacing the hardcoded canvas scaling/panning with standard CSS flexbox vertical stacking.
+- Designed a collapsible breadcrumb strip for the file tree sidebar (.cw-side.expanded), hooking into the animation to auto-expand/collapse before clicking files.
+- Enabled touch handling on the bottom taskbar, allowing the user to seamlessly switch between the Claude and Antigravity windows on mobile.
+- Fixed a frustrating top-clipping scroll bug on both PC and mobile by replacing justify-content: flex-end with margin-top: auto on the first message, and constraining the grid height.
+- Implemented a custom, lightweight Markdown to HTML parser for .md files (like DESIGN.md and context.md), upgrading them from raw syntax-highlighted code to beautifully formatted typography (headings, bold/italic, lists, inline code) while preserving the <pre> formatting for code files like index.html.
+**Status:** completed
+**Notes:** The mobile view for the cinematic demo is fully functional, properly readable without tiny un-zoomable text, and highly interactive.
+---

@@ -6,6 +6,10 @@
 <title>Mridul Negi · Systems-minded software engineer</title>
 <meta name="description" content="B.E. Computer Engineering student at Thapar. I build practical software with a disciplined, AI-assisted workflow, self-hosted cloud infrastructure, and human judgment on quality and security." />
 <link rel="canonical" href="https://mridulnegi.dev/" />
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
+<meta name="theme-color" content="#0a0b0d" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://mridulnegi.dev/" />
 <meta property="og:title" content="Mridul Negi · Systems-minded software engineer" />
@@ -83,8 +87,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:50;transition:background .4s var
 nav.scrolled{background:rgba(10,11,13,.72);backdrop-filter:blur(16px) saturate(140%);border-bottom:1px solid var(--line)}
 .nav-inner{max-width:var(--maxw);margin:0 auto;padding:16px 28px;display:flex;align-items:center;justify-content:space-between}
 .brand{display:flex;align-items:center;gap:11px;font-family:var(--font-mono);font-size:.82rem;letter-spacing:.04em;margin-left:-8px}
-.brand .mark{width:30px;height:30px;border:1px solid var(--line-strong);border-radius:8px;display:grid;place-items:center;color:var(--accent);background:radial-gradient(120% 120% at 30% 20%,rgba(201,154,82,.16),transparent 60%)}
-.brand .mark svg{width:16px;height:16px;display:block}
+.brand .mark{width:30px;height:30px;border:1px solid var(--accent-deep);border-radius:8px;display:grid;place-items:center;color:var(--accent-bright);background:radial-gradient(120% 120% at 30% 20%,rgba(201,154,82,.16),transparent 60%);transition:border-color .3s var(--ease),box-shadow .3s var(--ease)}
+.brand .mark svg{width:100%;height:100%;display:block;font-family:var(--font-display);font-weight:600}
+.brand:hover .mark{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
 .brand b{font-weight:600;color:var(--ink)}
 .brand span{color:var(--ink-dim)}
 .nav-links{display:flex;gap:4px;align-items:center}
@@ -241,6 +246,217 @@ section,header{scroll-margin-top:78px}
 .stage.open .stage-inner{opacity:1;transform:none}
 .stage-inner p{margin:0;padding:0 16px 16px;color:var(--ink-dim);font-size:.86rem;line-height:1.55}
 .flow-caption{margin-top:30px;color:var(--ink-soft);font-size:1.02rem;font-family:var(--font-display);font-style:italic;max-width:640px;border-left:2px solid var(--accent-deep);padding-left:18px}
+
+/* ---------- sync demo ---------- */
+.demo{position:relative}
+.demo-os{position:relative;height:min(66vh,600px);min-height:480px;border:1px solid var(--line-strong);border-radius:14px;overflow:hidden;background:#08090b;box-shadow:0 44px 100px -50px #000,0 0 0 1px rgba(255,255,255,.02)}
+.demo-os::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(120% 90% at 50% -10%,transparent 62%,rgba(0,0,0,.32));z-index:9}
+.demo-label{position:absolute;top:16px;left:16px;z-index:16;display:flex;align-items:center;gap:11px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:9px 15px;backdrop-filter:blur(24px) saturate(1.8);-webkit-backdrop-filter:blur(24px) saturate(1.8);box-shadow:0 8px 32px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.08)}
+.dl-no{font-family:var(--font-mono);font-size:.64rem;letter-spacing:.14em;color:var(--accent);border-right:1px solid rgba(255,255,255,.08);padding-right:11px}
+.dl-txt{font-family:var(--font-display);font-size:1.2rem;letter-spacing:-.01em;color:var(--ink)}
+.demo-label.pop{animation:lblpop 2.2s cubic-bezier(.22,1,.36,1) forwards}
+@keyframes lblpop{
+  0%{opacity:0;left:50%;top:42%;transform:translate(-50%,-50%) scale(1.4) rotate(-3deg);filter:blur(10px)}
+  15%{opacity:1;left:50%;top:42%;transform:translate(-50%,-50%) scale(1.12) rotate(0.5deg);filter:blur(0)}
+  48%{opacity:1;left:50%;top:42%;transform:translate(-50%,-50%) scale(1.12) rotate(0deg);filter:blur(0)}
+  78%{left:14px;top:14px;transform:scale(.99);filter:blur(0)}
+  90%{left:17px;top:17px;transform:scale(1.01);filter:blur(0)}
+  100%{opacity:1;left:16px;top:16px;transform:none;filter:blur(0)}
+}
+.demo-stage{position:absolute;inset:0;transform-origin:0 0}
+.demo-progress{display:none;gap:5px;margin-bottom:14px}
+.demo-progress i{flex:1;height:3px;border-radius:2px;background:var(--line-strong);transition:background .35s var(--ease)}
+.demo-progress i.on{background:var(--accent)}
+.appwin{position:absolute;left:0;right:0;top:0;bottom:42px;display:flex;flex-direction:column;background:#101113;transition:opacity .55s var(--ease),transform .55s var(--ease),filter .55s var(--ease)}
+.appwin:not(.active){opacity:0;transform:scale(.986);filter:blur(7px);pointer-events:none}
+.appwin.active{opacity:1;z-index:2}
+.wc{display:flex;gap:17px;margin-left:auto;color:var(--ink-faint)}
+.wc i{width:12px;height:12px;position:relative}
+.wc i:nth-child(1)::before{content:"";position:absolute;left:0;right:0;bottom:5px;height:1px;background:currentColor}
+.wc i:nth-child(2)::before{content:"";position:absolute;inset:1px;border:1px solid currentColor;border-radius:1px}
+.wc i.x::before,.wc i.x::after{content:"";position:absolute;top:50%;left:1px;right:1px;height:1px;background:currentColor}
+.wc i.x::before{transform:rotate(45deg)}.wc i.x::after{transform:rotate(-45deg)}
+.ci{display:inline-flex;align-items:center;justify-content:center;width:26px;height:24px;border-radius:6px;color:var(--ink-dim);font-size:.9rem}
+.ci.on{color:var(--accent-bright);border:1px solid var(--accent-deep)}
+.claude-win{background:#141416}
+.cw-top{display:flex;align-items:center;gap:2px;padding:0 14px;height:38px;border-bottom:1px solid var(--line)}
+.cw-lead{display:flex;gap:4px}
+.cw-body{flex:1;display:grid;grid-template-columns:220px 1fr;grid-template-rows:1fr;min-height:0}
+.cw-side{border-right:1px solid var(--line);background:#101012;display:flex;flex-direction:column;padding:12px 10px;overflow:hidden;min-height:0}
+.cw-tabs{display:flex;gap:6px;margin-bottom:12px}
+.cw-tab{flex:1;text-align:center;font-family:var(--font-mono);font-size:.66rem;color:var(--ink-dim);border:1px solid var(--line);border-radius:8px;padding:7px 0}
+.cw-tab.on{color:var(--accent-bright);border-color:var(--accent-deep);background:var(--accent-glow)}
+.cw-item{font-size:.75rem;color:var(--ink-soft);padding:7px 9px;border-radius:7px}
+.cw-new{color:var(--ink);border:1px dashed var(--line-strong);margin-bottom:6px}
+.cw-seshead{font-family:var(--font-mono);font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-faint);padding:12px 9px 8px}
+.cw-ses{list-style:none;margin:0;padding:0;flex:none;overflow:hidden}
+.cw-ses li{font-size:.73rem;color:var(--ink-dim);padding:8px 9px;border-radius:7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cw-ses li.on{color:var(--ink);background:rgba(255,255,255,.06)}
+.cw-user{display:flex;align-items:center;gap:9px;font-size:.72rem;color:var(--ink-dim);border-top:1px solid var(--line);padding-top:11px;margin-top:6px}
+.cw-user b{color:var(--ink-soft)}
+.cw-av{width:22px;height:22px;border-radius:6px;background:radial-gradient(120% 120% at 30% 20%,var(--accent),var(--accent-deep));display:grid;place-items:center;color:#160f03;font-family:var(--font-display);font-size:.8rem}
+.cw-main{display:flex;flex-direction:column;min-width:0;min-height:0}
+.cw-head{padding:13px 22px;border-bottom:1px solid var(--line);font-size:.82rem;color:var(--ink);display:flex;align-items:center;gap:9px}
+.cw-chip{font-family:var(--font-mono);font-size:.6rem;color:var(--ink-dim);border:1px solid var(--line);border-radius:5px;padding:2px 6px}
+.cw-chat{flex:1;overflow-y:auto;padding:18px 22px;display:flex;flex-direction:column;gap:12px;scrollbar-width:none;-ms-overflow-style:none}
+.cw-chat::-webkit-scrollbar{display:none}
+.cwmsg:first-child{margin-top:auto}
+.cwmsg.user .ptext{display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;white-space:pre-wrap}
+.cw-inputwrap{padding:12px 18px 14px;border-top:1px solid var(--line)}
+.cw-input{border:1px solid var(--line-strong);border-radius:11px;background:rgba(0,0,0,.28);padding:13px 15px;min-height:24px;font-size:.82rem;color:var(--ink)}
+.cw-ph{color:var(--ink-faint)}
+.cw-txt{white-space:pre-wrap;word-break:break-word}
+.cw-caret{display:none;width:2px;height:1em;background:var(--accent);vertical-align:-3px;margin-left:1px;animation:cblink 1s steps(1) infinite}
+.cw-input.typing .cw-caret{display:inline-block}
+.cw-input.typing .cw-ph{display:none}
+@keyframes cblink{50%{opacity:0}}
+.cw-inbar{display:flex;align-items:center;gap:12px;margin-top:9px;font-family:var(--font-mono);font-size:.65rem;color:var(--ink-dim)}
+.cw-perm{color:var(--accent-bright)}
+.cw-sp{flex:1}
+.cw-model{color:var(--ink-soft)}
+.cwmsg{font-size:.8rem;line-height:1.6;animation:msgin .4s var(--ease)}
+.cwmsg.user{color:var(--ink);background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:10px;padding:11px 14px}
+.cwmsg.ai{color:var(--ink-soft)}
+@keyframes msgin{0%{opacity:0;transform:translateY(8px)}100%{opacity:1;transform:none}}
+.cw-pmode{display:inline-block;font-family:var(--font-mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);border:1px solid var(--accent-deep);border-radius:100px;padding:3px 10px;margin-bottom:9px}
+.cw-plan{border:1px solid var(--line);border-radius:10px;background:rgba(0,0,0,.22);padding:13px 15px}
+.cw-plan h6{margin:0 0 7px;font-family:var(--font-display);font-size:.98rem;color:var(--ink);font-weight:400}
+.cw-plan .ln{color:var(--ink-soft);font-size:.75rem;line-height:1.7}
+.cw-plan .ln b{color:var(--ink)}
+.cw-plan .sub{color:var(--accent);font-family:var(--font-mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;margin-top:9px}
+.cwfile{display:flex;align-items:center;gap:10px;font-family:var(--font-mono);font-size:.72rem;border:1px solid var(--line);border-radius:8px;padding:8px 12px;color:var(--ink-soft);background:rgba(255,255,255,.02);animation:msgin .35s var(--ease)}
+.cwfile .op{font-weight:600}.cwfile .op.add{color:var(--good)}.cwfile .op.upd{color:var(--accent-bright)}
+.cwfile .fn{color:var(--ink)}
+.cw-ok{color:var(--good);font-size:.78rem}
+.anti-win{background:#0d0e11}
+.aw-menu{display:flex;align-items:center;gap:20px;height:32px;padding:0 15px;font-size:.74rem;color:var(--ink-dim);border-bottom:1px solid var(--line)}
+.aw-menu b{color:var(--ink);font-weight:600}
+.aw-sub{display:flex;align-items:center;gap:6px;height:38px;padding:0 12px;border-bottom:1px solid var(--line)}
+.aw-crumb{font-size:.76rem;color:var(--ink-soft);margin-left:8px}.aw-crumb em{color:var(--ink-faint);font-style:normal;margin:0 5px}
+.aw-openide{margin-left:auto;font-family:var(--font-mono);font-size:.65rem;color:var(--ink-soft);border:1px solid var(--line-strong);border-radius:7px;padding:5px 11px}
+.aw-body{flex:1;display:grid;grid-template-columns:232px 1fr;grid-template-rows:1fr;min-height:0}
+.aw-side{border-right:1px solid var(--line);background:#0a0b0d;display:flex;flex-direction:column;padding:14px 10px;overflow:hidden;min-height:0}
+.aw-item{font-size:.75rem;color:var(--ink-soft);padding:8px 9px;border-radius:7px}
+.aw-new{color:var(--ink);border:1px solid var(--line-strong);margin-bottom:6px}
+.aw-projhead{font-family:var(--font-mono);font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-faint);padding:14px 9px 8px}
+.aw-tree{list-style:none;margin:0;padding:0;flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain}
+.atf{display:flex;align-items:center;gap:7px;font-size:.73rem;color:var(--ink-dim);padding:5px 9px;border-radius:6px;white-space:nowrap}
+.atf::before{content:"";width:12px;height:12px;flex:0 0 auto;background:currentColor;opacity:.7;-webkit-mask:center/contain no-repeat var(--fic);mask:center/contain no-repeat var(--fic);--fic:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M6 2h8l6 6v14H6z'/%3E%3C/svg%3E")}
+.atf.dir{color:var(--ink);--fic:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M3 5h6l2 2h10v12H3z'/%3E%3C/svg%3E")}
+.atf.ind{padding-left:22px}.atf.ind2{padding-left:36px}
+.atf.flash{animation:awflash 1.4s ease}
+@keyframes awflash{0%,25%{background:var(--accent-glow);color:var(--accent-bright)}100%{background:transparent}}
+.aw-settings{border-top:1px solid var(--line);padding:11px 9px 2px;margin-top:6px;font-size:.74rem;color:var(--ink-dim)}
+.aw-main{display:flex;flex-direction:column;min-width:0;min-height:0}
+.aw-crumb2{padding:12px 24px;font-size:.76rem;color:var(--ink-soft);border-bottom:1px solid var(--line)}.aw-crumb2 em{color:var(--ink-faint);font-style:normal;margin:0 6px}
+.aw-chat{flex:1;overflow-y:auto;padding:18px 24px;display:flex;flex-direction:column;gap:12px;scrollbar-width:none;-ms-overflow-style:none}
+.aw-chat::-webkit-scrollbar{display:none}
+.awmsg{animation:msgin .4s var(--ease)}
+.awmsg:first-child{margin-top:auto}
+.awmsg.user{align-self:flex-end;max-width:78%;background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:12px;padding:11px 14px;color:var(--ink);font-size:.82rem}
+.aw-worked{font-family:var(--font-mono);font-size:.68rem;color:var(--ink-dim)}
+.awmsg.ai{color:var(--ink-soft);font-size:.82rem;line-height:1.65;max-width:90%}
+.awmsg.ai b{color:var(--ink)}
+.awc{font-family:var(--font-mono);font-size:.76em;background:var(--accent-glow);color:var(--accent-bright);border-radius:4px;padding:1px 5px}
+.aw-diff{display:flex;align-items:center;gap:11px;border:1px solid var(--line);border-radius:10px;padding:10px 13px;font-family:var(--font-mono);font-size:.72rem;color:var(--ink-soft);background:rgba(255,255,255,.02)}
+.aw-add{color:var(--good)}.aw-del{color:#cc9a6b}
+.aw-review{margin-left:auto;color:var(--ink);border:1px solid var(--line-strong);border-radius:7px;padding:5px 12px}
+.aw-inputwrap{padding:12px 20px 16px;border-top:1px solid var(--line)}
+.aw-input{border:1px solid var(--line-strong);border-radius:11px;background:rgba(0,0,0,.28);padding:13px 15px;font-size:.82rem}
+.aw-ph{color:var(--ink-faint)}
+.aw-inbar{display:flex;align-items:center;gap:11px;margin-top:9px;font-family:var(--font-mono);font-size:.68rem;color:var(--ink-dim)}
+.aw-plus{border:1px solid var(--line);border-radius:6px;width:20px;height:20px;display:grid;place-items:center}
+.aw-model{color:var(--ink-soft)}
+.demo-taskbar{position:absolute;left:0;right:0;bottom:0;height:42px;display:flex;align-items:center;gap:6px;padding:0 12px;background:rgba(6,7,9,.92);border-top:1px solid var(--line);backdrop-filter:blur(10px);z-index:12}
+.tb-start{width:18px;height:18px;background:var(--ink-dim);-webkit-mask:center/contain no-repeat var(--si);mask:center/contain no-repeat var(--si);--si:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect x='2' y='2' width='8' height='8' fill='%23000'/%3E%3Crect x='14' y='2' width='8' height='8' fill='%23000'/%3E%3Crect x='2' y='14' width='8' height='8' fill='%23000'/%3E%3Crect x='14' y='14' width='8' height='8' fill='%23000'/%3E%3C/svg%3E");margin-right:6px}
+.tb-app{display:flex;align-items:center;gap:8px;height:30px;padding:0 13px;border-radius:7px;border:1px solid transparent;background:none;color:var(--ink-soft);font-family:var(--font-mono);font-size:.72rem;cursor:pointer;transition:.25s var(--ease)}
+.tb-app:hover,.tb-app.sim-hover{background:rgba(255,255,255,.03);color:var(--ink)}
+.tb-app.active{background:rgba(255,255,255,.06);border-color:var(--line);box-shadow:inset 0 -2px 0 var(--accent)}
+.tb-ic{width:17px;height:17px;display:inline-flex;align-items:center}
+.tb-ic svg{width:17px;height:17px;display:block}
+.tb-tray{margin-left:auto;color:var(--ink-dim);font-family:var(--font-mono);font-size:.68rem}
+.demo-cursor{position:absolute;top:0;left:0;width:22px;height:22px;z-index:20;pointer-events:none;transform:translate(70px,190px);transition:transform .75s cubic-bezier(0.25,1,0.3,1);filter:drop-shadow(0 3px 5px rgba(0,0,0,.6))}
+.demo-cursor svg{width:22px;height:22px;display:block}
+.demo-cursor.gone,.demo-label.gone{opacity:0;transition:opacity .7s var(--ease);pointer-events:none}
+.cursor-ring{position:absolute;top:-5px;left:-5px;width:32px;height:32px;border-radius:50%;border:2px solid var(--accent-bright);opacity:0;transform:scale(.3)}
+.demo-cursor.click .cursor-ring{animation:curclick .5s ease-out}
+.demo-cursor.magclick .cursor-ring{animation:curmag .75s ease-out}
+.demo-cursor.magclick svg{animation:curpress .32s ease}
+@keyframes curclick{0%{opacity:.9;transform:scale(.3)}100%{opacity:0;transform:scale(2.6)}}
+@keyframes curmag{0%{opacity:1;transform:scale(.3);border-width:3px}100%{opacity:0;transform:scale(4.6);border-width:1px}}
+@keyframes curpress{45%{transform:scale(.78)}}
+/* worktree in the Claude sidebar + file viewer shared by both windows */
+.cw-tree{list-style:none;margin:0;padding:0;flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain}
+.cw-tree::-webkit-scrollbar,.aw-tree::-webkit-scrollbar,.cw-ses::-webkit-scrollbar{width:5px}
+.cw-tree::-webkit-scrollbar-thumb,.aw-tree::-webkit-scrollbar-thumb,.cw-ses::-webkit-scrollbar-thumb{background:var(--line-strong);border-radius:3px}
+.cw-tree .atf{max-height:0;opacity:0;padding-top:0;padding-bottom:0;transition:max-height .32s var(--ease),opacity .32s ease,padding .32s ease}
+.cw-tree .atf.shown{max-height:26px;opacity:1;padding-top:5px;padding-bottom:5px}
+.atf[data-f]{cursor:pointer;transition:background .2s,color .2s}
+.atf[data-f]:hover{background:rgba(255,255,255,.05);color:var(--ink)}
+.atf.open{background:var(--accent-glow);color:var(--accent-bright)}
+.fv{flex:1;display:flex;flex-direction:column;min-height:0;background:#0b0c0f;animation:fvin .3s var(--ease)}
+.fv[hidden]{display:none}
+@keyframes fvin{0%{opacity:0;transform:translateY(8px)}100%{opacity:1;transform:none}}
+.fv-head{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--line);font-family:var(--font-mono);font-size:.72rem;color:var(--ink);flex:none}
+.fv-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);flex:none}
+.fv-tag{margin-left:auto;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);border:1px solid var(--accent-deep);border-radius:100px;padding:3px 9px;white-space:nowrap}
+.fv-x{background:none;border:none;color:var(--ink-dim);cursor:pointer;font-size:.72rem;padding:2px 4px;line-height:1}
+.fv-x:hover{color:var(--ink)}
+.fv-body{flex:1;overflow-y:auto;position:relative;padding:14px 16px}
+.fv-body::-webkit-scrollbar{width:6px}
+.fv-body::-webkit-scrollbar-thumb{background:var(--line-strong);border-radius:3px}
+.fv-body pre{margin:0;font-family:var(--font-mono);font-size:.66rem;line-height:1.62;color:var(--ink-soft);white-space:pre-wrap;word-break:break-word}
+.syn-tag{color:var(--accent)} .syn-str{color:var(--good)}
+.md-view{font-family:var(--font-sans, sans-serif);font-size:.76rem;color:var(--ink-soft);line-height:1.6;padding-bottom:12px;word-break:break-word}
+.md-view h1, .md-view h2, .md-view h3, .md-view h4{font-family:var(--font-display);color:var(--ink);margin:18px 0 10px;font-weight:normal;line-height:1.2;letter-spacing:-.01em}
+.md-view h1{font-size:1.4rem;color:var(--accent-bright);margin-top:4px}
+.md-view h2{font-size:1.1rem;border-bottom:1px solid var(--line);padding-bottom:6px}
+.md-view h3{font-size:.9rem}
+.md-view div, .md-view li{margin-bottom:6px}
+.md-gap{height:10px}
+.md-view strong{color:var(--ink);font-weight:600}
+.md-view em{font-style:italic}
+.md-view code{font-family:var(--font-mono);font-size:.68rem;background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:4px;padding:2px 4px;color:var(--accent-bright)}
+.md-view hr{border:none;border-top:1px solid var(--line-strong);margin:20px 0}
+.md-view ul{margin:8px 0 16px;padding-left:18px;list-style:disc}
+.md-view li{margin-bottom:4px}
+.md-view a{color:var(--accent);text-decoration:underline;text-decoration-color:var(--line-strong)}
+.md-table-wrap{width:100%;overflow-x:auto;margin:14px 0;border:1px solid var(--line);border-radius:8px;background:rgba(0,0,0,.2)}
+.md-table-wrap table{width:100%;border-collapse:collapse;font-size:.74rem;text-align:left}
+.md-table-wrap th,.md-table-wrap td{padding:8px 12px;border-bottom:1px solid var(--line);color:var(--ink-soft)}
+.md-table-wrap th{font-family:var(--font-mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);background:rgba(255,255,255,.03);font-weight:600}
+.md-table-wrap tr:last-child td{border-bottom:none}
+.md-table-wrap tr:hover td{background:rgba(255,255,255,.02)}
+.fv-new{display:block;background:linear-gradient(90deg,var(--accent-glow),transparent 85%);border-left:2px solid var(--accent);padding:9px 11px;margin:10px -11px 0;color:var(--ink);border-radius:0 6px 6px 0;animation:newin .5s var(--ease)}
+@keyframes newin{0%{opacity:0;transform:translateY(10px)}100%{opacity:1;transform:none}}
+.fv-trim{display:block;margin-top:14px;padding-top:12px;border-top:1px dashed var(--line-strong);color:var(--ink-faint);font-style:italic}
+.fv.flash{animation:fvflash 1.25s ease}
+@keyframes fvflash{0%,30%{box-shadow:inset 0 0 0 2px var(--accent-deep)}100%{box-shadow:inset 0 0 0 2px transparent}}
+.cw-input{max-height:78px;overflow-y:auto;scrollbar-width:none}
+.cw-input::-webkit-scrollbar{display:none}
+.cw-ff{display:none;align-items:center;gap:6px;color:var(--accent-bright);font-size:.6rem;letter-spacing:.08em;text-transform:uppercase}
+.cw-ff.show{display:inline-flex;animation:ffpulse 1.1s ease-in-out infinite}
+@keyframes ffpulse{50%{opacity:.5}}
+.cw-count{font-family:var(--font-mono);font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);border:1px solid var(--accent-deep);border-radius:100px;padding:3px 9px;display:inline-block;margin-top:9px}
+.demo-controls{margin-top:20px}
+.demo-replay{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);background:none;border:1px solid var(--line-strong);border-radius:9px;padding:10px 16px;cursor:pointer;transition:.25s var(--ease);opacity:0;pointer-events:none}
+.demo-replay.show{opacity:1;pointer-events:auto}
+.demo-replay:hover{color:var(--accent-bright);border-color:var(--accent);background:var(--accent-glow)}
+.demo-replay svg{width:15px;height:15px}
+.demo-steps{display:none}
+@media(max-width:760px){
+  /* camera mode: the scene keeps its desktop size and a camera pans/zooms across it */
+  .demo-os{height:58vh;min-height:370px}
+  .demo-stage{width:100%;height:100%;inset:0;transition:transform .85s cubic-bezier(.4,0,.2,1);will-change:transform}
+  .demo.mode-cards .demo-os{display:none}
+  .demo.mode-camera .demo-steps,.demo.mode-camera .demo-progress{display:none}
+  .demo-label{top:10px;left:10px;padding:8px 13px}
+  .dl-txt{font-size:1.02rem}
+  .demo-steps{display:none!important}
+  .demo-step-arrow{display:none}
+  .demo-controls{margin-top:6px}.demo-replay{opacity:1;pointer-events:auto}
+  .demo.mode-cards .demo-progress{display:flex}
+}
 
 /* ---------- infrastructure ---------- */
 .infra{display:grid;grid-template-columns:1.1fr 1fr;gap:56px;align-items:center}
@@ -413,6 +629,79 @@ footer{border-top:1px solid var(--line);padding:36px 0}
   .timeline{margin-top:52px;padding-top:42px}.tl{padding-left:29px}.tl-item{padding-bottom:30px}.tl-item::before{left:-29px}
   .contact-inner{padding:42px 20px}.contact-inner .lead{font-size:1.02rem}.links{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:30px}.chan{justify-content:center;padding:12px 8px;font-size:.7rem}
   .foot{font-size:.65rem;gap:12px;flex-direction:column;align-items:flex-start;padding:24px 0}
+  /* Mobile optimized demo layout (vertical) */
+  .demo-os { height: 75vh; min-height: 480px; }
+  .cw-body, .aw-body { display: flex; flex-direction: column; }
+  
+  /* Collapse sidebar into a thin clickable breadcrumb strip */
+  .cw-side, .aw-side {
+    flex: 0 0 auto;
+    border-right: none;
+    border-bottom: 1px solid var(--line);
+    padding: 0;
+    overflow: hidden;
+    max-height: 38px;
+    transition: max-height .35s cubic-bezier(.22,1,.36,1);
+    cursor: pointer;
+  }
+  .cw-side.expanded, .aw-side.expanded { max-height: 400px; overflow-y: auto; }
+  
+  /* Create a mobile breadcrumb header inside the sidebar */
+  .cw-side::before {
+    content: '📁 ~/portfolio';
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    font-family: var(--font-mono);
+    font-size: .72rem;
+    color: var(--accent-bright);
+    border-bottom: 1px solid var(--line);
+    min-height: 38px;
+    box-sizing: border-box;
+  }
+  .cw-side::after, .aw-side::after {
+    content: '▾';
+    position: absolute;
+    right: 14px;
+    top: 8px;
+    font-size: 1.1rem;
+    color: var(--ink-soft);
+    transition: transform .3s ease;
+    pointer-events: none;
+  }
+  .cw-side, .aw-side { position: relative; }
+  .cw-side.expanded::after, .aw-side.expanded::after { transform: rotate(180deg); }
+  .aw-side::before {
+    content: '📁 portfolio';
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    font-family: var(--font-mono);
+    font-size: .72rem;
+    color: var(--accent-bright);
+    border-bottom: 1px solid var(--line);
+    min-height: 38px;
+    box-sizing: border-box;
+  }
+  
+  /* Hide non-essential sidebar items so the tree is compact when expanded */
+  .cw-new, .cw-seshead, .cw-ses, .cw-user { display: none; }
+  .cw-tabs { display: none; }
+  .aw-item, .aw-projhead, .aw-settings { display: none; }
+  .aw-sub { display: none; }
+  
+  .cw-side .cw-tree, .aw-side .aw-tree { padding: 4px 12px 8px; }
+  
+  .cw-main, .aw-main { flex: 1; min-height: 0; }
+  .cw-head { padding: 10px 16px; font-size: .76rem; }
+  .cw-chat, .aw-chat { padding: 12px 16px; gap: 10px; }
+  .cw-inputwrap, .aw-inputwrap { padding: 10px 16px; }
+  
+  /* Taskbar touch-friendly */
+  .tb-app { padding: 0 10px; }
+  .demo-taskbar { height: 38px; }
 }
 @media(max-width:350px){.phi-grid{grid-template-columns:1fr}.principle{min-height:auto}}
 @media(hover:none){.principle:hover,.stage:hover,.case:hover,.chan:hover{transform:none}.principle:hover{background:rgba(18,20,23,.55);border-color:var(--line)}.stage:hover{box-shadow:none;border-color:var(--line)}.case:hover{border-color:var(--line)}}
@@ -425,10 +714,11 @@ footer{border-top:1px solid var(--line);padding:36px 0}
 
 <nav id="nav">
   <div class="nav-inner">
-    <a href="#top" class="brand"><span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V6.5L12 14l8-7.5V19"/></svg></span><span>~/</span><b>mridulnegi</b><span>.dev</span></a>
+    <a href="#top" class="brand"><span class="mark"><svg viewBox="0 0 24 24" aria-hidden="true"><text x="12" y="17.9" text-anchor="middle" font-size="17" fill="currentColor">M</text></svg></span><span>~/</span><b>mridulnegi</b><span>.dev</span></a>
     <div class="nav-links" id="navlinks">
       <a href="#about">About</a>
       <a href="#workflow">Workflow</a>
+      <a href="#demo">Sync</a>
       <a href="#infra">Infrastructure</a>
       <a href="#work">Work</a>
       <a href="#stack">Stack</a>
@@ -505,21 +795,21 @@ footer{border-top:1px solid var(--line);padding:36px 0}
     <div class="stance reveal d1">
       <div class="stance-row"><span class="sn">01</span><p><b>I do the thinking first.</b> I dig into the problem, read the docs, and form a direction myself. I don't outsource understanding, that's the part that's actually mine.</p></div>
       <div class="stance-row"><span class="sn">02</span><p><b>Then AI does the heavy lifting.</b> With sharp prompts and full project context, I use it to accelerate the build, not to decide what to build or to hand me code I can't read.</p></div>
-      <div class="stance-row"><span class="sn">03</span><p><b>Every tool shares one brain.</b> Claude, Antigravity, and Codex all read the same context and write to the same journal, so nothing repeats and nothing gets lost between them.</p></div>
+      <div class="stance-row"><span class="sn">03</span><p><b>Every tool shares one brain.</b> Claude, Antigravity, and Codex all read the same context and write to the same log, so nothing repeats and nothing gets lost between them.</p></div>
     </div>
 
     <div class="flow reveal d2">
-      <div class="flow-label">Two shared files, every tool reads and writes them</div>
+      <div class="flow-label">Two shared files in .ai-sync/, read and written by every tool</div>
       <div class="shared-files">
         <div class="context-bar">
           <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4h11l5 5v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Z"/><path d="M14 4v5h5M8 13h8M8 17h5"/></svg></div>
-          <div class="t"><b>CONTEXT.md</b><span>Project state, goals, constraints. Read first.</span></div>
-          <span class="tag">Source of truth</span>
+          <div class="t"><b>context.md</b><span>Rolling log of every action, decision, and fix, across tools.</span></div>
+          <span class="tag">Shared history</span>
         </div>
         <div class="context-bar">
           <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4h11l5 5v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Z"/><path d="M8 12h8M8 16h5" stroke="currentColor"/><path d="M14.5 8.5l1.2 1.2-3 3-1.4.2.2-1.4 3-3Z"/></svg></div>
-          <div class="t"><b>JOURNAL.md</b><span>Decisions, actions, fixes, issues. Written as I go.</span></div>
-          <span class="tag">Decision log</span>
+          <div class="t"><b>handoff.md</b><span>Active handoff: current task, what's in progress, next steps.</span></div>
+          <span class="tag">Live state</span>
         </div>
       </div>
       <div class="feeder"></div>
@@ -535,13 +825,13 @@ footer{border-top:1px solid var(--line);padding:36px 0}
       <div class="flow-label">The pipeline · click any stage</div>
       <div class="pipe">
         <div class="stage">
-          <button class="stage-head" aria-expanded="false"><span class="num">Stage 01</span><span class="st">Work journal</span><span class="plus"></span></button>
+          <button class="stage-head" aria-expanded="false"><span class="num">Stage 01</span><span class="st">Shared log</span><span class="plus"></span></button>
           <div class="stage-body"><div class="stage-inner"><p>A shared decision log. Every action, fix, and issue gets written down, so any tool, or me next week, can pick up exactly where things left off.</p></div></div>
         </div>
         <div class="parrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></div>
         <div class="stage">
           <button class="stage-head" aria-expanded="false"><span class="num">Stage 02</span><span class="st">Cross-AI handoff</span><span class="plus"></span></button>
-          <div class="stage-body"><div class="stage-inner"><p>One tool can request another's opinion; the answer lands in the same journal. No repeated work, no wasted tokens, no lost reasoning between tools.</p></div></div>
+          <div class="stage-body"><div class="stage-inner"><p>One tool can request another's opinion; the answer lands in the same log. No repeated work, no wasted tokens, no lost reasoning between tools.</p></div></div>
         </div>
         <div class="parrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></div>
         <div class="stage">
@@ -560,11 +850,821 @@ footer{border-top:1px solid var(--line);padding:36px 0}
   </div>
 </section>
 
+<!-- ============ SYNC DEMO ============ -->
+<section id="demo" class="divider-top">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow mono">03 / Cross-agent sync, live</span>
+      <h2>Watch the <em>handoff</em> happen.</h2>
+      <p class="lead">Not a screen recording. A live re-enactment of how this very site gets built: one brief, three tools, one shared context. Real commands, real files.</p>
+    </div>
+
+    <div class="demo reveal d1">
+      <div class="demo-os" id="demoOS" aria-hidden="true">
+        <div class="demo-label" id="demoLabel"><span class="dl-no">01</span><span class="dl-txt">Prompt</span></div>
+
+        <div class="demo-stage" id="demoStage">
+        <!-- CLAUDE DESKTOP APP -->
+        <div class="appwin claude-win active" id="winClaude">
+          <div class="cw-top">
+            <div class="cw-lead"><span class="ci">&#9776;</span><span class="ci on">&#9707;</span><span class="ci">&#9906;</span><span class="ci">&#8249;</span><span class="ci">&#8250;</span></div>
+            <div class="wc"><i></i><i></i><i class="x"></i></div>
+          </div>
+          <div class="cw-body">
+            <aside class="cw-side">
+              <div class="cw-tabs"><span class="cw-tab">Home</span><span class="cw-tab on">&lt;/&gt; Code</span></div>
+              <div class="cw-item cw-new">+&nbsp;&nbsp;New session</div>
+              <div class="cw-seshead">Sessions</div>
+              <ul class="cw-ses">
+                <li class="on">Premium CS portfolio website</li>
+                <li>Capstone</li>
+              </ul>
+              <div class="cw-seshead">~/portfolio</div>
+              <ul class="cw-tree" id="cwTree">
+                <li class="atf shown" data-f="index.html">index.html</li>
+                <li class="atf" data-f="DESIGN.md">DESIGN.md</li>
+                <li class="atf dir" data-f=".ai-sync">.ai-sync</li>
+                <li class="atf ind" data-f="context.md">context.md</li>
+                <li class="atf ind" data-f="handoff.md">handoff.md</li>
+                <li class="atf ind dir" data-f="artifacts">artifacts</li>
+                <li class="atf ind2" data-f="original-brief.md">original-brief.md</li>
+                <li class="atf" data-f="CLAUDE.md">CLAUDE.md</li>
+                <li class="atf" data-f="GEMINI.md">GEMINI.md</li>
+              </ul>
+              <div class="cw-user"><span class="cw-av">M</span><span>Mridul Negi · <b>Pro</b></span></div>
+            </aside>
+            <div class="cw-main">
+              <div class="cw-head">Premium CS portfolio website <span class="cw-chip">negim</span></div>
+              <div class="cw-chat" id="cwChat"></div>
+              <div class="fv" id="cwFv" hidden>
+                <div class="fv-head"><span class="fv-dot"></span><span class="fv-name" id="cwFvName"></span><span class="fv-tag" id="cwFvTag"></span><button class="fv-x" id="cwFvX" type="button" aria-label="Close file">&#10005;</button></div>
+                <div class="fv-body" id="cwFvBody"></div>
+              </div>
+              <div class="cw-inputwrap">
+                <div class="cw-input" id="cwInput"><span class="cw-ph" id="cwPh">Reply to Claude…</span><span class="cw-txt" id="cwTxt"></span><span class="cw-caret" id="cwCaret"></span></div>
+                <div class="cw-inbar"><span class="cw-perm">Bypass permissions</span><span class="cw-ff" id="cwFF"></span><span class="cw-sp"></span><span class="cw-model">Opus 4.8</span><span class="cw-eff">Medium</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ANTIGRAVITY -->
+        <div class="appwin anti-win" id="winAnti">
+          <div class="aw-menu"><b>Antigravity</b><span>File</span><span>View</span><span>Window</span><div class="wc"><i></i><i></i><i class="x"></i></div></div>
+          <div class="aw-sub"><span class="ci">&#9707;</span><span class="ci">&#8249;</span><span class="ci">&#8250;</span><span class="aw-crumb">portfolio <em>/</em> Cross-agent sync</span><span class="aw-openide">Open IDE</span></div>
+          <div class="aw-body">
+            <aside class="aw-side">
+              <div class="aw-item aw-new">+&nbsp;&nbsp;New Conversation</div>
+              <div class="aw-item">Conversation History</div>
+              <div class="aw-item">Scheduled Tasks</div>
+              <div class="aw-projhead">Projects</div>
+              <ul class="aw-tree" id="awTree">
+                <li class="atf dir open" data-f="portfolio">portfolio</li>
+                <li class="atf ind" data-f="index.html">index.html</li>
+                <li class="atf ind" data-f="DESIGN.md">DESIGN.md</li>
+                <li class="atf ind dir" data-f=".ai-sync">.ai-sync</li>
+                <li class="atf ind2" data-f="context.md">context.md</li>
+                <li class="atf ind2" data-f="handoff.md">handoff.md</li>
+                <li class="atf ind2" data-f="artifacts">artifacts</li>
+                <li class="atf ind" data-f="CLAUDE.md">CLAUDE.md</li>
+                <li class="atf ind" data-f="GEMINI.md">GEMINI.md</li>
+                <li class="atf dir" data-f="Capstone">Capstone</li>
+              </ul>
+              <div class="aw-settings">Settings</div>
+            </aside>
+            <div class="aw-main">
+              <div class="aw-crumb2">portfolio <em>/</em> Cross-agent sync</div>
+              <div class="aw-chat" id="awChat"></div>
+              <div class="fv" id="awFv" hidden>
+                <div class="fv-head"><span class="fv-dot"></span><span class="fv-name" id="awFvName"></span><span class="fv-tag" id="awFvTag"></span><button class="fv-x" id="awFvX" type="button" aria-label="Close file">&#10005;</button></div>
+                <div class="fv-body" id="awFvBody"></div>
+              </div>
+              <div class="aw-inputwrap">
+                <div class="aw-input"><span class="aw-ph">Ask anything, @ to mention, / for actions</span></div>
+                <div class="aw-inbar"><span class="aw-plus">+</span><span class="aw-model">Gemini 3.1 Pro (High)</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TASKBAR -->
+        <div class="demo-taskbar">
+          <span class="tb-start"></span>
+          <button class="tb-app active" id="tbClaude" data-win="claude" type="button"><span class="tb-ic" id="tbIcClaude"></span><span class="tb-lb">Claude</span></button>
+          <button class="tb-app" id="tbAnti" data-win="anti" type="button"><span class="tb-ic" id="tbIcAnti"></span><span class="tb-lb">Antigravity</span></button>
+          <span class="tb-tray"><span class="tb-clock" id="tbClock">10:24</span></span>
+        </div>
+
+        <div class="demo-cursor" id="demoCursor"><svg viewBox="0 0 24 24" fill="#f4f2ec" stroke="#0a0b0d" stroke-width="1.4" stroke-linejoin="round"><path d="M5.5 3 L5.5 19.5 L10 15.4 L12.7 21.6 L15.2 20.5 L12.5 14.5 L18.4 14.5 Z"/></svg><span class="cursor-ring" id="cursorRing"></span></div>
+        </div>
+      </div>
+
+      <div class="demo-progress" id="demoProgress" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="demo-steps" id="demoSteps">
+        <div class="demo-step"><span class="ds-no">01 · Prompt</span><span class="ds-cmd">Paste the brief</span><p>The full portfolio brief goes into Claude Opus 4.8, in plan mode.</p><span class="ds-res">plan mode</span></div>
+        <div class="demo-step-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></div>
+        <div class="demo-step"><span class="ds-no">02 · Plan</span><span class="ds-cmd">Plan first</span><p>Claude plans the whole build, and I approve it, before a line is written.</p><span class="ds-res">plan approved</span></div>
+        <div class="demo-step-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></div>
+        <div class="demo-step"><span class="ds-no">03 · Write files</span><span class="ds-cmd">Build + log</span><p>It writes the site and seeds the shared .ai-sync files both tools read.</p><span class="ds-res">context.md · handoff.md</span></div>
+        <div class="demo-step-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></div>
+        <div class="demo-step"><span class="ds-no">04 · Handoff</span><span class="ds-cmd">Switch tools</span><p>From the taskbar I open Antigravity on the very same repo.</p><span class="ds-res">same context</span></div>
+        <div class="demo-step-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></div>
+        <div class="demo-step"><span class="ds-no">05 · Continue</span><span class="ds-cmd">Pick up clean</span><p>Antigravity reads handoff.md, picks up mid-task, and fixes the nav alignment bug.</p><span class="ds-res">nothing lost</span></div>
+      </div>
+
+      <div class="demo-controls"><button class="demo-replay" id="demoReplay" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8m0-5v5h5"/></svg> Replay</button></div>
+    </div>
+
+    <!-- Real file contents, copied verbatim by tools/embed-sync-files.py. Do not hand-edit. -->
+    <script type="text/plain" id="f-context"># Shared Agent Context
+
+Rolling work log shared between Codex, Claude Code, and Antigravity.
+
+## [2026-07-12 01:50] — System
+**Task:** Initialized cross-agent sync.
+**Changes:** Created shared sync structure and agent bridge files.
+**Status:** completed
+**Notes:** Future agents should read `handoff.md`, this log, and `artifacts/` before starting work.
+
+---
+
+## [2026-07-12 02:00] — Codex
+**Task:** Publish the mobile-responsive portfolio update and sitemap support to `main`.
+**Changes:** Merged `mobile-responsive` into `main`; added root-level `sitemap.xml` with the canonical homepage URL and `robots.txt` referencing it.
+**Status:** in-progress
+**Notes:** Sitemap validation and the push to `origin/main` are next. The audit's DNS, response-header, and authentication recommendations require deployment/provider configuration and are intentionally not represented as static files.
+
+---
+
+## [2026-07-12 01:54] — Codex
+**Task:** Improve mobile layout and touch interaction for the portfolio.
+**Changes:** Created the `mobile-responsive` branch and rollback tag `pre-mobile-responsive-2026-07-12`; refined small-screen hero, CTA, metadata, workflow, project, stack, philosophy, timeline, contact, and footer spacing; kept Build Philosophy cards in a 2×3 grid on phones; added touch/pen pointer handling for the WebGL grid lens; initialized cross-agent sync files.
+**Status:** completed
+**Notes:** Mobile QA screenshot is in `.ai-sync/artifacts/mobile-hero.png`. The branch is ready for review; return to `main` or the rollback tag to restore the desktop baseline.
+
+---
+
+## [2026-07-12 20:44] — Antigravity
+**Task:** Mobile responsiveness tweaks and UI animations.
+**Changes:** `index.html` (mobile layout refinements, touch-tracking WebGL grid, scroll-driven card hover effect, staggered plus/toggle wave animations, tools mobile carousel, blurple tap-highlight fix).
+**Status:** completed
+**Notes:** Ready for next tasks.
+
+---
+
+## [2026-07-15 01:34] — Claude Code
+**Task:** Desktop content/polish pass, then mobile refinement (in progress).
+**Changes (completed since last sync):** `index.html` —
+- Replaced placeholder Featured Work with 3 real projects sourced from resume + cloned repos: **Mahoraga** (RL combat env, FastAPI + Qwen2.5-3B LoRA), **The Loop** (FastAPI/React campus platform), **Cosmic Bot** (`royalbot` Discord bot); each with a "View on GitHub" link.
+- Added downloadable résumé (`Mridul_Negi_Resume.pdf` in repo root) + gold "Résumé" nav button + contact link.
+- Swapped approximated AI logos for **official brand silhouettes** (Claude / Antigravity / Codex), all tinted to `--accent-bright` gold; **renamed the third tool Gemini → Antigravity** (kept `GEMINI.md` file label).
+- Real GitHub/LinkedIn links wired; footer de-cheesed; year 2025 → 2026; removed all em dashes.
+- WebGL grid: fixed page-wide with **scroll parallax** (35%), fixed the **backwards-scroll** direction bug; opaque render fix (was invisible/black).
+- Header: monogram mark + name `mridulnegi`; full institute name; `overflow-x:clip` fix so anchor nav actually scrolls.
+- Added `DESIGN.md` (palette, fonts, signature elements).
+**Status:** in-progress
+**Notes:** NOW WORKING ON (approved plan): (1) fix mobile stack playing-card **jitter** (per-move restyle of all 4 cards → front-card-only + rAF + axis-lock) and raise swipe **threshold** to max(90, 30% width), forward-only; (2) add **gyroscope-tilt** ambient effect for the mobile grid lens (no idle-drift fallback — do nothing if unsupported); (3) add **workflow pipeline arrows** — feeder chevrons + stage-to-stage arrows (→ desktop / ↓ mobile). All in `index.html`. Do NOT hand-merge an old `mobile-responsive` branch over this — current `main`/working `index.html` is ahead of the 07-12 log.
+
+---
+
+## [2026-07-17 02:40] — Antigravity
+**Task:** Content updates and UI alignment fixes based on user feedback.
+**Changes:** `index.html` (changed degree to "B.E. Computer Engineering", updated name to "Mridul Negi", fixed nav bar spacing/alignment by hiding empty action container on desktop, reframed "Method" to "Human-led engineering" to center user ownership, updated Cosmic Bot description to reflect 6 years live, fixed Stack headers grouping by category so tools are evenly represented — then reverted this last grouping change back to singular tools per user preference).
+**Status:** completed
+**Notes:** The desktop and mobile layouts are polished and content is accurate.
+
+---
+
+## [2026-07-23 19:21] — Claude Code
+**Task:** Mobile polish fixes, then a new **cinematic cross-agent-sync demo section** built from the user's real Claude + Antigravity screenshots.
+**Changes:** all in `index.html` —
+- **Mobile stack card deck:** fixed jitter (per-move restyle of all 4 cards → front-card-only transform, rAF-batched, axis-lock with non-passive `preventDefault`; `.stack-panel.animating` class drives transitions instead of inline `style.transition`). Swipe threshold raised `80 → max(90, 30% width)`; velocity flick removed (too easy to trigger); forward-only kept. Restored the fling-out animation (explicit `.34s` transition + matched timeout; it was being cut off by a 260ms/500ms mismatch). Removed a global `will-change` that was hurting rather than helping.
+- **Pipeline arrows:** replaced pseudo-element gutter arrows (rendered *behind* the boxes) with real flex `.parrow` elements — `→` desktop / `↓` mobile; `.pipe` simplified to 4-col desktop / 1-col ≤760px; removed `overflow:hidden` from `.stage` (body clips itself). Feeder lines got downward chevrons.
+- **Gyro tilt** on the mobile WebGL grid lens — **Android only**; deliberately skipped on iOS (never prompts for motion permission). No idle-drift fallback.
+- **Mobile nav:** Contact/Résumé no longer collide (full-width buttons, 12px gap); **Résumé moved OUT of the hamburger** into the nav bar as a gold highlight button (desktop unchanged). Pipeline expand softened (content fade/slide on `.stage-inner`).
+- **Wording accuracy:** removed `JOURNAL.md` everywhere (it never existed) → the real `context.md` (rolling log) + `handoff.md` (active handoff); swept stray "journal" copy.
+- **NEW `#demo` section — "03 / Cross-agent sync, live":** a pure CSS/JS cinematic sequence (no video) with **two realistic app windows** modeled on the user's actual screenshots — Claude desktop (Home/Code tabs, sessions sidebar, `negim` chip, bottom input with Bypass permissions · Opus 4.8 · Medium) and Antigravity (menu bar, Projects tree, `Gemini 3.1 Pro (High)`) — plus a **bottom taskbar** that switches windows via a **magnified cursor click**. 6 labelled beats: Prompt → Plan → Write files → Update journal → Handoff → Continue in another agent. Uses **real content**: the actual portfolio brief, and Antigravity's real "third card too dark" fix (`#0e1013`, Card 2 85% / Card 3 70% / Card 4 55%, "1 file changed +3 −3"). Plays once on scroll + Replay; reduced-motion → static end state; mobile → left-to-right card carousel with arrows.
+- Nav gained a **Sync** anchor; section eyebrows renumbered 01–08.
+**Status:** completed
+**Notes:** Verified in-browser (no console errors) via DOM/state checks — screenshots are unavailable in this environment, so **visual timing/feel is unverified**; the user should watch the demo run on a real screen and report pacing. A `window.__demo` hook (`play/run/reset/final`) is left in `index.html` for driving the demo in tests — safe to strip before deploy. Gyro tilt could not be runtime-tested (no sensor). `Mridul_Negi_Resume.pdf` must be deployed alongside `index.html` or the résumé links 404.
+
+---
+
+## [2026-07-26 01:00] — Claude Code
+**Task:** Design a logo for the site and add a favicon (the site had **no favicon at all** before this).
+**Changes:**
+- **Logo — "editorial M".** Replaced the geometric chevron mark in the nav with a **serif capital M set in Fraunces 600** (the site's own display face) in `--accent-bright` gold. Rationale: the mark *is* the typography, tying the brand to the headline font instead of bolting on a separate geometric symbol. Tile border changed `--line-strong` → `--accent-deep` to match the icon, plus a hover state (border brightens to `--accent` + 3px `--accent-glow` ring).
+  - Drawn as inline `<svg><text>` rather than a text node so the baseline is explicit and centering is deterministic at any size. Construction: **cap height = 50% of tile** (12 of 24 viewBox units), baseline `y=17.9` at `font-size:17`.
+  - Verified live: font resolves to Fraunces 600, cap = exactly 50% of tile, optical centre off by 0.1 units (~0.1px). The **cap box** is centred, not the em box — that's the detail that usually makes letter-in-a-box marks look subtly wrong.
+- **Icon set generated** (Pillow 10.4 + Georgia Bold, supersampled 8× then LANCZOS-downscaled): `favicon.svg` (primary, scalable), `favicon-32.png` (fallback), `favicon.ico` (16/32/48 legacy), `apple-touch-icon.png` (180px, **full-bleed** — no self-rounding, since iOS applies its own squircle mask). All four verified serving HTTP 200.
+- `index.html` head: added the three `<link rel="icon">`/`apple-touch-icon` tags + `theme-color` (`#0a0b0d`) so mobile browser chrome matches the page.
+- `DESIGN.md`: new **Logo & icons** section (construction rules table + icon-file table + deploy note); also fixed a **stale `CONTEXT.md`/`JOURNAL.md` reference** that had been missed when the site copy was corrected — it now documents the real `.ai-sync/context.md` + `handoff.md`.
+**Status:** completed
+**Notes:** No console errors. **Screenshots remain unavailable in this environment** (browser pane not compositing frames), so the nav mark's final appearance is measured-but-unseen — the user should eyeball it. The PNG icons *were* inspected directly and look correct. Known cosmetic seam: the nav mark is true **Fraunces**, while the PNG/ICO icons use **Georgia Bold** (favicons cannot load web fonts); visually interchangeable at 16–32px, but tracing the Fraunces M to a vector path would make every size share one outline if exactness is ever wanted.</script>
+    <script type="text/plain" id="f-handoff"># Active Handoff
+> Last updated by: Claude Code
+> Timestamp: 2026-07-26T01:00:13+05:30
+
+## Current Task
+Brand identity: a **logo** for the site and a **favicon set** (there was no favicon at all
+before). Both **complete**.
+
+## In Progress
+Nothing blocking. Two things are done-but-unseen and want a human eye:
+1. **The nav logo has never been viewed.** Screenshots don't work in this environment, so the
+   mark is verified by measurement (Fraunces 600 resolves, cap = 50% of tile, optical centre
+   within 0.1px) but nobody has actually looked at it in the header.
+2. **The demo section's pacing is still unwatched** (carried over from the last handoff).
+
+## Next Steps
+1. **Open the site and look at the nav mark.** If the M feels too large/small in its tile,
+   the single control is `font-size` on the `<text>` in `.brand .mark` (currently `17` in a
+   24-unit box = 50% cap); if it sits high or low, adjust the baseline `y` (currently `17.9`).
+2. **Watch the `#demo` cinematic run** on a real screen and report pacing — timings are plain
+   `sleep(ms)` values in the demo IIFE, trivial to retune.
+3. Test on a **real Android phone**: gyro-tilt on the grid (Android only, never iOS) and the
+   stack card-deck swipe on a 120Hz screen.
+4. Optional before deploy: strip the `window.__demo` test hook from `index.html`.
+5. Optional polish: trace the Fraunces M to a vector path so the PNG/ICO icons use the exact
+   same outline as the nav (they currently use Georgia Bold — favicons can't load web fonts).
+
+## Key Files Modified
+- `index.html` — nav mark swapped to the editorial serif M (+ hover state, gold tile border);
+  head gained favicon/apple-touch links and `theme-color`
+- `favicon.svg`, `favicon-32.png`, `favicon.ico`, `apple-touch-icon.png` — **new**
+- `DESIGN.md` — new "Logo & icons" section; fixed a stale `JOURNAL.md` reference
+- `.ai-sync/context.md` — this session's log entry
+
+## ⚠️ Notes for the next agent
+- **Deploy list is now six files**, not one: `index.html` + `Mridul_Negi_Resume.pdf` +
+  the four icon files. Miss the icons and the tab icon 404s; miss the PDF and the résumé
+  buttons 404.
+- Naming is the accurate `.ai-sync/context.md` + `handoff.md` — **there is no `JOURNAL.md`**
+  anywhere (site copy and `DESIGN.md` were both corrected). Don't reintroduce it.
+- Current `index.html` is well ahead of the old `mobile-responsive` branch — **do not restore
+  or hand-merge old branches over it**; branch from the current working tree.
+- The `#demo` section quotes **real content** from these sync files and from Antigravity's
+  actual card-brightness fix. If you rewrite those files, consider whether the demo copy
+  should follow.</script>
+    <script type="text/plain" id="f-design"># Design System — Portfolio
+
+The visual language is **"Precision Instrument"**: ink-black layered surfaces, hairline
+borders, a single warm gold/bronze signal accent, editorial serif headlines against a
+technical monospace label system. Dark-first, restrained, engineering-credible.
+
+All values below are the source of truth. They live as CSS custom properties in the
+`:root` block of `index.html`.
+
+---
+
+## Color
+
+### Base / surfaces
+| Token | Value | Use |
+|---|---|---|
+| `--bg` | `#0a0b0d` | Page background, deepest layer |
+| `--bg-2` | `#0e1013` | Secondary background, panel fills |
+| `--surface` | `#121417` | Cards, panels (1st elevation) |
+| `--surface-2` | `#171a1e` | Raised / open states (2nd elevation) |
+
+### Lines / borders
+
+[ ... 139 more lines trimmed for preview ]</script>
+    <script type="text/plain" id="f-claude"># Cross-Agent Sync
+
+Before starting work, read `.ai-sync/handoff.md`, `.ai-sync/context.md`, and inspect `.ai-sync/artifacts/` for shared plans or specs. Sync progress to the handoff and context files before switching away.</script>
+    <script type="text/plain" id="f-gemini"># Cross-Agent Sync
+
+Before starting work, read `.ai-sync/handoff.md`, `.ai-sync/context.md`, and inspect `.ai-sync/artifacts/` for shared plans or specs. Sync progress to the handoff and context files before switching away.</script>
+    <script type="text/plain" id="f-brief">Create a premium, highly polished personal portfolio website for a computer science student who wants to present himself as a serious engineer, not just a student with a few projects.
+
+The website must feel modern, sharp, intelligent, and memorable. It should not look like a generic template, a boring resume page, or an "AI-slopped" design. It should feel handcrafted, premium, and technically credible.
+
+The person behind the site is:
+
+- a B.Tech Computer Science student at Thapar Institute of Engineering and Technology, Patiala, India
+- an aspiring programmer and software engineer
+- someone who builds with discipline, structure, and strong workflow habits
+- someone who uses AI tools efficiently in real development work
+- someone who values security, documentation, and organized collaboration
+- someone who has worked on both public and private GitHub projects
+- someone who self-hosts applications on Ubuntu virtual machines and runs a PostgreSQL database on a separate Ubuntu VM
+- someone who uses cloud infrastructure as part of the engineering process, not as a gimmick
+- someone who wants the site to communicate skill, maturity, and execution ability
+
+Do not make the website about "being AI-powered." Make it about engineering, with AI as one part of the workflow.
+
+The portfolio should not simply list every project. The top three projects may already appear on the resume, so the site should focus more on:
+
+- who this person is
+- how he works
+- how he thinks
+- how he builds
+- how he uses AI tools responsibly
+- how he deploys and manages infrastructure
+- what makes him different from a typical student developer
+
+The final impression should be:
+"This person knows how to build real systems, keep context, manage tools, deploy software, and work like an organized engineer."
+
+## Overall style direction
+
+Use a dark-first, premium visual style with subtle futuristic energy. The design should feel elegant, not loud.
+
+Good visual direction:
+
+- charcoal / graphite / near-black background
+- one or two controlled accent colors, such as deep violet, electric blue, muted cyan, or soft magenta
+- subtle glassmorphism only where it adds depth
+- refined gradients, not overdone rainbow gradients
+- crisp typography with strong hierarchy
+- lots of breathing room
+- soft shadows, faint borders, layered surfaces
+- clean motion and scroll-based reveals
+
+Avoid:
+
+- excessive neon everywhere
+- overuse of transparent cards
+- chaotic particle effects
+- random glowing blobs
+- cheap "cyberpunk" clutter
+- generic developer-portfolio templates
+- too many icons and badges
+- fake stock imagery
+- anything that feels mass-generated
+
+The site should look like a thoughtful product, not a Canva poster.
+
+## Site structure
+
+Make this a one-page scrolling portfolio with distinct sections. Smooth scrolling is enough. No need for separate pages unless absolutely necessary. The site should feel like a curated experience, not a file cabinet.
+
+Use these sections:
+
+1. Hero
+2. About / identity
+3. AI-assisted workflow
+4. Infrastructure
+5. Featured work
+6. Engineering stack
+7. Build philosophy / principles
+8. Contact
+
+Each section should have its own visual personality while staying consistent with the overall design.
+
+## Hero section
+
+The hero must be bold and clear. It should immediately explain who this person is and what he does.
+
+The hero headline should be something like:
+
+- Computer science student building real systems with code, AI, and discipline
+- I build software with structure, context, and execution
+- Engineering with AI assistance, cloud infrastructure, and human judgment
+
+The supporting text should say that this person is a student developer who:
+
+- builds practical software
+- uses AI tools as part of a disciplined workflow
+- manages context across tools
+- self-hosts infrastructure
+- cares about shipping clean, secure work
+
+Include one strong call to action button and one secondary action.
+
+Possible buttons:
+
+- View my work
+- See my workflow
+- Explore infrastructure
+- Contact me
+
+The hero should include a subtle animated background, but keep it restrained. Good options:
+
+- soft moving grid
+- faint scanning lines
+- slow drifting light orbs
+- a minimal circuit / node network
+- subtle depth parallax
+
+Do not make it distracting.
+
+## About / identity section
+
+This section should present the person in a grounded, professional way.
+
+The tone should feel human and confident, not cheesy.
+
+This section should explain:
+
+- he is a computer science student
+- he is serious about programming
+- he thinks in systems and workflows, not just isolated code snippets
+- he works with AI tools in a structured way
+- he values clarity, consistency, and shipping
+- he is always improving
+
+Write this section as a short story or narrative, not a plain bio dump.
+
+Good themes:
+
+- learning by building
+- staying organized
+- combining human judgment with AI speed
+- enjoying the engineering process itself
+
+## AI-assisted workflow section
+
+This is the signature section of the website. Make it one of the most memorable parts of the page.
+
+Title ideas:
+
+- How I build
+- My AI-assisted workflow
+- Human judgment + AI execution
+- My development system
+
+This section must explain that the person uses multiple AI tools together in a coordinated way, not randomly.
+
+The tools used are:
+
+- Claude
+- Codex
+- Gemini
+
+The workflow should be presented as a system with shared context, not as a random collection of tools.
+
+Explain that the person uses:
+
+- a shared project context file that all tools read
+- individual instruction files for each AI tool
+- a shared log / journal file that records decisions, actions, fixes, and issues
+- a process where each AI can pick up where another left off
+- a method to avoid repeating work and wasting tokens
+- a way to request one AI's opinion from another and record it in the same journal
+- a final human review step before anything is pushed
+
+This section should make it clear that:
+
+- AI is used to accelerate work
+- context is centralized
+- actions are documented
+- quality is still controlled by the human
+- security and correctness still matter
+
+This is not just a paragraph. Design it like a visual workflow or architecture diagram.
+
+Best format options:
+
+- a step-by-step flow diagram
+- three linked cards with arrows
+- a "system architecture" style panel
+- a timeline or pipeline with nodes
+- animated cards that expand on hover
+
+Suggested flow:
+
+Shared Context.md
+-> Tool-specific instruction files
+-> Work Journal / Decision Log
+-> Cross-AI handoff
+-> Security review
+-> Human final check
+-> Git push / deploy
+
+The visual should feel like an engineered workflow, almost like a product architecture diagram.
+
+Add a short caption under this section like:
+"I use AI to reduce repetition and increase throughput, but I still keep ownership of the final code, security, and quality."
+
+## Infrastructure section
+
+This is important and should be shown as a strength, not hidden in a small badge row.
+
+The person has real deployment experience and uses self-hosted infrastructure.
+
+Explain clearly that:
+
+- projects are deployed on Ubuntu virtual machines
+- the main application hosting uses Oracle Cloud
+- the database is self-hosted PostgreSQL on a separate Ubuntu VM, currently on Google Cloud
+- this setup gives more control over deployment, networking, updates, and configuration
+- it also shows practical systems thinking
+- the person uses cloud hosting as part of the development process, not just local development
+
+Show this as a clean visual architecture block.
+
+Suggested visual:
+Laptop / Local Dev
+-> GitHub
+-> Oracle Cloud Ubuntu VM
+-> Hosted Application
+-> Separate Google Cloud Ubuntu VM
+-> PostgreSQL Database
+
+This section should communicate:
+
+- cloud deployment experience
+- server management familiarity
+- database separation
+- real-world engineering thinking
+- ownership of the full stack
+
+Add a short line that says the person prefers understanding how systems work end-to-end, not just deploying to a one-click platform and forgetting about it.
+
+## Featured work section
+
+Do not list every project. Show only the strongest public-facing work, ideally three projects.
+
+This section should read like case studies, not resume bullets.
+
+Each project card should contain:
+
+- project name
+- one-line problem statement
+- what the project does
+- what technologies or methods were used
+- what part of the problem was technically interesting
+- a short outcome or takeaway
+- a button like "Read case study" or "View details"
+
+If the project is private or not suitable for public disclosure, present it in a sanitized way:
+
+- describe the category of work
+- describe the engineering challenge
+- hide confidential details
+- show the skill demonstrated instead of all implementation details
+
+The cards should feel substantial and intentional. Use strong visuals and short, sharp copy.
+
+Possible project presentation styles:
+
+- dark glass cards with hover lift
+- timeline-style case studies
+- stacked featured work panels
+- expandable cards with more detail inside
+
+The goal is not to show quantity. The goal is to show judgment, engineering depth, and execution quality.
+
+## Engineering stack section
+
+Do not make this a huge wall of badges.
+
+Instead, present the stack in grouped clusters with clean labels.
+
+Suggested categories:
+
+Development
+
+- C++
+- Python
+- JavaScript
+- TypeScript
+
+AI / Workflow
+
+- Claude
+- Codex
+- Gemini
+- Shared context files
+- Work journal / log files
+
+Infrastructure
+
+- Ubuntu
+- Oracle Cloud VM
+- Google Cloud VM
+- PostgreSQL
+- GitHub
+- Cloud deployment
+
+Engineering practices
+
+- security checks
+- manual secret review
+- version control
+- structured handoffs
+- debugging
+- documentation
+- iterative improvement
+
+Each cluster should have a short description instead of just icons.
+
+## Build philosophy section
+
+This section should be short, thoughtful, and memorable.
+
+Title ideas:
+
+- How I think about building
+- My engineering principles
+- What I care about
+- Build philosophy
+
+Include 4 to 6 principles such as:
+
+- Keep context centralized
+- Document decisions clearly
+- Use AI to amplify output, not replace understanding
+- Verify security before pushing
+- Reduce repeated work
+- Own the full system when possible
+- Prefer clean execution over noisy complexity
+
+This section should make the person look disciplined and dependable.
+
+## Optional timeline section
+
+If the design allows, add a subtle development journey timeline. This can be inside the About or Build Philosophy area.
+
+Show progression such as:
+
+- started learning programming
+- built early projects
+- learned to use AI tools effectively
+- began maintaining shared context and logs
+- started self-hosting services
+- moved toward more complete software systems
+
+This should show growth and maturity, not drama.
+
+## Contact section
+
+Close with a clean, confident ending.
+
+Use a short closing line such as:
+
+- Open to internships, collaboration, and meaningful engineering work
+- Let's build something useful
+- Available for projects, internships, and thoughtful conversations
+
+Include:
+
+- GitHub
+- LinkedIn
+- Email
+- Resume download button if available
+
+Keep the contact section elegant and focused.
+
+## Motion and interactions
+
+Use motion in a polished, restrained way.
+
+Good interactions:
+
+- hero text reveal on load
+- cards animate in on scroll
+- hover lift on project cards
+- smooth underline / glow on navigation
+- expand-on-click details for workflow steps
+- subtle animated connectors in the AI workflow section
+- sticky section progress indicator
+- slight parallax or depth movement in the hero
+
+Do not over-animate. The site should feel premium, not childish.
+
+## Navigation
+
+Add a minimal top navigation with anchors to:
+
+- About
+- Workflow
+- Infrastructure
+- Work
+- Stack
+- Contact
+
+The nav should be clean, sticky, and understated. On mobile, use a compact menu or bottom nav if it feels elegant.
+
+## Typography and spacing
+
+Typography should do a lot of the visual work.
+
+Use:
+
+- strong headline hierarchy
+- readable body text
+- short paragraphs
+- generous spacing
+- clear section labels
+- crisp contrast
+
+The design should feel like a premium editorial landing page mixed with a polished engineering dashboard.
+
+## Content tone
+
+The writing throughout the site should sound:
+
+- confident
+- intelligent
+- direct
+- honest
+- technically aware
+- not boastful
+- not cringe
+- not generic
+
+Avoid phrases like:
+
+- passionate developer
+- results-driven
+- innovative thinker
+- AI enthusiast
+- next-generation disruptor
+- software ninja
+
+Those sound empty.
+
+Use language that suggests:
+
+- disciplined execution
+- practical engineering
+- thoughtful use of tools
+- learning through building
+- real deployment experience
+- an organized development process
+
+## Personal positioning to express clearly
+
+The site should communicate these ideas without sounding defensive:
+
+- I may not do everything manually.
+- I do know how to build a proper system around the work.
+- I use AI tools intelligently, not randomly.
+- I keep shared context so tools do not repeat work.
+- I document decisions and fixes.
+- I review security before publishing.
+- I deploy and maintain real infrastructure.
+- I care about quality, not just speed.
+
+That is the real differentiator.
+
+## Design rules
+
+Do:
+
+- make it feel premium
+- keep the palette controlled
+- make each section visually distinct
+- use diagrams and architecture-like visuals
+- show systems thinking
+- make the workflow section unforgettable
+- make the infrastructure section credible
+- use subtle glassmorphism only where helpful
+- make the entire experience feel intentional
+
+Do not:
+
+- clutter with too many cards
+- use random gradients everywhere
+- make AI the headline of the site
+- overdo glow effects
+- use generic stock art
+- show every single repository
+- make it look like a template from a UI kit
+- make it noisy
+
+## Final result
+
+The final website should make the visitor feel:
+
+- this is a real builder
+- this person knows how to work with AI responsibly
+- this person has cloud and deployment awareness
+- this person organizes work well
+- this person understands context, logs, handoffs, and security
+- this person is not just coding, he is engineering a system
+
+The site should be visually striking but still trustworthy. It should have personality, structure, and clarity. It should feel like a serious portfolio for someone who wants internships, coding opportunities, and real engineering work.
+
+Build it as if it belongs to someone who is ready to be taken seriously.</script>
+    <script type="text/plain" id="f-index"><!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mridul Negi · Systems-minded software engineer</title>
+<meta name="description" content="B.E. Computer Engineering student at Thapar. I build practical software with a disciplined, AI-assisted workflow, self-hosted cloud infrastructure, and human judgment on quality and security." />
+<link rel="canonical" href="https://mridulnegi.dev/" />
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
+<meta name="theme-color" content="#0a0b0d" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://mridulnegi.dev/" />
+
+[ ... 1682 more lines trimmed for preview ]</script>
+
+  </div>
+</section>
+
 <!-- ============ INFRASTRUCTURE ============ -->
 <section id="infra" class="divider-top">
   <div class="wrap">
     <div class="section-head reveal">
-      <span class="eyebrow mono">03 / Infrastructure</span>
+      <span class="eyebrow mono">04 / Infrastructure</span>
       <h2>I deploy and run what I build.</h2>
       <p class="lead">Not one-click-and-forget. My projects run on Ubuntu VMs I provision and manage myself, with the application and database deliberately kept on separate hosts.</p>
     </div>
@@ -593,7 +1693,7 @@ footer{border-top:1px solid var(--line);padding:36px 0}
 <section id="work" class="divider-top">
   <div class="wrap">
     <div class="section-head reveal">
-      <span class="eyebrow mono">04 / Selected work</span>
+      <span class="eyebrow mono">05 / Selected work</span>
       <h2>A few things worth showing, not everything I've built.</h2>
       <p class="lead">Fewer projects, more depth. Each is here for the judgment and engineering it took, not to pad a list. Open one to read the short case study.</p>
     </div>
@@ -669,7 +1769,7 @@ footer{border-top:1px solid var(--line);padding:36px 0}
 <section id="stack" class="divider-top">
   <div class="wrap">
     <div class="section-head reveal">
-      <span class="eyebrow mono">05 / Engineering stack</span>
+      <span class="eyebrow mono">06 / Engineering stack</span>
       <h2>Tools I actually reach for.</h2>
       <p class="lead">Grouped by what they're for, not listed as a badge wall. Each cluster is a part of how the work gets done.</p>
     </div>
@@ -688,8 +1788,8 @@ footer{border-top:1px solid var(--line);padding:36px 0}
         </div>
         <div class="stx-panel" data-i="1">
           <div class="stx-lead"><span class="stx-ghost">02</span><div><span class="stx-kicker">Lead tool</span><h3>Claude</h3></div></div>
-          <p class="stx-desc">Three assistants, one shared brain. Claude leads the build; Antigravity covers frontend; Codex fills in scoped work, all coordinated through shared context files and a written journal so nothing repeats.</p>
-          <div class="chips"><span>Claude</span><span>Antigravity</span><span>Codex</span><span>Shared context files</span><span>Work journal / logs</span></div>
+          <p class="stx-desc">Three assistants, one shared brain. Claude leads the build; Antigravity covers frontend; Codex fills in scoped work, all coordinated through shared context and handoff files so nothing repeats.</p>
+          <div class="chips"><span>Claude</span><span>Antigravity</span><span>Codex</span><span>context.md &amp; handoff.md</span><span>/sync commands</span></div>
         </div>
         <div class="stx-panel" data-i="2">
           <div class="stx-lead"><span class="stx-ghost">03</span><div><span class="stx-kicker">Runs on</span><h3>Ubuntu + PostgreSQL</h3></div></div>
@@ -710,7 +1810,7 @@ footer{border-top:1px solid var(--line);padding:36px 0}
 <section id="philosophy" class="divider-top">
   <div class="wrap">
     <div class="section-head reveal">
-      <span class="eyebrow mono">06 / Build philosophy</span>
+      <span class="eyebrow mono">07 / Build philosophy</span>
       <h2>What I care about when I build.</h2>
     </div>
     <div class="phi-grid">
@@ -728,7 +1828,7 @@ footer{border-top:1px solid var(--line);padding:36px 0}
         <div class="tl-item"><span class="yr">Start</span><h4>Learning by building</h4><p>Picked up programming to understand how software actually works, and kept going by building small, real things.</p></div>
         <div class="tl-item"><span class="yr">Then</span><h4>Early projects</h4><p>Shipped first working projects end to end, and learned as much from what broke as from what worked.</p></div>
         <div class="tl-item"><span class="yr">Next</span><h4>AI tools, used with intent</h4><p>Started using AI assistants deliberately, coordinating them instead of prompting at random.</p></div>
-        <div class="tl-item"><span class="yr">Then</span><h4>Shared context & logs</h4><p>Introduced centralized context and a work journal so tools hand off cleanly and decisions stay recorded.</p></div>
+        <div class="tl-item"><span class="yr">Then</span><h4>Shared context & logs</h4><p>Introduced centralized context and a shared log so tools hand off cleanly and decisions stay recorded.</p></div>
         <div class="tl-item"><span class="yr">Then</span><h4>Self-hosting</h4><p>Moved from localhost to real infrastructure, provisioning and running services on my own cloud VMs.</p></div>
         <div class="tl-item active"><span class="yr">Now</span><h4>Complete software systems</h4><p>Building more complete systems, with the process, infrastructure, and review discipline to back them.</p></div>
       </div>
@@ -740,7 +1840,7 @@ footer{border-top:1px solid var(--line);padding:36px 0}
 <section id="contact" class="divider-top">
   <div class="wrap">
     <div class="contact-inner reveal">
-      <span class="eyebrow mono" style="justify-content:center">07 / Contact</span>
+      <span class="eyebrow mono" style="justify-content:center">08 / Contact</span>
       <h2>Let's build something <em>useful.</em></h2>
       <p class="lead">Open to internships, collaboration, and meaningful engineering work. If you're looking for someone who treats building as a system, not just typing code, let's talk.</p>
       <div class="links">
@@ -1127,6 +2227,431 @@ void main(){\n\
     }
     function kick(){ if(!running) requestAnimationFrame(frame); }
     frame(); // initial paint of the base grid
+  })();
+
+  // ---------- cross-agent sync demo (cinematic two-window build) ----------
+  (function(){
+    var os=document.getElementById('demoOS'); if(!os) return;
+    var label=document.getElementById('demoLabel'), dlNo=label.querySelector('.dl-no'), dlTxt=label.querySelector('.dl-txt');
+    var winClaude=document.getElementById('winClaude'), winAnti=document.getElementById('winAnti');
+    var tbClaude=document.getElementById('tbClaude'), tbAnti=document.getElementById('tbAnti');
+    var cwChat=document.getElementById('cwChat'), cwInput=document.getElementById('cwInput'), cwTxt=document.getElementById('cwTxt');
+    var cwTree=document.getElementById('cwTree'), cwFF=document.getElementById('cwFF');
+    var awChat=document.getElementById('awChat'), awTree=document.getElementById('awTree');
+    var cwFv=document.getElementById('cwFv'), cwFvName=document.getElementById('cwFvName'), cwFvTag=document.getElementById('cwFvTag'), cwFvBody=document.getElementById('cwFvBody'), cwFvX=document.getElementById('cwFvX');
+    var awFv=document.getElementById('awFv'), awFvName=document.getElementById('awFvName'), awFvTag=document.getElementById('awFvTag'), awFvBody=document.getElementById('awFvBody'), awFvX=document.getElementById('awFvX');
+    var cursor=document.getElementById('demoCursor'), replay=document.getElementById('demoReplay');
+    var mq=window.matchMedia('(max-width:760px)'), reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+    var claudeSvg='<svg viewBox="0 0 512 509.64" fill="#d97757" fill-rule="nonzero"><path d="M142.27 316.619l73.655-41.326 1.238-3.589-1.238-1.996-3.589-.001-12.31-.759-42.084-1.138-36.498-1.516-35.361-1.896-8.897-1.895-8.34-10.995.859-5.484 7.482-5.03 10.717.935 23.683 1.617 35.537 2.452 25.782 1.517 38.193 3.968h6.064l.86-2.451-2.073-1.517-1.618-1.517-36.776-24.922-39.81-26.338-20.852-15.166-11.273-7.683-5.687-7.204-2.451-15.721 10.237-11.273 13.75.935 3.513.936 13.928 10.716 29.749 23.027 38.848 28.612 5.687 4.727 2.275-1.617.278-1.138-2.553-4.271-21.13-38.193-22.546-38.848-10.035-16.101-2.654-9.655c-.935-3.968-1.617-7.304-1.617-11.374l11.652-15.823 6.445-2.073 15.545 2.073 6.547 5.687 9.655 22.092 15.646 34.78 24.265 47.291 7.103 14.028 3.791 12.992 1.416 3.968 2.449-.001v-2.275l1.997-26.641 3.69-32.707 3.589-42.084 1.239-11.854 5.863-14.206 11.652-7.683 9.099 4.348 7.482 10.716-1.036 6.926-4.449 28.915-8.72 45.294-5.687 30.331h3.313l3.792-3.791 15.342-20.372 25.782-32.227 11.374-12.789 13.27-14.129 8.517-6.724 16.1-.001 11.854 17.617-5.307 18.199-16.581 21.029-13.75 17.819-19.716 26.54-12.309 21.231 1.138 1.694 2.932-.278 44.536-9.479 24.062-4.347 28.714-4.928 12.992 6.066 1.416 6.167-5.106 12.613-30.71 7.583-36.018 7.204-53.636 12.689-.657.48.758.935 24.164 2.275 10.337.556h25.301l47.114 3.514 12.309 8.139 7.381 9.959-1.238 7.583-18.957 9.655-25.579-6.066-59.702-14.205-20.474-5.106-2.83-.001v1.694l17.061 16.682 31.266 28.233 39.152 36.397 1.997 8.999-5.03 7.102-5.307-.758-34.401-25.883-13.27-11.651-30.053-25.302-1.996-.001v2.654l6.926 10.136 36.574 54.975 1.895 16.859-2.653 5.485-9.479 3.311-10.414-1.895-21.408-30.054-22.092-33.844-17.819-30.331-2.173 1.238-10.515 113.261-4.929 5.788-11.374 4.348-9.478-7.204-5.03-11.652 5.03-23.027 6.066-30.052 4.928-23.886 4.449-29.674 2.654-9.858-.177-.657-2.173.278-22.37 30.71-34.021 45.977-26.919 28.815-6.445 2.553-11.173-5.789 1.037-10.337 6.243-9.2 37.257-47.392 22.47-29.371 14.508-16.961-.101-2.451h-.859l-98.954 64.251-17.618 2.275-7.583-7.103.936-11.652 3.589-3.791 29.749-20.474-.101.102.024.101z"/></svg>';
+    var claudeSvg='<svg viewBox="0 0 512 509.64" fill="#d97757" fill-rule="nonzero"><path d="M142.27 316.619l73.655-41.326 1.238-3.589-1.238-1.996-3.589-.001-12.31-.759-42.084-1.138-36.498-1.516-35.361-1.896-8.897-1.895-8.34-10.995.859-5.484 7.482-5.03 10.717.935 23.683 1.617 35.537 2.452 25.782 1.517 38.193 3.968h6.064l.86-2.451-2.073-1.517-1.618-1.517-36.776-24.922-39.81-26.338-20.852-15.166-11.273-7.683-5.687-7.204-2.451-15.721 10.237-11.273 13.75.935 3.513.936 13.928 10.716 29.749 23.027 38.848 28.612 5.687 4.727 2.275-1.617.278-1.138-2.553-4.271-21.13-38.193-22.546-38.848-10.035-16.101-2.654-9.655c-.935-3.968-1.617-7.304-1.617-11.374l11.652-15.823 6.445-2.073 15.545 2.073 6.547 5.687 9.655 22.092 15.646 34.78 24.265 47.291 7.103 14.028 3.791 12.992 1.416 3.968 2.449-.001v-2.275l1.997-26.641 3.69-32.707 3.589-42.084 1.239-11.854 5.863-14.206 11.652-7.683 9.099 4.348 7.482 10.716-1.036 6.926-4.449 28.915-8.72 45.294-5.687 30.331h3.313l3.792-3.791 15.342-20.372 25.782-32.227 11.374-12.789 13.27-14.129 8.517-6.724 16.1-.001 11.854 17.617-5.307 18.199-16.581 21.029-13.75 17.819-19.716 26.54-12.309 21.231 1.138 1.694 2.932-.278 44.536-9.479 24.062-4.347 28.714-4.928 12.992 6.066 1.416 6.167-5.106 12.613-30.71 7.583-36.018 7.204-53.636 12.689-.657.48.758.935 24.164 2.275 10.337.556h25.301l47.114 3.514 12.309 8.139 7.381 9.959-1.238 7.583-18.957 9.655-25.579-6.066-59.702-14.205-20.474-5.106-2.83-.001v1.694l17.061 16.682 31.266 28.233 39.152 36.397 1.997 8.999-5.03 7.102-5.307-.758-34.401-25.883-13.27-11.651-30.053-25.302-1.996-.001v2.654l6.926 10.136 36.574 54.975 1.895 16.859-2.653 5.485-9.479 3.311-10.414-1.895-21.408-30.054-22.092-33.844-17.819-30.331-2.173 1.238-10.515 113.261-4.929 5.788-11.374 4.348-9.478-7.204-5.03-11.652 5.03-23.027 6.066-30.052 4.928-23.886 4.449-29.674 2.654-9.858-.177-.657-2.173.278-22.37 30.71-34.021 45.977-26.919 28.815-6.445 2.553-11.173-5.789 1.037-10.337 6.243-9.2 37.257-47.392 22.47-29.371 14.508-16.961-.101-2.451h-.859l-98.954 64.251-17.618 2.275-7.583-7.103.936-11.652 3.589-3.791 29.749-20.474-.101.102.024.101z"/></svg>';
+    var antiSvg='<svg height="1em" style="flex:none;line-height:1" viewBox="0 0 24 24" width="1em" xmlns="http://www.w3.org/2000/svg"><title>Antigravity</title><mask height="23" id="lobe-icons-antigravity-0-_R_0_" maskUnits="userSpaceOnUse" width="24" x="0" y="1"><path d="M21.751 22.607c1.34 1.005 3.35.335 1.508-1.508C17.73 15.74 18.904 1 12.037 1 5.17 1 6.342 15.74.815 21.1c-2.01 2.009.167 2.511 1.507 1.506 5.192-3.517 4.857-9.714 9.715-9.714 4.857 0 4.522 6.197 9.714 9.715z" fill="#fff"></path></mask><g mask="url(#lobe-icons-antigravity-0-_R_0_)"><g filter="url(#lobe-icons-antigravity-1-_R_0_)"><path d="M-1.018-3.992c-.408 3.591 2.686 6.89 6.91 7.37 4.225.48 7.98-2.043 8.387-5.633.408-3.59-2.686-6.89-6.91-7.37-4.225-.479-7.98 2.043-8.387 5.633z" fill="#FFE432"></path></g><g filter="url(#lobe-icons-antigravity-2-_R_0_)"><path d="M15.269 7.747c1.058 4.557 5.691 7.374 10.348 6.293 4.657-1.082 7.575-5.653 6.516-10.21-1.058-4.556-5.691-7.374-10.348-6.292-4.657 1.082-7.575 5.653-6.516 10.21z" fill="#FC413D"></path></g><g filter="url(#lobe-icons-antigravity-3-_R_0_)"><path d="M-12.443 10.804c1.338 4.703 7.36 7.11 13.453 5.378 6.092-1.733 9.947-6.95 8.61-11.652C8.282-.173 2.26-2.58-3.833-.848-9.925.884-13.78 6.1-12.443 10.804z" fill="#00B95C"></path></g><g filter="url(#lobe-icons-antigravity-4-_R_0_)"><path d="M-12.443 10.804c1.338 4.703 7.36 7.11 13.453 5.378 6.092-1.733 9.947-6.95 8.61-11.652C8.282-.173 2.26-2.58-3.833-.848-9.925.884-13.78 6.1-12.443 10.804z" fill="#00B95C"></path></g><g filter="url(#lobe-icons-antigravity-5-_R_0_)"><path d="M-7.608 14.703c3.352 3.424 9.126 3.208 12.896-.483 3.77-3.69 4.108-9.459.756-12.883C2.69-2.087-3.083-1.871-6.853 1.82c-3.77 3.69-4.108 9.458-.755 12.883z" fill="#00B95C"></path></g><g filter="url(#lobe-icons-antigravity-6-_R_0_)"><path d="M9.932 27.617c1.04 4.482 5.384 7.303 9.7 6.3 4.316-1.002 6.971-5.448 5.93-9.93-1.04-4.483-5.384-7.304-9.7-6.301-4.316 1.002-6.971 5.448-5.93 9.93z" fill="#3186FF"></path></g><g filter="url(#lobe-icons-antigravity-7-_R_0_)"><path d="M2.572-8.185C.392-3.329 2.778 2.472 7.9 4.771c5.122 2.3 11.042.227 13.222-4.63 2.18-4.855-.205-10.656-5.327-12.955-5.122-2.3-11.042-.227-13.222 4.63z" fill="#FBBC04"></path></g><g filter="url(#lobe-icons-antigravity-8-_R_0_)"><path d="M-3.267 38.686c-5.277-2.072 3.742-19.117 5.984-24.83 2.243-5.712 8.34-8.664 13.616-6.592 5.278 2.071 11.533 13.482 9.29 19.195-2.242 5.713-23.613 14.298-28.89 12.227z" fill="#3186FF"></path></g><g filter="url(#lobe-icons-antigravity-9-_R_0_)"><path d="M28.71 17.471c-1.413 1.649-5.1.808-8.236-1.878-3.135-2.687-4.531-6.201-3.118-7.85 1.412-1.649 5.1-.808 8.235 1.878s4.532 6.2 3.119 7.85z" fill="#749BFF"></path></g><g filter="url(#lobe-icons-antigravity-10-_R_0_)"><path d="M18.163 9.077c5.81 3.93 12.502 4.19 14.946.577 2.443-3.612-.287-9.727-6.098-13.658-5.81-3.931-12.502-4.19-14.946-.577-2.443 3.612.287 9.727 6.098 13.658z" fill="#FC413D"></path></g><g filter="url(#lobe-icons-antigravity-11-_R_0_)"><path d="M-.915 2.684c-1.44 3.473-.97 6.967 1.05 7.804 2.02.837 4.824-1.3 6.264-4.772 1.44-3.473.97-6.967-1.05-7.804-2.02-.837-4.824 1.3-6.264 4.772z" fill="#FFEE48"></path></g></g><defs><filter color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse" height="17.587" id="lobe-icons-antigravity-1-_R_0_" width="19.838" x="-3.288" y="-11.917"><feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend><feGaussianBlur result="effect1_foregroundBlur_977_115" stdDeviation="1.117"></feGaussianBlur></filter><filter color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse" height="38.565" id="lobe-icons-antigravity-2-_R_0_" width="38.9" x="4.251" y="-13.493"><feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend><feGaussianBlur result="effect1_foregroundBlur_977_115" stdDeviation="5.4"></feGaussianBlur></filter><filter color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse" height="36.517" id="lobe-icons-antigravity-3-_R_0_" width="40.955" x="-21.889" y="-10.592"><feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend><feGaussianBlur result="effect1_foregroundBlur_977_115" stdDeviation="4.591"></feGaussianBlur></filter><filter color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse" height="36.517" id="lobe-icons-antigravity-4-_R_0_" width="40.955" x="-21.889" y="-10.592"><feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend><feGaussianBlur result="effect1_foregroundBlur_977_115" stdDeviation="4.591"></feGaussianBlur></filter><filter color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse" height="36.595" id="lobe-icons-antigravity-5-_R_0_" width="36.632" x="-19.099" y="-10.278"><feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend><feGaussianBlur result="effect1_foregroundBlur_977_115" stdDeviation="4.591"></feGaussianBlur></filter><filter color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse" height="34.087" id="lobe-icons-antigravity-6-_R_0_" width="33.533" x=".981" y="8.758"><feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend><feGaussianBlur result="effect1_foregroundBlur_977_115" stdDeviation="4.363"></feGaussianBlur></filter><filter color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse" height="35.276" id="lobe-icons-antigravity-7-_R_0_" width="35.978" x="-6.143" y="-21.659"><feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend><feGaussianBlur result="effect1_foregroundBlur_977_115" stdDeviation="3.954"></feGaussianBlur></filter><filter color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse" height="46.523" id="lobe-icons-antigravity-8-_R_0_" width="45.114" x="-11.96" y="-.46"><feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend><feGaussianBlur result="effect1_foregroundBlur_977_115" stdDeviation="3.531"></feGaussianBlur></filter><filter color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse" height="24.054" id="lobe-icons-antigravity-9-_R_0_" width="25.094" x="10.485" y=".58"><feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend><feGaussianBlur result="effect1_foregroundBlur_977_115" stdDeviation="3.159"></feGaussianBlur></filter><filter color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse" height="30.007" id="lobe-icons-antigravity-10-_R_0_" width="33.508" x="5.833" y="-12.467"><feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend><feGaussianBlur result="effect1_foregroundBlur_977_115" stdDeviation="2.669"></feGaussianBlur></filter><filter color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse" height="26.151" id="lobe-icons-antigravity-11-_R_0_" width="22.194" x="-8.355" y="-8.876"><feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend><feGaussianBlur result="effect1_foregroundBlur_977_115" stdDeviation="3.303"></feGaussianBlur></filter></defs></svg>';
+    document.getElementById('tbIcClaude').innerHTML=claudeSvg;
+    document.getElementById('tbIcAnti').innerHTML=antiSvg;
+
+    // Mobile: sidebar breadcrumb toggle (expand/collapse file tree)
+    var cwSide=document.querySelector('.cw-side'), awSide=document.querySelector('.aw-side');
+    if(cwSide) cwSide.addEventListener('click', function(e){
+      if(window.innerWidth>600) return;
+      // Don't toggle if clicking a file link inside the tree
+      if(e.target.classList.contains('atf')) return;
+      cwSide.classList.toggle('expanded');
+    });
+    if(awSide) awSide.addEventListener('click', function(e){
+      if(window.innerWidth>600) return;
+      if(e.target.classList.contains('atf')) return;
+      awSide.classList.toggle('expanded');
+    });
+
+    // Mobile: taskbar buttons switch windows on touch (handled below with main listeners)
+
+    var token=0, started=false;
+    var stage=document.getElementById('demoStage'), demoRoot=document.querySelector('#demo .demo');
+    var progress=document.getElementById('demoProgress');
+    var STAGE_W=1040, STAGE_H=560;
+
+    // On phones the scene keeps its full desktop size and a "camera" pans/zooms
+    // across it, so text stays near 1:1 instead of shrinking to 4px.
+    function stageXY(el){ var x=0,y=0,n=el; while(n&&n!==stage){ x+=n.offsetLeft; y+=n.offsetTop; n=n.offsetParent; } return {x:x,y:y,w:el.offsetWidth,h:el.offsetHeight}; }
+    function camOn(){ return mq.matches && demoRoot.classList.contains('mode-camera'); }
+    function setCam(x,y,z){ stage.style.transform='translate('+x.toFixed(1)+'px,'+y.toFixed(1)+'px) scale('+z.toFixed(3)+')'; }
+    function focusOn(el,z){
+      if(!camOn()||!el) return;
+      z=z||1;
+      var vw=os.clientWidth, vh=os.clientHeight, p=stageXY(el);
+      var cx=p.x+p.w/2, cy=p.y+p.h/2;
+      var tx=vw/2-cx*z, ty=vh/2-cy*z;
+      tx=Math.min(0,Math.max(vw-STAGE_W*z,tx));
+      ty=Math.min(0,Math.max(vh-STAGE_H*z,ty));
+      setCam(tx,ty,z);
+    }
+    function camWide(){
+      if(!camOn()) return;
+      var vw=os.clientWidth, vh=os.clientHeight, z=Math.min(vw/STAGE_W, vh/STAGE_H);
+      setCam((vw-STAGE_W*z)/2,(vh-STAGE_H*z)/2,z);
+    }
+    function camReset(){ if(camOn()) camWide(); else stage.style.transform=''; }
+    function pickMode(){
+      demoRoot.classList.remove('mode-camera');
+      var useCards = reduce || window.innerWidth<330;
+      demoRoot.classList.toggle('mode-cards',useCards);
+      stage.style.transform='';
+    }
+
+    // real repo files, embedded verbatim by tools/embed-sync-files.py
+    function src(id){ var e=document.getElementById(id); return e?e.textContent.trim():''; }
+    var FILES={
+      'index.html':{path:'index.html',id:'f-index',tag:'source'},
+      'DESIGN.md':{path:'DESIGN.md',id:'f-design',tag:'preview · trimmed'},
+      'context.md':{path:'.ai-sync/context.md',id:'f-context',tag:'rolling log'},
+      'handoff.md':{path:'.ai-sync/handoff.md',id:'f-handoff',tag:'active handoff'},
+      'CLAUDE.md':{path:'CLAUDE.md',id:'f-claude',tag:'bridge file'},
+      'GEMINI.md':{path:'GEMINI.md',id:'f-gemini',tag:'bridge file'},
+      'original-brief.md':{path:'.ai-sync/artifacts/original-brief.md',id:'f-brief',tag:'the brief'}
+    };
+    var NEWFILES=['artifacts','original-brief.md','DESIGN.md','.ai-sync','context.md','handoff.md','CLAUDE.md','GEMINI.md'];
+
+    // taskbar clock follows the visitor's own local time
+    (function clock(){
+      var el=document.getElementById('tbClock');
+      function tick(){ if(el) el.textContent=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}); }
+      tick(); setInterval(tick,20000);
+    })();
+
+    var AW_Q='the nav links on desktop sit pushed in from the right edge, they never line up with the container. can you find why?';
+    var AW_A='<div class="aw-worked">Read <span class="awc">.ai-sync/handoff.md</span> + <span class="awc">context.md</span> · worked for 24s</div>'
+      +'Found it. The mobile-only <span class="awc">.nav-actions</span> wrapper is still in the nav flex row on desktop. It renders empty there, but it is <b>still a flex item</b>, so <span class="awc">justify-content:space-between</span> distributes across three children and the links get parked short of the edge.<br><br>'
+      +'Hiding it above <span class="awc">860px</span> takes it out of the flex flow and the links snap flush to the container.';
+    var AW_DIFF='<div class="aw-diff"><span class="fn">index.html</span> <span class="aw-add">+4</span> <span class="aw-del">−1</span> <span class="aw-review">Review</span></div>';
+
+    var PLAN='<span class="cw-pmode">Plan mode</span><div class="cw-plan"><h6>Plan — Premium CS portfolio</h6>'
+      +'<div class="ln"><b>Direction:</b> "precision instrument" — ink surfaces, one warm bronze accent, editorial serif + mono labels.</div>'
+      +'<div class="sub">Single-page sections</div>'
+      +'<div class="ln">1 Hero · 2 About · 3 AI-assisted workflow · 4 Infrastructure</div>'
+      +'<div class="ln">5 Featured work · 6 Stack · 7 Build philosophy · 8 Contact</div>'
+      +'<div class="sub">Approach</div>'
+      +'<div class="ln">Hand-written HTML + CSS, one WebGL grid, no framework. Save the brief to <b>.ai-sync/artifacts/</b> and seed the shared files so Antigravity and Codex read the same context.</div>'
+      +'<div class="sub">Verification</div>'
+      +'<div class="ln">Load locally, walk every section, no console errors, review the diff before shipping.</div></div>';
+
+    function alive(t){ return t===token; }
+    function sleep(ms){ return new Promise(function(r){ setTimeout(r,ms); }); }
+    function label3(no,txt){ dlNo.textContent=no; dlTxt.textContent=txt; label.classList.remove('pop'); void label.offsetWidth; label.classList.add('pop'); }
+    function focus3(which){ var c=which==='claude'; winClaude.classList.toggle('active',c); winAnti.classList.toggle('active',!c); tbClaude.classList.toggle('active',c); tbAnti.classList.toggle('active',!c); }
+    function moveCursor(el){ if(!el) return sleep(0); var p=stageXY(el); var x=p.x+Math.min(28,p.w/2), y=p.y+p.h/2; cursor.style.transform='translate('+(x-3)+'px,'+(y-2)+'px)'; return sleep(700); }
+    function click(mag){ cursor.classList.remove('click','magclick'); void cursor.offsetWidth; cursor.classList.add(mag?'magclick':'click'); }
+
+    // ---- file viewer ----
+    function esc(s){ return s.replace(/[&<>]/g,function(c){ return c==='&'?'&amp;':c==='<'?'&lt;':'&gt;'; }); }
+    function render(text,hl,isMd){
+      if(!isMd){
+        var html, i = hl ? text.lastIndexOf('\n## [') : -1;
+        if(i>-1) html=esc(text.slice(0,i+1))+'<mark class="fv-new" id="fvNew">'+esc(text.slice(i+1))+'</mark>';
+        else html=esc(text);
+        html=html.replace(/\n(\[ [^\n]*\])\s*$/,'\n<span class="fv-trim">$1</span>');
+        html=html.replace(/(&lt;\/?[a-zA-Z0-9\-]+)/g, '<span class="syn-tag">$1</span>');
+        html=html.replace(/(&gt;)/g, '<span class="syn-tag">$1</span>');
+        html=html.replace(/(&quot;.*?&quot;)/g, '<span class="syn-str">$1</span>');
+        return '<pre>'+html+'</pre>';
+      }
+
+      function fmtInline(s){
+        if(!s) return '';
+        s = s.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        s = s.replace(/_([^_]+)_/g, '<em>$1</em>');
+        s = s.replace(/`([^`]+)`/g, '<code>$1</code>');
+        s = s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
+        return s;
+      }
+
+      var html = '', lines = text.split('\n'), inMark = false, inList = false, inTable = false, tableHeader = false;
+      var lastHlIdx = hl ? text.lastIndexOf('\n## [') : -1;
+      if(lastHlIdx > -1) lastHlIdx = text.substring(0, lastHlIdx).split('\n').length;
+      
+      for(var i=0; i<lines.length; i++){
+        var line = lines[i];
+        var rawLine = line.trim();
+        var isTable = rawLine.startsWith('|') && rawLine.endsWith('|');
+        
+        if(i===lines.length-1 && line.match(/^\[ .*\]$/)) {
+          if(inList) { html += '</ul>'; inList=false; }
+          if(inTable) { html += tableHeader ? '</thead></table></div>' : '</tbody></table></div>'; inTable=false; }
+          html += '<div class="fv-trim">'+esc(line)+'</div>';
+          break;
+        }
+
+        if(i===lastHlIdx) {
+          if(inList) { html += '</ul>'; inList=false; }
+          if(inTable) { html += tableHeader ? '</thead></table></div>' : '</tbody></table></div>'; inTable=false; }
+          html += '<mark class="fv-new" id="fvNew">'; inMark = true; 
+        }
+
+        if(isTable){
+          if(inList) { html += '</ul>'; inList = false; }
+          if(rawLine.match(/^\|?\s*:?-+:?\s*(\|\s*:?-+:?\s*)*\|?\s*$/)){
+            if(inTable && tableHeader){ html += '</thead><tbody>'; tableHeader = false; }
+            continue;
+          }
+          var cells = rawLine.split('|').slice(1, -1);
+          if(!inTable){
+            html += '<div class="md-table-wrap"><table><thead>';
+            inTable = true; tableHeader = true;
+            html += '<tr>' + cells.map(function(c){ return '<th>' + fmtInline(esc(c.trim())) + '</th>'; }).join('') + '</tr>';
+          } else if(tableHeader){
+            html += '<tr>' + cells.map(function(c){ return '<th>' + fmtInline(esc(c.trim())) + '</th>'; }).join('') + '</tr>';
+          } else {
+            html += '<tr>' + cells.map(function(c){ return '<td>' + fmtInline(esc(c.trim())) + '</td>'; }).join('') + '</tr>';
+          }
+          continue;
+        } else if(inTable){
+          html += tableHeader ? '</thead></table></div>' : '</tbody></table></div>';
+          inTable = false; tableHeader = false;
+        }
+        
+        var t = esc(line);
+        var isListItem = t.match(/^-\s+/);
+        
+        if(isListItem) {
+          if(!inList) { html += '<ul>'; inList = true; }
+          t = t.replace(/^-\s+/, '');
+        } else if(inList && t.trim()!=='') {
+          html += '</ul>'; inList = false;
+        } else if(inList && t.trim()==='') {
+          html += '</ul>'; inList = false;
+        }
+
+        if(t.match(/^#{1,6}\s/)) {
+          var level = t.match(/^(#{1,6})/)[0].length;
+          t = '<h'+level+'>'+t.substring(level+1)+'</h'+level+'>';
+        }
+        else if(t.trim()==='---') { t = '<hr>'; }
+        else if(t.trim()==='') { t = '<div class="md-gap"></div>'; }
+        else {
+          t = fmtInline(t);
+          t = isListItem ? '<li>'+t+'</li>' : '<div>'+t+'</div>';
+        }
+        
+        html += t;
+      }
+      if(inList) html += '</ul>';
+      if(inTable) html += tableHeader ? '</thead></table></div>' : '</tbody></table></div>';
+      if(inMark) html += '</mark>';
+      return '<div class="md-view">'+html+'</div>';
+    }
+    function treeOf(which){ return which==='claude'?cwTree:awTree; }
+    function treeEl(which,name){ return treeOf(which).querySelector('[data-f="'+name+'"]'); }
+    function markOpen(which,name){
+      treeOf(which).querySelectorAll('.atf.open').forEach(function(e){e.classList.remove('open');});
+      var e=treeEl(which,name); if(e) e.classList.add('open');
+    }
+    function sidebarOf(which){ return which==='claude' ? cwSide : awSide; }
+    function expandSidebar(which){
+      if(window.innerWidth>600) return;
+      var s = sidebarOf(which); if(s) s.classList.add('expanded');
+    }
+    function collapseSidebar(which){
+      if(window.innerWidth>600) return;
+      var s = sidebarOf(which); if(s) s.classList.remove('expanded');
+    }
+    function openFile(which,name,opts){
+      opts=opts||{}; var f=FILES[name]; if(!f) return;
+      var c=which==='claude';
+      var fv=c?cwFv:awFv, nm=c?cwFvName:awFvName, tg=c?cwFvTag:awFvTag, bd=c?cwFvBody:awFvBody, chat=c?cwChat:awChat;
+      nm.textContent=f.path; tg.textContent=opts.tag||f.tag;
+      bd.innerHTML=render(src(f.id), !!opts.hl, name.endsWith('.md'));
+      chat.style.display='none'; fv.hidden=false; markOpen(which,name);
+      collapseSidebar(which);
+      if(opts.hl){ var m=bd.querySelector('#fvNew'); bd.scrollTop = m ? Math.max(0,m.offsetTop-46) : 0; }
+      else bd.scrollTop=0;
+      if(opts.flash){ fv.classList.remove('flash'); void fv.offsetWidth; fv.classList.add('flash'); }
+    }
+    function closeFile(which){
+      var c=which==='claude';
+      (c?cwFv:awFv).hidden=true; (c?cwChat:awChat).style.display='';
+      treeOf(which).querySelectorAll('.atf.open').forEach(function(e){e.classList.remove('open');});
+    }
+    function flashEl(e){ if(!e) return; e.classList.remove('flash'); void e.offsetWidth; e.classList.add('flash'); }
+    function revealTree(name){ var e=treeEl('claude',name); if(e){ e.classList.add('shown'); flashEl(e); } }
+
+    // ---- chat helpers ----
+    function addCW(cls,html){ var isBot=Math.abs(cwChat.scrollHeight-cwChat.scrollTop-cwChat.clientHeight)<10||cwChat.scrollHeight<=cwChat.clientHeight; var d=document.createElement('div'); d.className='cwmsg '+cls; d.innerHTML=html; cwChat.appendChild(d); if(isBot) cwChat.scrollTop=cwChat.scrollHeight; return d; }
+    function addCWuser(text,count){
+      var isBot=Math.abs(cwChat.scrollHeight-cwChat.scrollTop-cwChat.clientHeight)<10||cwChat.scrollHeight<=cwChat.clientHeight;
+      var d=document.createElement('div'); d.className='cwmsg user';
+      var p=document.createElement('div'); p.className='ptext'; p.textContent=text; d.appendChild(p);
+      if(count){ var c=document.createElement('span'); c.className='cw-count'; c.textContent=text.length.toLocaleString()+' characters · pasted'; d.appendChild(c); }
+      cwChat.appendChild(d); if(isBot) cwChat.scrollTop=cwChat.scrollHeight; return d;
+    }
+    function addCWfile(op,name){ var isBot=Math.abs(cwChat.scrollHeight-cwChat.scrollTop-cwChat.clientHeight)<10||cwChat.scrollHeight<=cwChat.clientHeight; var d=document.createElement('div'); d.className='cwfile'; d.innerHTML='<span class="op '+(op==='add'?'add':'upd')+'">'+(op==='add'?'+':'~')+'</span> <span class="fn">'+name+'</span> <span style="margin-left:auto;color:var(--ink-faint)">'+(op==='add'?'created':'updated')+'</span>'; cwChat.appendChild(d); if(isBot) cwChat.scrollTop=cwChat.scrollHeight; return d; }
+    function addAW(cls,html){ var isBot=Math.abs(awChat.scrollHeight-awChat.scrollTop-awChat.clientHeight)<10||awChat.scrollHeight<=awChat.clientHeight; var d=document.createElement('div'); d.className='awmsg '+cls; d.innerHTML=html; awChat.appendChild(d); if(isBot) awChat.scrollTop=awChat.scrollHeight; return d; }
+
+    async function typePrompt(t){
+      var full=src('f-brief'); if(!full) return;
+      cwInput.classList.add('typing'); cwTxt.textContent='';
+      var head=Math.min(120,full.length);
+      for(var i=0;i<head;i++){
+        if(!alive(t)) return;
+        cwTxt.textContent=full.slice(0,i+1); cwInput.scrollTop=cwInput.scrollHeight;
+        var ch=full[i]; var baseDelay=(ch===' '||ch==='\n')?30:9;
+        await sleep(baseDelay + Math.random()*22);
+      }
+      if(full.length>head){
+        cwFF.textContent='⏩ fast-forwarding · '+full.length.toLocaleString()+' chars';
+        cwFF.classList.add('show');
+        var i2=head, step=Math.max(70,Math.round((full.length-head)/50));
+        while(i2<full.length){
+          if(!alive(t)){ cwFF.classList.remove('show'); return; }
+          i2=Math.min(i2+step,full.length);
+          cwTxt.textContent=full.slice(0,i2); cwInput.scrollTop=cwInput.scrollHeight;
+          await sleep(15);
+        }
+        await sleep(260); cwFF.classList.remove('show');
+      }
+    }
+    async function typeCmd(cmd,t){
+      await moveCursor(cwInput); if(!alive(t)) return; click();
+      cwInput.classList.add('typing'); cwTxt.textContent='';
+      for(var i=0;i<cmd.length;i++){ if(!alive(t)) return; cwTxt.textContent=cmd.slice(0,i+1); await sleep(52); }
+      await sleep(380);
+      cwInput.classList.remove('typing'); cwTxt.textContent='';
+      addCWuser(cmd,false);
+    }
+
+    function resetDemo(){
+      cwChat.innerHTML=''; awChat.innerHTML='';
+      closeFile('claude'); closeFile('anti');
+      collapseSidebar('claude'); collapseSidebar('anti');
+      cwInput.classList.remove('typing'); cwTxt.textContent=''; cwFF.classList.remove('show');
+      cwTree.querySelectorAll('.atf').forEach(function(e){ e.classList.remove('flash','open'); if(NEWFILES.indexOf(e.getAttribute('data-f'))>-1) e.classList.remove('shown'); });
+      awTree.querySelectorAll('.atf').forEach(function(e){ e.classList.remove('flash','open'); });
+      focus3('claude'); cursor.style.transform='translate(300px,300px)';
+      cursor.classList.remove('gone','click','magclick'); label.classList.remove('gone');
+      camReset();
+      label3('01','Prompt'); replay.classList.remove('show');
+    }
+
+    function finalState(){
+      resetDemo();
+      NEWFILES.forEach(function(n){ var e=treeEl('claude',n); if(e) e.classList.add('shown'); });
+      addCWuser(src('f-brief'),true);
+      addCW('ai',PLAN);
+      addCW('ai','<span class="cw-ok">✓ Plan approved — building.</span>');
+      addCWfile('upd','index.html'); addCWfile('add','DESIGN.md');
+      addCWfile('add','.ai-sync/context.md'); addCWfile('add','.ai-sync/handoff.md');
+      addAW('user',AW_Q); addAW('ai',AW_A); addAW('',AW_DIFF);
+      focus3('anti'); openFile('anti','handoff.md',{tag:'read by Antigravity'});
+      label3('✓','Nothing lost'); cursor.classList.add('gone'); replay.classList.add('show');
+    }
+
+    async function run(){
+      token++; var t=token; resetDemo(); await sleep(420); if(!alive(t))return;
+
+      /* 01 — the brief goes in */
+      label3('01','Prompt'); camWide(); await sleep(500); focusOn(cwInput,1); await sleep(500);
+      await moveCursor(cwInput); if(!alive(t))return; click(); await sleep(200);
+      await typePrompt(t); if(!alive(t))return;
+      await sleep(420); cwInput.classList.remove('typing'); cwTxt.textContent='';
+      addCWuser(src('f-brief'),true); await sleep(700); if(!alive(t))return;
+
+      /* 02 — plan before execution */
+      label3('02','Plan'); focusOn(cwChat,.86); await sleep(800);
+      var th=addCW('ai','<span class="cw-ok" style="color:var(--ink-dim)">Reading the brief · planning the build…</span>');
+      await sleep(1400); if(!alive(t))return; th.remove();
+      addCW('ai',PLAN); await sleep(3800); if(!alive(t))return;
+
+      /* 03 — files get written */
+      label3('03','Write files'); focusOn(cwChat,.86);
+      addCW('ai','<span class="cw-ok">✓ Plan approved — building.</span>'); await sleep(1200);
+      focusOn(cwTree,1); expandSidebar('claude');
+      addCWfile('add','.ai-sync/artifacts/original-brief.md'); revealTree('artifacts'); revealTree('original-brief.md'); await sleep(500);
+      addCWfile('upd','index.html'); flashEl(treeEl('claude','index.html')); await sleep(500);
+      addCWfile('add','DESIGN.md'); revealTree('DESIGN.md'); await sleep(800); if(!alive(t))return;
+      expandSidebar('claude'); await sleep(300);
+      await moveCursor(treeEl('claude','DESIGN.md')); if(!alive(t))return; click();
+      openFile('claude','DESIGN.md'); focusOn(cwFv,.82); await sleep(3000); if(!alive(t))return;
+      closeFile('claude'); focusOn(cwTree,1); await sleep(340);
+      addCWfile('add','.ai-sync/context.md'); revealTree('.ai-sync'); revealTree('context.md'); await sleep(360);
+      addCWfile('add','.ai-sync/handoff.md'); revealTree('handoff.md'); await sleep(360);
+      addCWfile('add','CLAUDE.md'); revealTree('CLAUDE.md'); await sleep(300);
+      addCWfile('add','GEMINI.md'); revealTree('GEMINI.md'); await sleep(560); if(!alive(t))return;
+
+      /* 04 — the log entry actually gets appended */
+      label3('04','Update log'); focusOn(cwInput,1);
+      await typeCmd('/sync-handoff',t); if(!alive(t))return; await sleep(420);
+      addCW('ai','<span class="cw-ok">✓ context.md appended · handoff.md rewritten</span>'); await sleep(560);
+      expandSidebar('claude'); await sleep(300);
+      await moveCursor(treeEl('claude','context.md')); if(!alive(t))return; click();
+      openFile('claude','context.md',{hl:true,tag:'newest entry appended'}); focusOn(cwFv,.82); await sleep(3800); if(!alive(t))return;
+      expandSidebar('claude'); await sleep(300);
+      await moveCursor(treeEl('claude','handoff.md')); if(!alive(t))return; click();
+      openFile('claude','handoff.md',{flash:true,tag:'overwritten'}); focusOn(cwFv,.82); await sleep(3200); if(!alive(t))return;
+      closeFile('claude'); await sleep(320);
+
+      /* 05 — switch tools from the taskbar */
+      label3('05','Handoff'); camWide(); await sleep(650);
+      focusOn(tbAnti,1); await sleep(450);
+      await moveCursor(tbAnti); if(!alive(t))return; tbAnti.classList.add('sim-hover'); await sleep(180);
+      click(true); tbAnti.classList.remove('sim-hover'); await sleep(400);
+      focus3('anti'); camWide(); await sleep(1000); if(!alive(t))return;
+
+      /* 06 — the other agent picks it up cold */
+      label3('06','Continue in another agent'); focusOn(awChat,.86); await sleep(320);
+      addAW('user',AW_Q); await sleep(1100); if(!alive(t))return;
+      expandSidebar('anti'); await sleep(300);
+      await moveCursor(treeEl('anti','handoff.md')); if(!alive(t))return; click();
+      openFile('anti','handoff.md',{tag:'read by Antigravity'}); focusOn(awFv,.82); await sleep(3400); if(!alive(t))return;
+      closeFile('anti'); focusOn(awChat,.86); await sleep(340);
+      addAW('ai',AW_A); await sleep(2600); if(!alive(t))return;
+      addAW('',AW_DIFF); await sleep(1300); if(!alive(t))return;
+      label3('✓','Nothing lost'); camWide(); replay.classList.add('show');
+      await sleep(2800); if(!alive(t))return;
+      cursor.classList.add('gone'); label.classList.add('gone');
+    }
+
+    function playMobile(){
+      token++; var t=token;
+      var steps=[].slice.call(document.querySelectorAll('#demoSteps .demo-step'));
+      var bars=[].slice.call(progress.children);
+      steps.forEach(function(s){s.classList.remove('active');});
+      bars.forEach(function(b){b.classList.remove('on');});
+      replay.classList.add('show');
+      if(reduce){ if(steps[0])steps[0].classList.add('active'); if(bars[0])bars[0].classList.add('on'); return; }
+      var i=0;
+      (function next(){
+        if(!alive(t)||i>=steps.length) return;
+        steps.forEach(function(s){s.classList.remove('active');});
+        steps[i].classList.add('active');
+        bars.forEach(function(b,bi){ b.classList.toggle('on', bi<=i); });
+        steps[i].scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});
+        i++; setTimeout(next,1650);
+      })();
+    }
+    function play(){
+      pickMode();
+      if(mq.matches && demoRoot.classList.contains('mode-cards')){ playMobile(); return; }
+      if(reduce){ token++; finalState(); return; }
+      run();
+    }
+    pickMode();
+    function onBreak(){ pickMode(); if(camOn()) camWide(); else stage.style.transform=''; }
+    window.addEventListener('resize',onBreak,{passive:true});
+    if(mq.addEventListener) mq.addEventListener('change',onBreak); else if(mq.addListener) mq.addListener(onBreak);
+
+    // let visitors browse the worktree themselves
+    [cwTree,awTree].forEach(function(tree){
+      tree.addEventListener('click',function(e){
+        var li=e.target.closest ? e.target.closest('.atf[data-f]') : null; if(!li) return;
+        var n=li.getAttribute('data-f'); if(!FILES[n]) return;
+        openFile(tree===cwTree?'claude':'anti', n, n==='context.md'?{hl:true,tag:'newest entry'}:null);
+      });
+    });
+    cwFvX.addEventListener('click',function(){ closeFile('claude'); });
+    awFvX.addEventListener('click',function(){ closeFile('anti'); });
+    replay.addEventListener('click', play);
+    tbClaude.addEventListener('click', function(){ focus3('claude'); });
+    tbAnti.addEventListener('click', function(){ focus3('anti'); });
+    var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting && !started){ started=true; play(); io.disconnect(); } }); },{threshold:.3});
+    io.observe(os);
+    window.__demo={play:play,final:finalState,reset:resetDemo,run:run,open:openFile,cards:playMobile,cam:{wide:camWide,on:focusOn}};
   })();
 
   document.getElementById('yr').textContent=new Date().getFullYear();
