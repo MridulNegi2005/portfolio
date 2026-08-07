@@ -103,3 +103,17 @@ Rolling work log shared between Codex, Claude Code, and Antigravity.
 **Notes:** Implementation plan for Options 1 (Design Polish — 3D ID card tilt, spacing, typography) and 3 (Copywriting — meta/hero/ID card rewrites) is drafted but awaiting user approval. The Antigravity icon in the demo uses a complex multi-layer SVG with masks and filters — do not simplify. The source SVG lives on Desktop (ntigravity-color.svg) but is NOT in the repo; it's inlined in JS.
 
 ---
+
+## [2026-08-07 03:10] â€” Claude Code
+**Task:** Revert a broken edit pass, then execute the approved portfolio revamp (see `PORTFOLIO-REVAMP-PLAN.md`).
+**Changes:** all in `index.html` unless noted â€”
+- **Revert:** A prior agent's edit pass left the site unusable. Restored `index.html` + both `.ai-sync` files to the last good commit (`38703f3`). The broken version is preserved in git `stash@{0}` ("gemini-broken-changes-backup-2026-08-07"). Work continues on branch `portfolio-revamp`.
+- **Section reorder:** Moved `#work` up to position 02 and `#demo` down to position 07. Added a new **`#experience` section** (03) with the ELC internship and the 5 NVIDIA DLI certifications (verification links). Renumbered all eyebrows 01â€“09; reordered the nav to match.
+- **Copy:** New `<title>`/OG positioning ("Backend-focused CS student"). Rewrote the hero subtext (fixed a run-on), replaced weak hero stats (2 VMs / 3 AI tools with 3 yrs / Finalist / 5x certs), rewrote the defensive About heading, and removed a self-deprecating line. Softened the demo intro.
+- **Polish:** Removed TypeScript from the stack, replaced timeline labels with real years, new footer line, SVG hamburger icon, aria-labels on expandable buttons, "Gemini-powered" note on Antigravity.
+- **Light mode (NEW):** Dark by default, toggle in the nav, choice stored in `localStorage`. Overrides the palette in a `:root[data-theme="light"]` block. The WebGL grid reads theme-aware `u_bg`/`u_line` uniforms. The `#demo` section stays dark in both themes. A `theme-switching` class suppresses transitions for one frame during the switch (fixes a Chromium `var()` background bug).
+- `DESIGN.md`: added a **Light mode** section.
+**Status:** completed (verified), not yet pushed.
+**Notes:** Verified in-browser via computed styles + DOM (screenshots still do not composite in this environment â€” the user should eyeball both themes on a real screen). No console errors; no horizontal scroll on mobile; light mode fully readable including the cert cards. **Deferred (user decisions):** PlantBrain project add / The Loop swap; project screenshots vs CSS diagrams (U4); regenerating `og-image.png` to match the new positioning (it still reads "Systems-minded software engineer"). **Kept by user request (do not change):** personal Gmail contact, the "6 years" Cosmic Bot claim, no phone number, and Mahoraga shown without team attribution. Security review must run before any push.
+
+---
