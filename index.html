@@ -92,10 +92,10 @@
 ::view-transition-old(root),::view-transition-new(root){animation:none;mix-blend-mode:normal}
 /* to light: the new (light) theme grows from the button */
 :root[data-vt="light"]::view-transition-old(root){z-index:1}
-:root[data-vt="light"]::view-transition-new(root){z-index:2;animation:vt-grow .5s var(--ease)}
+:root[data-vt="light"]::view-transition-new(root){z-index:2;animation:vt-grow .5s var(--ease) both}
 /* to dark: the old (light) theme collapses into the button, revealing dark */
 :root[data-vt="dark"]::view-transition-new(root){z-index:1}
-:root[data-vt="dark"]::view-transition-old(root){z-index:2;animation:vt-shrink .5s var(--ease)}
+:root[data-vt="dark"]::view-transition-old(root){z-index:2;animation:vt-shrink .5s var(--ease) both}
 @keyframes vt-grow{from{clip-path:circle(0px at var(--vt-x,50%) var(--vt-y,0))}to{clip-path:circle(var(--vt-r,160%) at var(--vt-x,50%) var(--vt-y,0))}}
 @keyframes vt-shrink{from{clip-path:circle(var(--vt-r,160%) at var(--vt-x,50%) var(--vt-y,0))}to{clip-path:circle(0px at var(--vt-x,50%) var(--vt-y,0))}}
 @media(prefers-reduced-motion:reduce){::view-transition-old(root),::view-transition-new(root){animation:none !important}}
