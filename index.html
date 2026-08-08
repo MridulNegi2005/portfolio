@@ -916,22 +916,23 @@ footer{border-top:1px solid var(--line);padding:36px 0}
       </div>
 
       <div class="case reveal d2">
-        <button class="case-head" aria-expanded="false" aria-label="Expand case study: The Loop">
+        <button class="case-head" aria-expanded="false" aria-label="Expand case study: PlantBrain">
           <span class="idx">02</span>
           <div class="tt">
-            <div class="tags"><span>Full-stack</span><span>Real-time</span><span>Recommendations</span></div>
-            <h3>The Loop</h3>
-            <p class="one">A campus event and social platform that pulls scattered event info into one place, then layers on discovery, real-time chat, and carpool coordination.</p>
+            <div class="tags"><span>Backend &amp; AI lead</span><span>GraphRAG</span><span>Cited answers</span></div>
+            <h3>PlantBrain</h3>
+            <p class="one">An asset-first, cited RAG "operations brain" for an industrial plant: ask a plain-English question about a machine and get one answer fused from manuals, work orders, inspections, and incident logs, with every claim linked to its source.</p>
           </div>
           <span class="toggle" aria-hidden="true"></span>
         </button>
         <div class="case-wrap"><div class="detail">
           <div class="detail-grid">
-            <div><h4>The problem</h4><p>Campus event information lives in posters, group chats, and club pages, and gets missed. The Loop is a single source of truth for workshops, fests, and club activity that also connects the people going.</p></div>
-            <div><h4>What made it interesting</h4><p>A FastAPI + React app across 8 relational models and 25+ REST endpoints with JWT and Google OAuth. A cosine-similarity engine ranks events against a per-user weighted interest vector that updates as people engage, and a WebSocket chat runs on a server-side connection manager (multi-session presence) with client-side auto-reconnect and exponential backoff.</p></div>
-            <div class="stack-line"><span>FastAPI</span><span>React · Vite</span><span>Tailwind</span><span>PostgreSQL</span><span>SQLAlchemy</span><span>WebSockets</span><span>Google OAuth</span><span>Render</span></div>
-            <p class="outcome">A working three-tier PWA with live recommendations and real-time presence, deployed and running.</p>
-            <a class="case-link" href="https://github.com/MridulNegi2005/The-Loop" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.3 4.3 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12 12 0 0 0-6 0C6.7 2.3 5.6 2.6 5.6 2.6a4.3 4.3 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>View on GitHub</a>
+            <div><h4>The problem</h4><p>The knowledge to answer "why did pump P-204A fail twice this month?" is scattered across manuals, work orders, inspection reports, SOPs, and incident logs. Finding it means digging through all of them by hand, and a wrong answer on a plant floor is expensive.</p></div>
+            <div><h4>What made it interesting</h4><p>A FastAPI backend doing GraphRAG: pgvector semantic search over ingested documents plus a NetworkX knowledge graph with multi-hop asset → document → failure links. Three grounded agents (root-cause, compliance-gap, lessons-learned), a no-source-no-answer guardrail, and retrieved text treated as untrusted input to defend against prompt injection. Every response is structured JSON: answer, confidence, citations, missing evidence, and next actions. Embeddings run locally; the LLM is swappable between a free hosted tier and local Ollama.</p></div>
+            <div class="stack-line"><span>FastAPI</span><span>PostgreSQL · pgvector</span><span>NetworkX</span><span>PyMuPDF · OCR</span><span>fastembed</span><span>Groq · Ollama</span><span>Railway</span></div>
+            <p class="outcome">Measured with RAGAS: 100% top-5 retrieval hit-rate, 0.82 answer faithfulness, ~3.9s to answer versus ~12 minutes of manual search. Built at a hackathon by two; I led the backend and applied-AI core.</p>
+            <a class="case-link" href="https://github.com/MridulNegi2005/PlantBrain" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.3 4.3 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12 12 0 0 0-6 0C6.7 2.3 5.6 2.6 5.6 2.6a4.3 4.3 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>View on GitHub</a>
+            <a class="case-link" href="https://plantbrain-production.up.railway.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg>Live demo</a>
           </div>
         </div></div>
       </div>
