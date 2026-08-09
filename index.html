@@ -785,10 +785,9 @@ footer{border-top:1px solid var(--line);padding:36px 0}
    toggle) is wider than the container, so tighten it rather than let it overflow. */
 @media(min-width:981px) and (max-width:1150px){
   .nav-inner{padding:16px 20px}
-  .brand span:not(.mark){display:none}
-  .nav-links a{padding:9px 9px;font-size:.68rem;letter-spacing:.09em}
-  .nav-links a::after{left:9px;right:9px}
-  .nav-cta{padding:9px 12px!important}
+  .nav-links a{padding:9px 8px;font-size:.67rem;letter-spacing:.085em}
+  .nav-links a::after{left:8px;right:8px}
+  .nav-cta{padding:9px 11px!important}
   .theme-toggle{margin-left:8px}
 }
 
@@ -797,24 +796,31 @@ footer{border-top:1px solid var(--line);padding:36px 0}
    pushed the theme-reveal origin off-screen so the wipe looked like it came from the top. */
 @media(max-width:600px){
   .nav-inner{padding:12px 16px;gap:8px}
-  .brand{gap:9px;margin-left:0;min-width:0}
-  .brand span:not(.mark){display:none}   /* drop the "~/" and ".dev" affixes */
-  .brand b{font-size:.8rem;white-space:nowrap}
+  .brand{gap:9px;margin-left:0;min-width:0;white-space:nowrap}
   .nav-actions{gap:8px}
   .nav-resume-mobile{padding:9px 11px;font-size:.62rem;letter-spacing:.05em;gap:5px}
   .theme-toggle{margin-left:0}
 }
-@media(max-width:430px){
-  .nav-inner{padding:12px 14px;gap:8px}
-  .brand .mark{width:28px;height:28px}
-  .brand b{font-size:.76rem}
-  .nav-actions{gap:10px}
-  .theme-toggle{margin-left:2px}
+/* The brand keeps its "~/" and ".dev" at every width. Space is taken from the
+   resume button instead: it drops to icon-only once the row gets tight. */
+@media(max-width:520px){
+  .nav-resume-mobile .rlbl{display:none}
   .nav-resume-mobile{padding:9px 10px}
 }
-@media(max-width:360px){
-  .nav-resume-mobile .rlbl{display:none}  /* icon-only résumé on the narrowest phones */
-  .nav-actions{gap:8px}
+@media(max-width:430px){
+  .nav-inner{padding:12px 13px;gap:6px}
+  .brand{gap:8px}
+  .brand .mark{width:28px;height:28px}
+  .brand b{font-size:.78rem}
+  .nav-actions{gap:9px}
+  .theme-toggle{margin-left:1px}
+}
+@media(max-width:350px){
+  .nav-inner{padding:12px 10px;gap:4px}
+  .brand .mark{width:26px;height:26px}
+  .brand b{font-size:.72rem}
+  .nav-actions{gap:7px}
+  .theme-toggle,.menu-btn{width:40px;height:40px}
 }
 
 /* ---------- accessibility ---------- */
