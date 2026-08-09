@@ -3,3 +3,17 @@ DESIGN.md
 AGENTS.md
 CLAUDE.md
 GEMINI.md
+
+# local review + planning notes (not for the public repo)
+PORTFOLIO-REVIEW*.md
+PORTFOLIO-REVAMP-PLAN.md
+ORIGINAL_REQUEST.md
+
+# local scratch
+node_modules/
+build_portfolio.js
+fix_portfolio.js
+fix_meta.js
+take_screenshots.js
+.agents/
+.claude/
