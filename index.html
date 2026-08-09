@@ -799,13 +799,42 @@ footer{border-top:1px solid var(--line);padding:36px 0}
   .tb-app{min-height:44px}
 }
 /* ---------- light theme legibility ---------- */
+/* The accent stays genuinely gold for decorative use (marks, borders, buttons, glows).
+   --accent-text is a deeper bronze used only where the accent renders as small text,
+   because true gold cannot reach 4.5:1 on a cream background. */
+:root{--accent-text:var(--accent)}
 :root[data-theme="light"]{
   --ink:#15140f;--ink-soft:#33312b;--ink-dim:#5c5a53;--ink-faint:#7a776e;
-  --accent:#8a6220;--accent-bright:#6d4c14;--accent-deep:#b08b45;
-  --line:rgba(0,0,0,.14);--line-strong:rgba(0,0,0,.22);
-  --surface:#ffffff;--surface-2:#f2efe7;--bg:#f7f6f2;--bg-2:#eae7de;
-  --bg-rgb:247,246,242;
+  --accent:#c2912f;--accent-bright:#d9a94e;--accent-deep:#a8791f;
+  --accent-glow:rgba(194,145,47,.17);
+  --accent-text:#8a5f11;
+  --line:rgba(0,0,0,.13);--line-strong:rgba(0,0,0,.21);
+  --surface:#ffffff;--surface-2:#f3efe4;--bg:#faf8f2;--bg-2:#f1ece0;
+  --bg-rgb:250,248,242;
 }
+/* the demo simulates dark apps, so its internals keep the bright gold */
+:root[data-theme="light"] .demo-os{--accent-text:var(--accent-bright)}
+/* accent-as-small-text → bronze (page level only; demo is excluded above) */
+:root[data-theme="light"] .eyebrow,
+:root[data-theme="light"] .hero h1 em,
+:root[data-theme="light"] .contact-inner h2 em,
+:root[data-theme="light"] .id-head .nm small,
+:root[data-theme="light"] .context-bar .ic,
+:root[data-theme="light"] .context-bar .tag,
+:root[data-theme="light"] .tool .prim,
+:root[data-theme="light"] .tool .file,
+:root[data-theme="light"] .stance-row .sn,
+:root[data-theme="light"] .stage-head .num,
+:root[data-theme="light"] .case .idx,
+:root[data-theme="light"] .case .detail-grid h4,
+:root[data-theme="light"] .stx-tab .ix,
+:root[data-theme="light"] .stx-tab.active .ct,
+:root[data-theme="light"] .stx-kicker,
+:root[data-theme="light"] .principle .n,
+:root[data-theme="light"] .tl-item .yr,
+:root[data-theme="light"] .xp-role .rd,
+:root[data-theme="light"] .cert .cv,
+:root[data-theme="light"] .brand .mark{color:var(--accent-text)}
 :root[data-theme="light"] .status,
 :root[data-theme="light"] .chips span,
 :root[data-theme="light"] .case .tags span,
