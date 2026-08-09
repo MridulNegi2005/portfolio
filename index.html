@@ -175,7 +175,7 @@ nav.scrolled{background:rgba(var(--bg-rgb),.72);backdrop-filter:blur(16px) satur
 .menu-btn{display:none;background:none;border:1px solid var(--line-strong);color:var(--ink);width:42px;height:38px;border-radius:9px;cursor:pointer;font-size:1.1rem}
 .nav-actions{display:none;align-items:center;gap:10px;position:relative;z-index:52;margin-left:auto}
 .nav-resume-mobile{display:none}
-@media(max-width:860px){
+@media(max-width:980px){
   .nav-actions{display:flex;}
   .nav-links{position:fixed;inset:0 0 auto 0;top:0;flex-direction:column;align-items:stretch;gap:0;background:rgba(var(--bg-rgb),.96);backdrop-filter:blur(20px);padding:86px 22px 26px;transform:translateY(-102%);transition:transform .45s var(--ease);border-bottom:1px solid var(--line)}
   .nav-links.open{transform:translateY(0)}
@@ -781,6 +781,42 @@ footer{border-top:1px solid var(--line);padding:36px 0}
 .case-shot figcaption{font-family:var(--font-mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-dim);padding:9px 13px;border-top:1px solid var(--line);background:var(--surface)}
 .case-shot[hidden]{display:none}
 
+/* Between the hamburger breakpoint and ~1150px the full nav (brand + 7 links + 2 CTAs +
+   toggle) is wider than the container, so tighten it rather than let it overflow. */
+@media(min-width:981px) and (max-width:1150px){
+  .nav-inner{padding:16px 20px}
+  .brand span:not(.mark){display:none}
+  .nav-links a{padding:9px 9px;font-size:.68rem;letter-spacing:.09em}
+  .nav-links a::after{left:9px;right:9px}
+  .nav-cta{padding:9px 12px!important}
+  .theme-toggle{margin-left:8px}
+}
+
+/* ---------- mobile nav: fit brand + resume + menu + toggle inside the viewport ----------
+   Previously these overflowed (the toggle sat ~13px off-screen on a 375px phone), which also
+   pushed the theme-reveal origin off-screen so the wipe looked like it came from the top. */
+@media(max-width:600px){
+  .nav-inner{padding:12px 16px;gap:8px}
+  .brand{gap:9px;margin-left:0;min-width:0}
+  .brand span:not(.mark){display:none}   /* drop the "~/" and ".dev" affixes */
+  .brand b{font-size:.8rem;white-space:nowrap}
+  .nav-actions{gap:8px}
+  .nav-resume-mobile{padding:9px 11px;font-size:.62rem;letter-spacing:.05em;gap:5px}
+  .theme-toggle{margin-left:0}
+}
+@media(max-width:430px){
+  .nav-inner{padding:12px 14px;gap:8px}
+  .brand .mark{width:28px;height:28px}
+  .brand b{font-size:.76rem}
+  .nav-actions{gap:10px}
+  .theme-toggle{margin-left:2px}
+  .nav-resume-mobile{padding:9px 10px}
+}
+@media(max-width:360px){
+  .nav-resume-mobile .rlbl{display:none}  /* icon-only résumé on the narrowest phones */
+  .nav-actions{gap:8px}
+}
+
 /* ---------- accessibility ---------- */
 :focus{outline:none}
 :focus-visible{outline:2px solid var(--accent-bright);outline-offset:3px;border-radius:5px}
@@ -907,7 +943,7 @@ footer{border-top:1px solid var(--line);padding:36px 0}
       <a href="Mridul_Negi_Software_Developer_Resume.pdf" download="Mridul_Negi_Software_Developer_Resume.pdf" class="nav-cta nav-resume">Résumé <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v11m0 0 4-4m-4 4-4-4M5 19h14"/></svg></a>
     </div>
     <div class="nav-actions">
-      <a href="Mridul_Negi_Software_Developer_Resume.pdf" download="Mridul_Negi_Software_Developer_Resume.pdf" class="nav-resume-mobile">Résumé <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v11m0 0 4-4m-4 4-4-4M5 19h14"/></svg></a>
+      <a href="Mridul_Negi_Software_Developer_Resume.pdf" download="Mridul_Negi_Software_Developer_Resume.pdf" class="nav-resume-mobile" aria-label="Download résumé"><span class="rlbl">Résumé</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v11m0 0 4-4m-4 4-4-4M5 19h14"/></svg></a>
       <button class="menu-btn" id="menuBtn" aria-label="Menu"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     </div>
     <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle light or dark theme">
