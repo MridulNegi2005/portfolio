@@ -109,6 +109,12 @@ html.splash-lock,html.splash-lock body{overflow:hidden}
 .splash-mark svg{width:100%;height:100%;display:block;font-family:var(--font-display);font-weight:600}
 .splash-word{font-family:var(--font-mono);font-size:.86rem;letter-spacing:.14em;color:var(--ink-dim);opacity:0;transform:translateY(7px);transition:opacity .55s ease .18s,transform .6s var(--ease) .18s}
 .splash-word .dot{color:var(--ink-faint)}
+.splash-skip{position:absolute;bottom:38px;left:50%;transform:translateX(-50%);font-family:var(--font-mono);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-faint);opacity:0;transition:opacity .5s ease .9s}
+.splash.intro .splash-skip{opacity:1}
+/* failsafe: if JS never runs, the splash still clears itself */
+.splash{animation:splashFailsafe .1s linear 4s forwards}
+@keyframes splashFailsafe{to{opacity:0;visibility:hidden;pointer-events:none}}
+.splash.js{animation:none}
 .splash.intro .splash-mark{opacity:1;transform:scale(1)}
 .splash.intro .splash-word{opacity:1;transform:none}
 .splash.morph .splash-word{opacity:0;transform:translateY(-5px);transition:opacity .3s ease,transform .3s ease}
@@ -769,6 +775,52 @@ footer{border-top:1px solid var(--line);padding:36px 0}
 @media(max-width:350px){.phi-grid{grid-template-columns:1fr}.principle{min-height:auto}}
 @media(hover:none){.principle:hover,.stage:hover,.case:hover,.chan:hover{transform:none}.principle:hover{background:var(--card-veil);border-color:var(--line)}.stage:hover{box-shadow:none;border-color:var(--line)}.case:hover{border-color:var(--line)}}
 
+/* ---------- case study media (inside the collapsed panel: zero page-length cost) ---------- */
+.case-shot{grid-column:1/-1;margin:0 0 4px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--bg-2);position:relative;order:-1}
+.case-shot img{display:block;width:100%;height:auto;max-height:390px;object-fit:cover;object-position:top center}
+.case-shot figcaption{font-family:var(--font-mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-dim);padding:9px 13px;border-top:1px solid var(--line);background:var(--surface)}
+.case-shot[hidden]{display:none}
+
+/* ---------- accessibility ---------- */
+:focus{outline:none}
+:focus-visible{outline:2px solid var(--accent-bright);outline-offset:3px;border-radius:5px}
+.skip-link{position:absolute;left:12px;top:-60px;z-index:70;background:var(--surface);color:var(--ink);border:1px solid var(--accent);border-radius:9px;padding:11px 18px;font-family:var(--font-mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;transition:top .25s var(--ease)}
+.skip-link:focus-visible{top:12px}
+/* readable footer: --ink-faint fails contrast at this size */
+.foot{color:var(--ink-dim)}
+.foot a{color:var(--ink-soft)}
+/* comfortable touch targets on coarse pointers */
+@media(pointer:coarse){
+  .case-link,.chan,.nav-links a,.foot a,.nav-resume-mobile,.demo-replay{min-height:44px;display:inline-flex;align-items:center}
+  .theme-toggle,.menu-btn{width:44px;height:44px}
+  .cert{min-height:56px}
+  .stx-tab{min-height:48px}
+  .brand{min-height:44px}
+  .tb-app{min-height:44px}
+}
+/* ---------- light theme legibility ---------- */
+:root[data-theme="light"]{
+  --ink:#15140f;--ink-soft:#33312b;--ink-dim:#5c5a53;--ink-faint:#7a776e;
+  --accent:#8a6220;--accent-bright:#6d4c14;--accent-deep:#b08b45;
+  --line:rgba(0,0,0,.14);--line-strong:rgba(0,0,0,.22);
+  --surface:#ffffff;--surface-2:#f2efe7;--bg:#f7f6f2;--bg-2:#eae7de;
+  --bg-rgb:247,246,242;
+}
+:root[data-theme="light"] .status,
+:root[data-theme="light"] .chips span,
+:root[data-theme="light"] .case .tags span,
+:root[data-theme="light"] .case .stack-line span,
+:root[data-theme="light"] .xp-tags span{background:#fff;color:var(--ink-soft)}
+:root[data-theme="light"] .stx-ghost{color:rgba(0,0,0,.07)}
+:root[data-theme="light"] .principle{background:#fff}
+:root[data-theme="light"] .principle:hover{background:#fff}
+:root[data-theme="light"] .flow,
+:root[data-theme="light"] .stack-panel,
+:root[data-theme="light"] .stage,
+:root[data-theme="light"] .cert{background:#fff}
+:root[data-theme="light"] .case{background:linear-gradient(180deg,#fff,#faf9f5)}
+:root[data-theme="light"] .id-card{background:linear-gradient(180deg,#fff,#f5f3ec)}
+
 /* ---------- experience & credentials ---------- */
 .xp-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:start}
 .xp-label{font-family:var(--font-mono);font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:20px;display:flex;align-items:center;gap:10px}
@@ -799,11 +851,13 @@ footer{border-top:1px solid var(--line);padding:36px 0}
 </style>
 </head>
 <body>
+<a class="skip-link" href="#about">Skip to content</a>
 <div class="splash" id="splash" role="presentation" aria-hidden="true">
   <div class="splash-inner">
     <span class="splash-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><text x="12" y="17.9" text-anchor="middle" font-size="17" fill="currentColor">M</text></svg></span>
     <span class="splash-word">~/ mridulnegi<span class="dot">.dev</span></span>
   </div>
+  <span class="splash-skip">Click or scroll to skip</span>
 </div>
 <canvas id="gridCanvas" class="grid-bg"></canvas>
 <div class="grid-fallback"></div>
@@ -821,10 +875,10 @@ footer{border-top:1px solid var(--line);padding:36px 0}
       <a href="#stack">Stack</a>
       <a href="#demo">Sync</a>
       <a href="#contact" class="nav-cta">Contact</a>
-      <a href="Mridul_Negi_Resume.pdf" download="Mridul_Negi_Resume.pdf" class="nav-cta nav-resume">Résumé <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v11m0 0 4-4m-4 4-4-4M5 19h14"/></svg></a>
+      <a href="Mridul_Negi_Software_Developer_Resume.pdf" download="Mridul_Negi_Software_Developer_Resume.pdf" class="nav-cta nav-resume">Résumé <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v11m0 0 4-4m-4 4-4-4M5 19h14"/></svg></a>
     </div>
     <div class="nav-actions">
-      <a href="Mridul_Negi_Resume.pdf" download="Mridul_Negi_Resume.pdf" class="nav-resume-mobile">Résumé <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v11m0 0 4-4m-4 4-4-4M5 19h14"/></svg></a>
+      <a href="Mridul_Negi_Software_Developer_Resume.pdf" download="Mridul_Negi_Software_Developer_Resume.pdf" class="nav-resume-mobile">Résumé <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v11m0 0 4-4m-4 4-4-4M5 19h14"/></svg></a>
       <button class="menu-btn" id="menuBtn" aria-label="Menu"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     </div>
     <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle light or dark theme">
@@ -855,6 +909,7 @@ footer{border-top:1px solid var(--line);padding:36px 0}
   </div>
 </header>
 
+<main id="main">
 <!-- ============ ABOUT ============ -->
 <section id="about">
   <div class="wrap">
@@ -906,6 +961,7 @@ footer{border-top:1px solid var(--line);padding:36px 0}
         </button>
         <div class="case-wrap"><div class="detail">
           <div class="detail-grid">
+            <figure class="case-shot" hidden><img loading="lazy" decoding="async" alt="Mahoraga dashboard" src="work/mahoraga.png" onload="this.closest(&quot;.case-shot&quot;).hidden=false" onerror="this.closest(&quot;.case-shot&quot;).remove()"><figcaption>Mahoraga — React dashboard &amp; combat environment</figcaption></figure>
             <div><h4>The problem</h4><p>Most simple combat agents are scripted or reward-blind: once you find a pattern they stop adapting and become memorization. Mahoraga is an environment built to make adaptation, reward shaping, and agent behavior inspectable turn by turn, not a black box.</p></div>
             <div><h4>What made it interesting</h4><p>A FastAPI backend exposing reset / step / model-status served a 4-bit-quantized Qwen2.5-3B LoRA agent with a rule-based fallback, deployed to Hugging Face Spaces via a multi-stage Docker build. The agent was fine-tuned with an iterative reward-weighted SFT loop (Unsloth + TRL) using rejection sampling and expert-trajectory seeding over five training rounds.</p></div>
             <div class="stack-line"><span>Python</span><span>FastAPI</span><span>Docker</span><span>Qwen2.5-3B</span><span>LoRA · Unsloth · TRL</span><span>Gymnasium</span><span>React</span><span>Hugging Face Spaces</span></div>
@@ -927,6 +983,7 @@ footer{border-top:1px solid var(--line);padding:36px 0}
         </button>
         <div class="case-wrap"><div class="detail">
           <div class="detail-grid">
+            <figure class="case-shot" hidden><img loading="lazy" decoding="async" alt="PlantBrain cited answer" src="work/plantbrain.png" onload="this.closest(&quot;.case-shot&quot;).hidden=false" onerror="this.closest(&quot;.case-shot&quot;).remove()"><figcaption>PlantBrain — cited answer with sources and confidence</figcaption></figure>
             <div><h4>The problem</h4><p>The knowledge to answer "why did pump P-204A fail twice this month?" is scattered across manuals, work orders, inspection reports, SOPs, and incident logs. Finding it means digging through all of them by hand, and a wrong answer on a plant floor is expensive.</p></div>
             <div><h4>What made it interesting</h4><p>A FastAPI backend doing GraphRAG: pgvector semantic search over ingested documents plus a NetworkX knowledge graph with multi-hop asset → document → failure links. Three grounded agents (root-cause, compliance-gap, lessons-learned), a no-source-no-answer guardrail, and retrieved text treated as untrusted input to defend against prompt injection. Every response is structured JSON: answer, confidence, citations, missing evidence, and next actions. Embeddings run locally; the LLM is swappable between a free hosted tier and local Ollama.</p></div>
             <div class="stack-line"><span>FastAPI</span><span>PostgreSQL · pgvector</span><span>NetworkX</span><span>PyMuPDF · OCR</span><span>fastembed</span><span>Groq · Ollama</span><span>Railway</span></div>
@@ -949,6 +1006,7 @@ footer{border-top:1px solid var(--line);padding:36px 0}
         </button>
         <div class="case-wrap"><div class="detail">
           <div class="detail-grid">
+            <figure class="case-shot" hidden><img loading="lazy" decoding="async" alt="Cosmic Bot rank card" src="work/cosmic-bot.png" onload="this.closest(&quot;.case-shot&quot;).hidden=false" onerror="this.closest(&quot;.case-shot&quot;).remove()"><figcaption>Cosmic Bot — Pillow-rendered rank card in production</figcaption></figure>
             <div><h4>What it does</h4><p>A full community toolkit: music, leveling, moderation, and admin tooling, maintained continuously in production rather than shipped once and forgotten. Long enough in service that the interesting work became keeping it fast and stable under real load.</p></div>
             <div><h4>What made it interesting</h4><p>A Lavalink / wavelink music pipeline, and a migration of core database access from synchronous psycopg2 to async pooling (aiopg / asyncpg) to stop the event loop from blocking. Leveling renders rank cards on the fly with Pillow, and a hot cog load / unload / reload interface allows updates without downtime.</p></div>
             <div class="stack-line"><span>Python</span><span>py-cord</span><span>PostgreSQL</span><span>Lavalink · wavelink</span><span>asyncpg</span><span>Pillow</span></div>
@@ -1304,63 +1362,7 @@ Rolling work log shared between Codex, Claude Code, and Antigravity.
 
 ---
 
-## [2026-07-12 20:44] — Antigravity
-**Task:** Mobile responsiveness tweaks and UI animations.
-**Changes:** `index.html` (mobile layout refinements, touch-tracking WebGL grid, scroll-driven card hover effect, staggered plus/toggle wave animations, tools mobile carousel, blurple tap-highlight fix).
-**Status:** completed
-**Notes:** Ready for next tasks.
-
----
-
-## [2026-07-15 01:34] — Claude Code
-**Task:** Desktop content/polish pass, then mobile refinement (in progress).
-**Changes (completed since last sync):** `index.html` —
-- Replaced placeholder Featured Work with 3 real projects sourced from resume + cloned repos: **Mahoraga** (RL combat env, FastAPI + Qwen2.5-3B LoRA), **The Loop** (FastAPI/React campus platform), **Cosmic Bot** (`royalbot` Discord bot); each with a "View on GitHub" link.
-- Added downloadable résumé (`Mridul_Negi_Resume.pdf` in repo root) + gold "Résumé" nav button + contact link.
-- Swapped approximated AI logos for **official brand silhouettes** (Claude / Antigravity / Codex), all tinted to `--accent-bright` gold; **renamed the third tool Gemini → Antigravity** (kept `GEMINI.md` file label).
-- Real GitHub/LinkedIn links wired; footer de-cheesed; year 2025 → 2026; removed all em dashes.
-- WebGL grid: fixed page-wide with **scroll parallax** (35%), fixed the **backwards-scroll** direction bug; opaque render fix (was invisible/black).
-- Header: monogram mark + name `mridulnegi`; full institute name; `overflow-x:clip` fix so anchor nav actually scrolls.
-- Added `DESIGN.md` (palette, fonts, signature elements).
-**Status:** in-progress
-**Notes:** NOW WORKING ON (approved plan): (1) fix mobile stack playing-card **jitter** (per-move restyle of all 4 cards → front-card-only + rAF + axis-lock) and raise swipe **threshold** to max(90, 30% width), forward-only; (2) add **gyroscope-tilt** ambient effect for the mobile grid lens (no idle-drift fallback — do nothing if unsupported); (3) add **workflow pipeline arrows** — feeder chevrons + stage-to-stage arrows (→ desktop / ↓ mobile). All in `index.html`. Do NOT hand-merge an old `mobile-responsive` branch over this — current `main`/working `index.html` is ahead of the 07-12 log.
-
----
-
-## [2026-07-17 02:40] — Antigravity
-**Task:** Content updates and UI alignment fixes based on user feedback.
-**Changes:** `index.html` (changed degree to "B.E. Computer Engineering", updated name to "Mridul Negi", fixed nav bar spacing/alignment by hiding empty action container on desktop, reframed "Method" to "Human-led engineering" to center user ownership, updated Cosmic Bot description to reflect 6 years live, fixed Stack headers grouping by category so tools are evenly represented — then reverted this last grouping change back to singular tools per user preference).
-**Status:** completed
-**Notes:** The desktop and mobile layouts are polished and content is accurate.
-
----
-
-## [2026-07-23 19:21] — Claude Code
-**Task:** Mobile polish fixes, then a new **cinematic cross-agent-sync demo section** built from the user's real Claude + Antigravity screenshots.
-**Changes:** all in `index.html` —
-- **Mobile stack card deck:** fixed jitter (per-move restyle of all 4 cards → front-card-only transform, rAF-batched, axis-lock with non-passive `preventDefault`; `.stack-panel.animating` class drives transitions instead of inline `style.transition`). Swipe threshold raised `80 → max(90, 30% width)`; velocity flick removed (too easy to trigger); forward-only kept. Restored the fling-out animation (explicit `.34s` transition + matched timeout; it was being cut off by a 260ms/500ms mismatch). Removed a global `will-change` that was hurting rather than helping.
-- **Pipeline arrows:** replaced pseudo-element gutter arrows (rendered *behind* the boxes) with real flex `.parrow` elements — `→` desktop / `↓` mobile; `.pipe` simplified to 4-col desktop / 1-col ≤760px; removed `overflow:hidden` from `.stage` (body clips itself). Feeder lines got downward chevrons.
-- **Gyro tilt** on the mobile WebGL grid lens — **Android only**; deliberately skipped on iOS (never prompts for motion permission). No idle-drift fallback.
-- **Mobile nav:** Contact/Résumé no longer collide (full-width buttons, 12px gap); **Résumé moved OUT of the hamburger** into the nav bar as a gold highlight button (desktop unchanged). Pipeline expand softened (content fade/slide on `.stage-inner`).
-- **Wording accuracy:** removed `JOURNAL.md` everywhere (it never existed) → the real `context.md` (rolling log) + `handoff.md` (active handoff); swept stray "journal" copy.
-- **NEW `#demo` section — "03 / Cross-agent sync, live":** a pure CSS/JS cinematic sequence (no video) with **two realistic app windows** modeled on the user's actual screenshots — Claude desktop (Home/Code tabs, sessions sidebar, `negim` chip, bottom input with Bypass permissions · Opus 4.8 · Medium) and Antigravity (menu bar, Projects tree, `Gemini 3.1 Pro (High)`) — plus a **bottom taskbar** that switches windows via a **magnified cursor click**. 6 labelled beats: Prompt → Plan → Write files → Update journal → Handoff → Continue in another agent. Uses **real content**: the actual portfolio brief, and Antigravity's real "third card too dark" fix (`#0e1013`, Card 2 85% / Card 3 70% / Card 4 55%, "1 file changed +3 −3"). Plays once on scroll + Replay; reduced-motion → static end state; mobile → left-to-right card carousel with arrows.
-- Nav gained a **Sync** anchor; section eyebrows renumbered 01–08.
-**Status:** completed
-**Notes:** Verified in-browser (no console errors) via DOM/state checks — screenshots are unavailable in this environment, so **visual timing/feel is unverified**; the user should watch the demo run on a real screen and report pacing. A `window.__demo` hook (`play/run/reset/final`) is left in `index.html` for driving the demo in tests — safe to strip before deploy. Gyro tilt could not be runtime-tested (no sensor). `Mridul_Negi_Resume.pdf` must be deployed alongside `index.html` or the résumé links 404.
-
----
-
-## [2026-07-26 01:00] — Claude Code
-**Task:** Design a logo for the site and add a favicon (the site had **no favicon at all** before this).
-**Changes:**
-- **Logo — "editorial M".** Replaced the geometric chevron mark in the nav with a **serif capital M set in Fraunces 600** (the site's own display face) in `--accent-bright` gold. Rationale: the mark *is* the typography, tying the brand to the headline font instead of bolting on a separate geometric symbol. Tile border changed `--line-strong` → `--accent-deep` to match the icon, plus a hover state (border brightens to `--accent` + 3px `--accent-glow` ring).
-  - Drawn as inline `<svg><text>` rather than a text node so the baseline is explicit and centering is deterministic at any size. Construction: **cap height = 50% of tile** (12 of 24 viewBox units), baseline `y=17.9` at `font-size:17`.
-  - Verified live: font resolves to Fraunces 600, cap = exactly 50% of tile, optical centre off by 0.1 units (~0.1px). The **cap box** is centred, not the em box — that's the detail that usually makes letter-in-a-box marks look subtly wrong.
-- **Icon set generated** (Pillow 10.4 + Georgia Bold, supersampled 8× then LANCZOS-downscaled): `favicon.svg` (primary, scalable), `favicon-32.png` (fallback), `favicon.ico` (16/32/48 legacy), `apple-touch-icon.png` (180px, **full-bleed** — no self-rounding, since iOS applies its own squircle mask). All four verified serving HTTP 200.
-- `index.html` head: added the three `<link rel="icon">`/`apple-touch-icon` tags + `theme-color` (`#0a0b0d`) so mobile browser chrome matches the page.
-- `DESIGN.md`: new **Logo & icons** section (construction rules table + icon-file table + deploy note); also fixed a **stale `CONTEXT.md`/`JOURNAL.md` reference** that had been missed when the site copy was corrected — it now documents the real `.ai-sync/context.md` + `handoff.md`.
-**Status:** completed
-**Notes:** No console errors. **Screenshots remain unavailable in this environment** (browser pane not compositing frames), so the nav mark's final appearance is measured-but-unseen — the user should eyeball it. The PNG icons *were* inspected directly and look correct. Known cosmetic seam: the nav mark is true **Fraunces**, while the PNG/ICO icons use **Georgia Bold** (favicons cannot load web fonts); visually interchangeable at 16–32px, but tracing the Fraunces M to a vector path would make every size share one outline if exactness is ever wanted.</script>
+_(log continues)_</script>
     <script type="text/plain" id="f-handoff"># Active Handoff
 > Last updated by: Claude Code
 > Timestamp: 2026-07-26T01:00:13+05:30
@@ -1396,7 +1398,7 @@ Nothing blocking. Two things are done-but-unseen and want a human eye:
 - `.ai-sync/context.md` — this session's log entry
 
 ## ⚠️ Notes for the next agent
-- **Deploy list is now six files**, not one: `index.html` + `Mridul_Negi_Resume.pdf` +
+- **Deploy list is now six files**, not one: `index.html` + `Mridul_Negi_Software_Developer_Resume.pdf` +
   the four icon files. Miss the icons and the tab icon 404s; miss the PDF and the résumé
   buttons 404.
 - Naming is the accurate `.ai-sync/context.md` + `handoff.md` — **there is no `JOURNAL.md`**
@@ -1436,510 +1438,38 @@ Before starting work, read `.ai-sync/handoff.md`, `.ai-sync/context.md`, and ins
     <script type="text/plain" id="f-gemini"># Cross-Agent Sync
 
 Before starting work, read `.ai-sync/handoff.md`, `.ai-sync/context.md`, and inspect `.ai-sync/artifacts/` for shared plans or specs. Sync progress to the handoff and context files before switching away.</script>
-    <script type="text/plain" id="f-brief">Create a premium, highly polished personal portfolio website for a computer science student who wants to present himself as a serious engineer, not just a student with a few projects.
+    <script type="text/plain" id="f-brief">Build a personal engineering portfolio: a single-page site that presents my
+work, my process, and my infrastructure clearly and credibly.
 
-The website must feel modern, sharp, intelligent, and memorable. It should not look like a generic template, a boring resume page, or an "AI-slopped" design. It should feel handcrafted, premium, and technically credible.
+Who it is for:
+- A B.E. Computer Engineering student at Thapar Institute, Patiala
+- Backend-focused: Python, FastAPI, PostgreSQL
+- Self-hosts applications on Ubuntu VMs, with a separate database host
+- Uses AI tools inside a disciplined, documented workflow
 
-The person behind the site is:
-
-- a B.Tech Computer Science student at Thapar Institute of Engineering and Technology, Patiala, India
-- an aspiring programmer and software engineer
-- someone who builds with discipline, structure, and strong workflow habits
-- someone who uses AI tools efficiently in real development work
-- someone who values security, documentation, and organized collaboration
-- someone who has worked on both public and private GitHub projects
-- someone who self-hosts applications on Ubuntu virtual machines and runs a PostgreSQL database on a separate Ubuntu VM
-- someone who uses cloud infrastructure as part of the engineering process, not as a gimmick
-- someone who wants the site to communicate skill, maturity, and execution ability
-
-Do not make the website about "being AI-powered." Make it about engineering, with AI as one part of the workflow.
-
-The portfolio should not simply list every project. The top three projects may already appear on the resume, so the site should focus more on:
-
-- who this person is
-- how he works
-- how he thinks
-- how he builds
-- how he uses AI tools responsibly
-- how he deploys and manages infrastructure
-- what makes him different from a typical student developer
-
-The final impression should be:
-"This person knows how to build real systems, keep context, manage tools, deploy software, and work like an organized engineer."
-
-## Overall style direction
-
-Use a dark-first, premium visual style with subtle futuristic energy. The design should feel elegant, not loud.
-
-Good visual direction:
-
-- charcoal / graphite / near-black background
-- one or two controlled accent colors, such as deep violet, electric blue, muted cyan, or soft magenta
-- subtle glassmorphism only where it adds depth
-- refined gradients, not overdone rainbow gradients
-- crisp typography with strong hierarchy
-- lots of breathing room
-- soft shadows, faint borders, layered surfaces
-- clean motion and scroll-based reveals
-
-Avoid:
-
-- excessive neon everywhere
-- overuse of transparent cards
-- chaotic particle effects
-- random glowing blobs
-- cheap "cyberpunk" clutter
-- generic developer-portfolio templates
-- too many icons and badges
-- fake stock imagery
-- anything that feels mass-generated
-
-The site should look like a thoughtful product, not a Canva poster.
-
-## Site structure
-
-Make this a one-page scrolling portfolio with distinct sections. Smooth scrolling is enough. No need for separate pages unless absolutely necessary. The site should feel like a curated experience, not a file cabinet.
-
-Use these sections:
-
+Sections:
 1. Hero
-2. About / identity
-3. AI-assisted workflow
-4. Infrastructure
-5. Featured work
+2. Selected work
+3. Experience and credentials
+4. How I build
+5. Infrastructure
 6. Engineering stack
-7. Build philosophy / principles
+7. Build philosophy
 8. Contact
 
-Each section should have its own visual personality while staying consistent with the overall design.
-
-## Hero section
-
-The hero must be bold and clear. It should immediately explain who this person is and what he does.
-
-The hero headline should be something like:
-
-- Computer science student building real systems with code, AI, and discipline
-- I build software with structure, context, and execution
-- Engineering with AI assistance, cloud infrastructure, and human judgment
-
-The supporting text should say that this person is a student developer who:
-
-- builds practical software
-- uses AI tools as part of a disciplined workflow
-- manages context across tools
-- self-hosts infrastructure
-- cares about shipping clean, secure work
-
-Include one strong call to action button and one secondary action.
-
-Possible buttons:
-
-- View my work
-- See my workflow
-- Explore infrastructure
-- Contact me
-
-The hero should include a subtle animated background, but keep it restrained. Good options:
-
-- soft moving grid
-- faint scanning lines
-- slow drifting light orbs
-- a minimal circuit / node network
-- subtle depth parallax
-
-Do not make it distracting.
-
-## About / identity section
-
-This section should present the person in a grounded, professional way.
-
-The tone should feel human and confident, not cheesy.
-
-This section should explain:
-
-- he is a computer science student
-- he is serious about programming
-- he thinks in systems and workflows, not just isolated code snippets
-- he works with AI tools in a structured way
-- he values clarity, consistency, and shipping
-- he is always improving
-
-Write this section as a short story or narrative, not a plain bio dump.
-
-Good themes:
-
-- learning by building
-- staying organized
-- combining human judgment with AI speed
-- enjoying the engineering process itself
-
-## AI-assisted workflow section
-
-This is the signature section of the website. Make it one of the most memorable parts of the page.
-
-Title ideas:
-
-- How I build
-- My AI-assisted workflow
-- Human judgment + AI execution
-- My development system
-
-This section must explain that the person uses multiple AI tools together in a coordinated way, not randomly.
-
-The tools used are:
-
-- Claude
-- Codex
-- Gemini
-
-The workflow should be presented as a system with shared context, not as a random collection of tools.
-
-Explain that the person uses:
-
-- a shared project context file that all tools read
-- individual instruction files for each AI tool
-- a shared log / journal file that records decisions, actions, fixes, and issues
-- a process where each AI can pick up where another left off
-- a method to avoid repeating work and wasting tokens
-- a way to request one AI's opinion from another and record it in the same journal
-- a final human review step before anything is pushed
-
-This section should make it clear that:
-
-- AI is used to accelerate work
-- context is centralized
-- actions are documented
-- quality is still controlled by the human
-- security and correctness still matter
-
-This is not just a paragraph. Design it like a visual workflow or architecture diagram.
-
-Best format options:
-
-- a step-by-step flow diagram
-- three linked cards with arrows
-- a "system architecture" style panel
-- a timeline or pipeline with nodes
-- animated cards that expand on hover
-
-Suggested flow:
-
-Shared Context.md
--> Tool-specific instruction files
--> Work Journal / Decision Log
--> Cross-AI handoff
--> Security review
--> Human final check
--> Git push / deploy
-
-The visual should feel like an engineered workflow, almost like a product architecture diagram.
-
-Add a short caption under this section like:
-"I use AI to reduce repetition and increase throughput, but I still keep ownership of the final code, security, and quality."
-
-## Infrastructure section
-
-This is important and should be shown as a strength, not hidden in a small badge row.
-
-The person has real deployment experience and uses self-hosted infrastructure.
-
-Explain clearly that:
-
-- projects are deployed on Ubuntu virtual machines
-- the main application hosting uses Oracle Cloud
-- the database is self-hosted PostgreSQL on a separate Ubuntu VM, currently on Google Cloud
-- this setup gives more control over deployment, networking, updates, and configuration
-- it also shows practical systems thinking
-- the person uses cloud hosting as part of the development process, not just local development
-
-Show this as a clean visual architecture block.
-
-Suggested visual:
-Laptop / Local Dev
--> GitHub
--> Oracle Cloud Ubuntu VM
--> Hosted Application
--> Separate Google Cloud Ubuntu VM
--> PostgreSQL Database
-
-This section should communicate:
-
-- cloud deployment experience
-- server management familiarity
-- database separation
-- real-world engineering thinking
-- ownership of the full stack
-
-Add a short line that says the person prefers understanding how systems work end-to-end, not just deploying to a one-click platform and forgetting about it.
-
-## Featured work section
-
-Do not list every project. Show only the strongest public-facing work, ideally three projects.
-
-This section should read like case studies, not resume bullets.
-
-Each project card should contain:
-
-- project name
-- one-line problem statement
-- what the project does
-- what technologies or methods were used
-- what part of the problem was technically interesting
-- a short outcome or takeaway
-- a button like "Read case study" or "View details"
-
-If the project is private or not suitable for public disclosure, present it in a sanitized way:
-
-- describe the category of work
-- describe the engineering challenge
-- hide confidential details
-- show the skill demonstrated instead of all implementation details
-
-The cards should feel substantial and intentional. Use strong visuals and short, sharp copy.
-
-Possible project presentation styles:
-
-- dark glass cards with hover lift
-- timeline-style case studies
-- stacked featured work panels
-- expandable cards with more detail inside
-
-The goal is not to show quantity. The goal is to show judgment, engineering depth, and execution quality.
-
-## Engineering stack section
-
-Do not make this a huge wall of badges.
-
-Instead, present the stack in grouped clusters with clean labels.
-
-Suggested categories:
-
-Development
-
-- C++
-- Python
-- JavaScript
-- TypeScript
-
-AI / Workflow
-
-- Claude
-- Codex
-- Gemini
-- Shared context files
-- Work journal / log files
-
-Infrastructure
-
-- Ubuntu
-- Oracle Cloud VM
-- Google Cloud VM
-- PostgreSQL
-- GitHub
-- Cloud deployment
-
-Engineering practices
-
-- security checks
-- manual secret review
-- version control
-- structured handoffs
-- debugging
-- documentation
-- iterative improvement
-
-Each cluster should have a short description instead of just icons.
-
-## Build philosophy section
-
-This section should be short, thoughtful, and memorable.
-
-Title ideas:
-
-- How I think about building
-- My engineering principles
-- What I care about
-- Build philosophy
-
-Include 4 to 6 principles such as:
-
-- Keep context centralized
-- Document decisions clearly
-- Use AI to amplify output, not replace understanding
-- Verify security before pushing
-- Reduce repeated work
-- Own the full system when possible
-- Prefer clean execution over noisy complexity
-
-This section should make the person look disciplined and dependable.
-
-## Optional timeline section
-
-If the design allows, add a subtle development journey timeline. This can be inside the About or Build Philosophy area.
-
-Show progression such as:
-
-- started learning programming
-- built early projects
-- learned to use AI tools effectively
-- began maintaining shared context and logs
-- started self-hosting services
-- moved toward more complete software systems
-
-This should show growth and maturity, not drama.
-
-## Contact section
-
-Close with a clean, confident ending.
-
-Use a short closing line such as:
-
-- Open to internships, collaboration, and meaningful engineering work
-- Let's build something useful
-- Available for projects, internships, and thoughtful conversations
-
-Include:
-
-- GitHub
-- LinkedIn
-- Email
-- Resume download button if available
-
-Keep the contact section elegant and focused.
-
-## Motion and interactions
-
-Use motion in a polished, restrained way.
-
-Good interactions:
-
-- hero text reveal on load
-- cards animate in on scroll
-- hover lift on project cards
-- smooth underline / glow on navigation
-- expand-on-click details for workflow steps
-- subtle animated connectors in the AI workflow section
-- sticky section progress indicator
-- slight parallax or depth movement in the hero
-
-Do not over-animate. The site should feel premium, not childish.
-
-## Navigation
-
-Add a minimal top navigation with anchors to:
-
-- About
-- Workflow
-- Infrastructure
-- Work
-- Stack
-- Contact
-
-The nav should be clean, sticky, and understated. On mobile, use a compact menu or bottom nav if it feels elegant.
-
-## Typography and spacing
-
-Typography should do a lot of the visual work.
-
-Use:
-
-- strong headline hierarchy
-- readable body text
-- short paragraphs
-- generous spacing
-- clear section labels
-- crisp contrast
-
-The design should feel like a premium editorial landing page mixed with a polished engineering dashboard.
-
-## Content tone
-
-The writing throughout the site should sound:
-
-- confident
-- intelligent
-- direct
-- honest
-- technically aware
-- not boastful
-- not cringe
-- not generic
-
-Avoid phrases like:
-
-- passionate developer
-- results-driven
-- innovative thinker
-- AI enthusiast
-- next-generation disruptor
-- software ninja
-
-Those sound empty.
-
-Use language that suggests:
-
-- disciplined execution
-- practical engineering
-- thoughtful use of tools
-- learning through building
-- real deployment experience
-- an organized development process
-
-## Personal positioning to express clearly
-
-The site should communicate these ideas without sounding defensive:
-
-- I may not do everything manually.
-- I do know how to build a proper system around the work.
-- I use AI tools intelligently, not randomly.
-- I keep shared context so tools do not repeat work.
-- I document decisions and fixes.
-- I review security before publishing.
-- I deploy and maintain real infrastructure.
-- I care about quality, not just speed.
-
-That is the real differentiator.
-
-## Design rules
-
-Do:
-
-- make it feel premium
-- keep the palette controlled
-- make each section visually distinct
-- use diagrams and architecture-like visuals
-- show systems thinking
-- make the workflow section unforgettable
-- make the infrastructure section credible
-- use subtle glassmorphism only where helpful
-- make the entire experience feel intentional
-
-Do not:
-
-- clutter with too many cards
-- use random gradients everywhere
-- make AI the headline of the site
-- overdo glow effects
-- use generic stock art
-- show every single repository
-- make it look like a template from a UI kit
-- make it noisy
-
-## Final result
-
-The final website should make the visitor feel:
-
-- this is a real builder
-- this person knows how to work with AI responsibly
-- this person has cloud and deployment awareness
-- this person organizes work well
-- this person understands context, logs, handoffs, and security
-- this person is not just coding, he is engineering a system
-
-The site should be visually striking but still trustworthy. It should have personality, structure, and clarity. It should feel like a serious portfolio for someone who wants internships, coding opportunities, and real engineering work.
-
-Build it as if it belongs to someone who is ready to be taken seriously.</script>
+Design direction:
+- Dark-first, editorial, restrained. One warm accent colour.
+- Strong typographic hierarchy, generous spacing, hairline borders.
+- Subtle motion: scroll reveals, hover lift, expand-on-click detail.
+- No badge walls, no stock art, no template patterns.
+
+Content rules:
+- Lead with engineering, not with tooling.
+- Show fewer projects with more depth. Case studies, not resume bullets.
+- Describe the infrastructure honestly: what runs where, and why it is split.
+- Keep the writing direct and concrete. No filler adjectives.
+
+Deliverable: one self-contained HTML file, no framework, no page builder.</script>
     <script type="text/plain" id="f-index"><!doctype html>
 <html lang="en">
 <head>
@@ -1979,12 +1509,12 @@ Build it as if it belongs to someone who is ready to be taken seriously.</script
     <div class="timeline reveal">
       <div class="tl-head">Development journey</div>
       <div class="tl">
-        <div class="tl-item"><span class="yr">2020</span><h4>Learning by building</h4><p>Picked up programming to understand how software actually works, and kept going by building small, real things.</p></div>
-        <div class="tl-item"><span class="yr">2023</span><h4>Early projects</h4><p>Shipped first working projects end to end, and learned as much from what broke as from what worked.</p></div>
+        <div class="tl-item"><span class="yr">2020</span><h4>First things that ran</h4><p>Picked up programming to understand how software actually works, and started the Discord bot that is still in production today.</p></div>
+        <div class="tl-item"><span class="yr">2023</span><h4>Engineering school</h4><p>Started B.E. Computer Engineering at Thapar, and began shipping projects end to end, learning as much from what broke as from what worked.</p></div>
         <div class="tl-item"><span class="yr">2024</span><h4>AI tools, used with intent</h4><p>Started using AI assistants deliberately, coordinating them instead of prompting at random.</p></div>
-        <div class="tl-item"><span class="yr">2025</span><h4>Shared context & logs</h4><p>Introduced centralized context and a shared log so tools hand off cleanly and decisions stay recorded.</p></div>
-        <div class="tl-item"><span class="yr">2026</span><h4>Self-hosting</h4><p>Moved from localhost to real infrastructure, provisioning and running services on my own cloud VMs.</p></div>
-        <div class="tl-item active"><span class="yr">Now</span><h4>Complete software systems</h4><p>Building more complete systems, with the process, infrastructure, and review discipline to back them.</p></div>
+        <div class="tl-item"><span class="yr">2025 · early</span><h4>Shared context & logs</h4><p>Introduced centralized context and a shared log so tools hand off cleanly and decisions stay recorded.</p></div>
+        <div class="tl-item"><span class="yr">2025 · late</span><h4>Self-hosting</h4><p>Moved from localhost to real infrastructure, provisioning and running services on my own cloud VMs.</p></div>
+        <div class="tl-item active"><span class="yr">2026 · now</span><h4>Complete software systems</h4><p>Building more complete systems, with the process, infrastructure, and review discipline to back them.</p></div>
       </div>
     </div>
   </div>
@@ -2001,11 +1531,13 @@ Build it as if it belongs to someone who is ready to be taken seriously.</script
         <a class="chan" href="https://github.com/MridulNegi2005" target="_blank" rel="noopener"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.3 4.3 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12 12 0 0 0-6 0C6.7 2.3 5.6 2.6 5.6 2.6a4.3 4.3 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>GitHub</a>
         <a class="chan" href="https://www.linkedin.com/in/mridulnegi/" target="_blank" rel="noopener"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 13v4"/></svg>LinkedIn</a>
         <a class="chan" href="mailto:negimridul2005@gmail.com"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Email</a>
-        <a class="chan" href="Mridul_Negi_Resume.pdf" download="Mridul_Negi_Resume.pdf"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>Résumé</a>
+        <a class="chan" href="Mridul_Negi_Software_Developer_Resume.pdf" download="Mridul_Negi_Software_Developer_Resume.pdf"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>Résumé</a>
       </div>
     </div>
   </div>
 </section>
+
+</main>
 
 <footer>
   <div class="wrap foot">
@@ -2047,8 +1579,10 @@ Build it as if it belongs to someone who is ready to be taken seriously.</script
     var splash=document.getElementById('splash');
     if(!splash) return;
     var reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
-    if(reduce){ splash.parentNode&&splash.parentNode.removeChild(splash); return; }
+    // deep link (someone landing on #work) or reduced motion → no splash at all
+    if(reduce || (location.hash && location.hash.length>1)){ splash.parentNode&&splash.parentNode.removeChild(splash); return; }
     var root=document.documentElement, done=false, tMorph;
+    splash.classList.add('js');            // JS is alive → cancel the CSS failsafe fade
     root.classList.add('splash-lock');
     function finish(){
       if(done) return; done=true;

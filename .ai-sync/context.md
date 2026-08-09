@@ -117,3 +117,20 @@ Rolling work log shared between Codex, Claude Code, and Antigravity.
 **Notes:** Verified in-browser via computed styles + DOM (screenshots still do not composite in this environment — the user should eyeball both themes on a real screen). No console errors; no horizontal scroll on mobile; light mode fully readable including the cert cards. **Deferred (user decisions):** PlantBrain project add / The Loop swap; project screenshots vs CSS diagrams (U4); regenerating `og-image.png` to match the new positioning (it still reads "Systems-minded software engineer"). **Kept by user request (do not change):** personal Gmail contact, the "6 years" Cosmic Bot claim, no phone number, and Mahoraga shown without team attribution. Security review must run before any push.
 
 ---
+
+## [2026-08-10 04:20] — Claude Code
+**Task:** Act on the second brutal review (`PORTFOLIO-REVIEW-2.md`).
+**Changes:** `index.html`, `og-image.png`, `sitemap.xml`, `work/`, `DESIGN.md`, and the résumé LaTeX source —
+- **Removed the leaked prompt (critical).** The embedded `f-brief` shipped the full original brief in page source, including "B.Tech Computer Science student" (contradicting the site), "aspiring programmer", and "present himself as a serious engineer". Replaced with a sanitized 1.2 KB brief that keeps the demo authentic. Also trimmed `f-context` from 10 KB to 1.6 KB. Page: 213 KB → 196 KB.
+- **Résumé:** replaced The Loop with PlantBrain in `Resume_2026.tex`, and corrected CGPA to 8.01. **The PDF still needs recompiling on Overleaf** — no LaTeX toolchain on this machine. Renamed the shipped PDF to `Mridul_Negi_Software_Developer_Resume.pdf` and updated all 7 links.
+- **Splash:** kept the duration. Added a "click or scroll to skip" hint, a pure-CSS failsafe fade at 4 s (so a JS failure can no longer leave a permanently blank locked screen), and a skip when the visitor arrives on a deep link (`#work`).
+- **Timeline:** reconciled with the 6-year Cosmic Bot claim (2020 is now "First things that ran", referencing the bot) and removed the duplicate `2026 / Now` ending.
+- **OG image:** regenerated. It had still carried the abandoned "Systems-minded software engineer" line; now shows the backend positioning and the three real stats.
+- **Light theme:** darkened ink and accent ramps. All body text now passes WCAG AA in both themes (footer was 2.56/2.66, now 4.64/6.38; light eyebrow 4.08 → 5.05).
+- **Accessibility:** added `:focus-visible` rings (there were none), a skip link, a `<main>` landmark, and 44 px touch targets on coarse pointers (19 undersized → 2).
+- **Case images:** added self-hiding `figure.case-shot` slots inside each (collapsed) project panel, so screenshots cost zero page length until opened. `work/README.md` documents the three filenames and the privacy rules.
+- `sitemap.xml` lastmod refreshed.
+**Status:** completed (verified), not pushed.
+**Notes:** Deliberately left per the user: the sync demo stays as-is, the splash duration stays, the Gmail contact, the "6 years" claim, no phone, and Mahoraga without team attribution. **Outstanding for the user:** recompile the résumé PDF on Overleaf, and drop the three PNGs into `work/`. Deploy list now includes `work/*.png`.
+
+---
