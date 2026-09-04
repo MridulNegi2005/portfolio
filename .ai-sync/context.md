@@ -96,11 +96,11 @@ Rolling work log shared between Codex, Claude Code, and Antigravity.
 **Notes:** The mobile view for the cinematic demo is fully functional, properly readable without tiny un-zoomable text, and highly interactive.
 ---
 
-## [2026-08-06 02:35] � Antigravity
-**Task:** Demo section polish � native brand icons, glassmorphism label, GFM table rendering, mobile UX cleanup.
+## [2026-08-06 02:35] — Antigravity
+**Task:** Demo section polish — native brand icons, glassmorphism label, GFM table rendering, mobile UX cleanup.
 **Changes:** index.html (Antigravity full-color SVG inlined in demo JS, Claude native fill, glassmorphism label with center-to-corner spring animation, GFM table parser in render(), mobile cards removed, sidebar arrows enlarged, fast-forward trigger at 120 chars, tool badge CSS reverted to golden).
 **Status:** completed
-**Notes:** Implementation plan for Options 1 (Design Polish � 3D ID card tilt, spacing, typography) and 3 (Copywriting � meta/hero/ID card rewrites) is drafted but awaiting user approval. The Antigravity icon in the demo uses a complex multi-layer SVG with masks and filters � do not simplify. The source SVG lives on Desktop (ntigravity-color.svg) but is NOT in the repo; it's inlined in JS.
+**Notes:** Implementation plan for Options 1 (Design Polish — 3D ID card tilt, spacing, typography) and 3 (Copywriting — meta/hero/ID card rewrites) is drafted but awaiting user approval. The Antigravity icon in the demo uses a complex multi-layer SVG with masks and filters — do not simplify. The source SVG lives on Desktop (ntigravity-color.svg) but is NOT in the repo; it's inlined in JS.
 
 ---
 
@@ -132,5 +132,28 @@ Rolling work log shared between Codex, Claude Code, and Antigravity.
 - `sitemap.xml` lastmod refreshed.
 **Status:** completed (verified), not pushed.
 **Notes:** Deliberately left per the user: the sync demo stays as-is, the splash duration stays, the Gmail contact, the "6 years" claim, no phone, and Mahoraga without team attribution. **Outstanding for the user:** recompile the résumé PDF on Overleaf, and drop the three PNGs into `work/`. Deploy list now includes `work/*.png`.
+
+---
+
+## [2026-08-18 00:00] — Codex
+**Task:** Brutally review the current portfolio using the supplied personal knowledge base and live deployment.
+**Changes:** Added `PORTFOLIO-BRUTAL-REVIEW-2026-08-18.md`; updated this handoff and context only. No site code changed.
+**Status:** completed.
+**Notes:** The report found that the three intended project screenshot endpoints return the deployment HTML fallback rather than image content. It recommends an evidence-first restructure: Cosmic Bot first, accurate project authorship on closed cards, a backend/Python-systems hero, and the cross-agent demo moved out of the primary hiring journey. Retain the dark/brass minimal design and do not add decorative AI/3D effects.
+
+---
+
+## [2026-09-04 14:50] — Claude Code
+**Task:** Add real-human visitor detection with instant Discord alerts and a stored log.
+**Changes:** new `functions/` (Cloudflare Pages Functions), `_redirects`, `index.html` beacon —
+- **Why:** the Cloudflare traffic graph was unreadable because AI crawlers dominate it, and there was no way to tell a recruiter from a scraper.
+- `functions/api/visit.js` — POST beacon. Five filter layers: JS execution, engagement (>=6s plus scroll or pointer), a 50+ signature crawler UA list, `navigator.webdriver`, and Cloudflare's own bot score / verified-bot category. Rejects are counted but never alert, so the human-to-bot ratio is visible.
+- `functions/resume.js` — `/resume` logs the download, alerts, then 302s to the PDF. Routing downloads through a Function catches direct links and shared URLs, not only on-page clicks.
+- `functions/api/stats.js` — private summary, guarded by `STATS_TOKEN` with a constant-time compare.
+- **Location without an IP:** reads `request.cf` (city, region, country, timezone, network operator). No raw IP is stored. De-duplication uses a salted SHA-256 of IP+UA+date, truncated, rotating daily.
+- Hardening: same-origin check, alert cap of 60/hour, control characters and Discord markdown stripped from all client strings.
+- `_redirects` keeps `/resume` working if Functions ever fail to deploy.
+**Status:** implemented and tested locally; **not deployed**.
+**Notes:** Verified with a mocked Cloudflare env — 7/7 end-to-end cases correct (real visitor alerts, repeat visitor deduped, GPTBot / low-engagement / webdriver / cf-score / verified-bot all rejected), and 12/12 crawler UAs blocked with 0 false positives against 5 real browsers. **User must still configure in the Cloudflare dashboard:** `DISCORD_WEBHOOK_URL`, `STATS_TOKEN`, `IP_SALT` as secrets, plus a KV namespace bound as `VISITS`. Setup steps are in `functions/README.md`. Deploying before configuration is safe: the code degrades to no-alert / no-store.
 
 ---

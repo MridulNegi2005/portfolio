@@ -1,0 +1,4 @@
+# Safety net: if Functions are not deployed, /resume still reaches the PDF.
+# Cloudflare precedence is Functions > _redirects > static assets, so the
+# logging Function wins when it exists and this catches the case where it does not.
+/resume  /Mridul_Negi_Software_Developer_Resume.pdf  302

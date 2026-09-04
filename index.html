@@ -946,10 +946,10 @@ footer{border-top:1px solid var(--line);padding:36px 0}
       <a href="#stack">Stack</a>
       <a href="#demo">Sync</a>
       <a href="#contact" class="nav-cta">Contact</a>
-      <a href="Mridul_Negi_Software_Developer_Resume.pdf" download="Mridul_Negi_Software_Developer_Resume.pdf" class="nav-cta nav-resume">Résumé <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v11m0 0 4-4m-4 4-4-4M5 19h14"/></svg></a>
+      <a href="/resume" download="Mridul_Negi_Software_Developer_Resume.pdf" class="nav-cta nav-resume">Résumé <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v11m0 0 4-4m-4 4-4-4M5 19h14"/></svg></a>
     </div>
     <div class="nav-actions">
-      <a href="Mridul_Negi_Software_Developer_Resume.pdf" download="Mridul_Negi_Software_Developer_Resume.pdf" class="nav-resume-mobile" aria-label="Download résumé"><span class="rlbl">Résumé</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v11m0 0 4-4m-4 4-4-4M5 19h14"/></svg></a>
+      <a href="/resume" download="Mridul_Negi_Software_Developer_Resume.pdf" class="nav-resume-mobile" aria-label="Download résumé"><span class="rlbl">Résumé</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v11m0 0 4-4m-4 4-4-4M5 19h14"/></svg></a>
       <button class="menu-btn" id="menuBtn" aria-label="Menu"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     </div>
     <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle light or dark theme">
@@ -1602,7 +1602,7 @@ Deliverable: one self-contained HTML file, no framework, no page builder.</scrip
         <a class="chan" href="https://github.com/MridulNegi2005" target="_blank" rel="noopener"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.3 4.3 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12 12 0 0 0-6 0C6.7 2.3 5.6 2.6 5.6 2.6a4.3 4.3 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>GitHub</a>
         <a class="chan" href="https://www.linkedin.com/in/mridulnegi/" target="_blank" rel="noopener"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 13v4"/></svg>LinkedIn</a>
         <a class="chan" href="mailto:negimridul2005@gmail.com"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Email</a>
-        <a class="chan" href="Mridul_Negi_Software_Developer_Resume.pdf" download="Mridul_Negi_Software_Developer_Resume.pdf"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>Résumé</a>
+        <a class="chan" href="/resume" download="Mridul_Negi_Software_Developer_Resume.pdf"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>Résumé</a>
       </div>
     </div>
   </div>
@@ -2487,6 +2487,72 @@ void main(){\n\
   })();
 
   document.getElementById('yr').textContent=new Date().getFullYear();
+})();
+</script>
+<script>
+/* Real-visitor signal. Reports only after a session looks human, so the
+   AI crawlers that inflate the Cloudflare traffic graph are never counted. */
+(function(){
+  var start = Date.now(), maxScroll = 0, moves = 0, touched = false;
+  var sections = [], sent = false;
+
+  function pct(){
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    return h > 0 ? Math.min(100, (window.scrollY / h) * 100) : 100;
+  }
+  addEventListener('scroll', function(){
+    var p = pct(); if (p > maxScroll) maxScroll = p;
+  }, {passive:true});
+  addEventListener('pointermove', function(){ moves++; }, {passive:true});
+  addEventListener('touchstart', function(){ touched = true; moves++; }, {passive:true});
+
+  try {
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if (e.isIntersecting) {
+          var id = e.target.id;
+          if (id && sections.indexOf(id) === -1) sections.push(id);
+        }
+      });
+    }, {threshold:0.4});
+    document.querySelectorAll('section[id]').forEach(function(el){ io.observe(el); });
+  } catch(e){}
+
+  function payload(){
+    return {
+      dwellMs: Date.now() - start,
+      maxScroll: maxScroll,
+      moves: moves + (touched ? 4 : 0),
+      sections: sections,
+      path: location.pathname,
+      ref: document.referrer || '',
+      device: (window.innerWidth <= 600 ? 'Mobile' : window.innerWidth <= 1024 ? 'Tablet' : 'Desktop'),
+      webdriver: !!navigator.webdriver
+    };
+  }
+
+  function send(){
+    if (sent) return;
+    var d = payload();
+    if (d.dwellMs < 6000) return;
+    if (d.maxScroll < 10 && d.moves < 4) return;
+    sent = true;
+    var body = JSON.stringify(d);
+    try {
+      if (navigator.sendBeacon) {
+        navigator.sendBeacon('/api/visit', new Blob([body], {type:'application/json'}));
+      } else {
+        fetch('/api/visit', {method:'POST', body:body, keepalive:true,
+          headers:{'content-type':'application/json'}});
+      }
+    } catch(e){}
+  }
+
+  setTimeout(send, 9000);                       // engaged readers
+  addEventListener('visibilitychange', function(){
+    if (document.visibilityState === 'hidden') send();
+  });
+  addEventListener('pagehide', send);
 })();
 </script>
 </body>
