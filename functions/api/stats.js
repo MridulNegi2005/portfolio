@@ -32,7 +32,13 @@ export async function onRequestGet({ request, env }) {
   const recent = [];
   for (const k of keys) {
     const raw = await env.VISITS.get(k);
-    if (raw) { try { recent.push(JSON.parse(raw)); } catch { /* skip */ } }
+    if (raw) {
+      try {
+        const rec = JSON.parse(raw);
+        delete rec.id;            // never expose the derived visitor hash
+        recent.push(rec);
+      } catch { /* skip */ }
+    }
   }
 
   const totals = Object.values(counts).reduce(

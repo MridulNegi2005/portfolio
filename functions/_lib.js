@@ -46,6 +46,9 @@ export function placeString(g) {
 
 // Identify a visitor for de-duplication without storing their IP.
 export async function visitorHash(request, salt) {
+  // Without a secret salt a truncated hash of an IPv4 address is brute-forceable,
+  // so the privacy claim must not depend on remembering the variable.
+  if (!salt) console.warn('IP_SALT is not set: visitor hashes are weak until it is configured.');
   const ip = request.headers.get('cf-connecting-ip') || '';
   const ua = request.headers.get('user-agent') || '';
   const day = new Date().toISOString().slice(0, 10);
