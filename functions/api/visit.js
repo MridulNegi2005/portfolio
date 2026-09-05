@@ -23,6 +23,7 @@ export async function onRequestPost({ request, env }) {
   if (body.webdriver) reasons.push('webdriver');
   if (!engaged) reasons.push('low-engagement');
   if (geo.verifiedBot) reasons.push(`verified-bot:${geo.verifiedBot}`);
+  if (geo.knownBotIsp) reasons.push(`isp:${geo.isp}`);
   if (typeof geo.botScore === 'number' && geo.botScore <= 29) reasons.push(`cf-score:${geo.botScore}`);
 
   if (reasons.length) {
@@ -69,6 +70,7 @@ export async function onRequestPost({ request, env }) {
       title: `${flag(geo.country)} Real visitor — ${record.place}`,
       color: 0xc99a52,
       geo,
+      mention: true,
       fields: [
         { name: 'Network', value: geo.isp || 'Unknown', inline: true },
         { name: 'Local time', value: localTime(geo.timezone), inline: true },

@@ -20,8 +20,9 @@ A visit must pass every layer before it alerts:
 3. **The user agent must not be a known crawler.** 50+ signatures, including GPTBot,
    ClaudeBot, PerplexityBot, CCBot, Bytespider, Amazonbot and meta-externalagent.
 4. **`navigator.webdriver` must be false.** Removes Selenium and Playwright.
-5. **Cloudflare's own verdict.** Rejects a verified bot category, or a bot score of 29
-   or lower when Cloudflare provides one.
+5. **Cloudflare's own verdict.** Rejects a verified bot category, a known crawler
+   network operator (for example Internet Archive), or a bot score of 29 or lower
+   when Cloudflare provides one.
 
 Anything rejected is still counted, so `/api/stats` shows the human-to-bot ratio.
 Only the rejects are silent.
@@ -61,6 +62,12 @@ Pages project → **Settings → Environment variables → Production**. Add all
 | `DISCORD_WEBHOOK_URL` | the webhook URL from step 1 |
 | `STATS_TOKEN` | any long random string you invent |
 | `IP_SALT` | any long random string you invent |
+| `DISCORD_USER_ID` | your Discord user ID, to get pinged (optional) |
+
+`DISCORD_USER_ID` is not a secret, but treat it the same way for consistency.
+Turn on Developer Mode in Discord (**Settings → Advanced**), then right-click
+your name and **Copy User ID**. Without this variable, alerts still post, just
+without the ping.
 
 Generate the two random strings with:
 

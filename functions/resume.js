@@ -15,7 +15,7 @@ export async function onRequestGet(ctx) {
   const ua = request.headers.get('user-agent') || '';
   const uaCheck = classifyUA(ua);
   const geo = geoFrom(request);
-  const isBot = uaCheck.bot || !!geo.verifiedBot;
+  const isBot = uaCheck.bot || !!geo.verifiedBot || geo.knownBotIsp;
 
   if (!isBot) {
     const id = await visitorHash(request, env.IP_SALT);
@@ -44,6 +44,7 @@ export async function onRequestGet(ctx) {
         title: `${flag(geo.country)} Résumé downloaded — ${placeString(geo)}`,
         color: 0x8fb48a,
         geo,
+        mention: true,
         fields: [
           { name: 'Network', value: geo.isp || 'Unknown', inline: true },
           { name: 'Country', value: geo.country || '—', inline: true },

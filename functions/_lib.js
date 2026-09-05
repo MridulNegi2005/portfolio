@@ -25,17 +25,23 @@ export function classifyUA(ua) {
 
 // Cloudflare derives these at the edge, so we never have to store an IP to know
 // roughly where someone is.
+// Network operators that only run crawlers, even when the visit otherwise
+// looks human (JS ran, some scroll happened via a headless browser, etc).
+const BOT_ISP = ['internet archive', 'wayback machine'];
+
 export function geoFrom(request) {
   const cf = request.cf || {};
+  const isp = cf.asOrganization || null;
   return {
     city: cf.city || null,
     region: cf.region || null,
     country: cf.country || null,
     timezone: cf.timezone || null,
-    isp: cf.asOrganization || null,
+    isp,
     colo: cf.colo || null,
     botScore: cf.botManagement ? cf.botManagement.score : null,
-    verifiedBot: cf.verifiedBotCategory || null
+    verifiedBot: cf.verifiedBotCategory || null,
+    knownBotIsp: isp ? BOT_ISP.some(b => isp.toLowerCase().includes(b)) : false
   };
 }
 
@@ -72,7 +78,7 @@ function fmtDuration(sec) {
 
 // Post an embed to Discord. Never throws: a notification failure must not break
 // the response the visitor is waiting on.
-export async function notifyDiscord(env, { title, color, geo, fields, url }) {
+export async function notifyDiscord(env, { title, color, geo, fields, url, mention }) {
   const hook = env.DISCORD_WEBHOOK_URL;
   if (!hook) return { ok: false, skipped: 'no-webhook' };
 
@@ -85,11 +91,20 @@ export async function notifyDiscord(env, { title, color, geo, fields, url }) {
     timestamp: new Date().toISOString()
   };
 
+  // Ping only the owner, and only via allowed_mentions — never let a
+  // client-influenced field turn into an @everyone.
+  const content = mention && env.DISCORD_USER_ID ? `<@${env.DISCORD_USER_ID}>` : undefined;
+
   try {
     const res = await fetch(hook, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ username: 'mridulnegi.dev', embeds: [embed] })
+      body: JSON.stringify({
+        username: 'mridulnegi.dev',
+        content,
+        allowed_mentions: content ? { users: [env.DISCORD_USER_ID] } : { parse: [] },
+        embeds: [embed]
+      })
     });
     return { ok: res.ok, status: res.status };
   } catch (e) {
