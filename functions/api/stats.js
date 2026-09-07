@@ -41,6 +41,15 @@ export async function onRequestGet({ request, env }) {
     }
   }
 
+  // Recent rejects, for "why didn't this hit alert" debugging
+  const rjList = await env.VISITS.list({ prefix: 'rj:', limit: 100 });
+  const rjKeys = rjList.keys.map(k => k.name).sort().reverse().slice(0, 30);
+  const recentRejects = [];
+  for (const k of rjKeys) {
+    const raw = await env.VISITS.get(k);
+    if (raw) { try { recentRejects.push(JSON.parse(raw)); } catch { /* skip */ } }
+  }
+
   const totals = Object.values(counts).reduce(
     (a, c) => ({ human: a.human + c.human, bot: a.bot + c.bot, resume: a.resume + c.resume }),
     { human: 0, bot: 0, resume: 0 }
@@ -53,6 +62,7 @@ export async function onRequestGet({ request, env }) {
     totals,
     humanShare: seen ? `${Math.round(totals.human / seen * 100)}%` : 'n/a',
     byDay: counts,
-    recent
+    recent,
+    recentRejects
   });
 }

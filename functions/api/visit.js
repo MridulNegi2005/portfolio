@@ -27,8 +27,10 @@ export async function onRequestPost({ request, env }) {
   if (typeof geo.botScore === 'number' && geo.botScore <= 29) reasons.push(`cf-score:${geo.botScore}`);
 
   if (reasons.length) {
-    // Counted, never notified. Lets /api/stats show the human-vs-bot split.
+    // Counted, never notified. Lets /api/stats show the human-vs-bot split
+    // and, for a short while, why a specific hit was rejected.
     await bump(env, 'bot');
+    await logReject(env, { reasons, geo, ua, body });
     return json({ ok: true, counted: 'bot', reasons });
   }
 
@@ -110,4 +112,23 @@ async function bump(env, kind) {
   const key = `c:${new Date().toISOString().slice(0, 10)}:${kind}`;
   const cur = Number(await env.VISITS.get(key)) || 0;
   await env.VISITS.put(key, String(cur + 1), { expirationTtl: 60 * 60 * 24 * 120 });
+}
+
+// Short-lived log of rejected hits, so a "why didn't I get pinged" question
+// can be answered from /api/stats instead of a friend's dev tools.
+async function logReject(env, { reasons, geo, ua, body }) {
+  if (!env.VISITS) return;
+  const rec = {
+    t: new Date().toISOString(),
+    reasons,
+    place: placeString(geo),
+    isp: geo.isp,
+    ua: clean(ua, 160),
+    dwellSec: Math.round(Number(body.dwellMs || 0) / 1000),
+    scroll: Math.round(Number(body.maxScroll || 0)),
+    device: clean(body.device, 40)
+  };
+  await env.VISITS.put(`rj:${rec.t}`, JSON.stringify(rec), {
+    expirationTtl: 60 * 60 * 24 * 3 // 3 days is plenty for debugging
+  });
 }
