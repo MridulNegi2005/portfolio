@@ -6,7 +6,8 @@ instantly, and keep a 90-day log.
 | Route | Method | Purpose |
 |---|---|---|
 | `/api/visit` | POST | Beacon from the page. Filters bots, alerts, stores the visit. |
-| `/resume` | GET | Logs the download, alerts, then redirects to the PDF. |
+| `/resume` | GET | Checks the client, alerts, then redirects to the PDF. |
+| the PDF path | GET | Middleware runs the same check on the file itself. |
 | `/api/stats` | GET | Private summary. Requires `?token=`. |
 
 ## How a real person is identified
@@ -110,6 +111,23 @@ curl -sS "https://mridulnegi.dev/api/stats?token=YOUR_STATS_TOKEN"
 `humanShare` is the number you wanted: the share of Cloudflare's traffic graph that is
 actually a person.
 
+## Resume access
+
+Automated clients receive 403 instead of the file. The check runs in two places,
+because a redirect target alone is easy to fetch directly:
+
+1. `/resume`, the shareable URL.
+2. The PDF path, through `functions/_middleware.js`.
+
+A hosting or proxy network is refused on its own. It is allowed when the same
+visitor fingerprint completed a real browser session in the last hour. That
+session sets a short-lived key from `/api/visit`. A person on a company VPN
+therefore reads the site, then downloads the file. A scraper that requests the
+file directly has no such key.
+
+The file stays in the public repository. Anyone can still fetch it from GitHub.
+Make the repository private if that matters.
+
 ## Alert behaviour
 
 - One alert per visitor per day. A refresh does not alert twice.
@@ -129,4 +147,8 @@ linking to a short privacy note. Several jurisdictions expect it, and it costs n
 ## Rollback
 
 Delete the `functions/` directory. `_redirects` keeps `/resume` working, and the beacon
-in `index.html` fails silently when the endpoint is absent.
+in `index.html` fails silently when the endpoint is absent. The resume block is removed
+with it, so the file becomes available to every client again.
+
+To keep the alerts but remove the block, delete `functions/_middleware.js` and return
+`null` early from `gateResume` in `functions/_resume.js`.

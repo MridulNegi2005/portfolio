@@ -27,6 +27,15 @@ export async function onRequestPost({ request, env }) {
   if (geo.datacenter) reasons.push(`datacenter:${geo.isp}`);
   if (typeof geo.botScore === 'number' && geo.botScore <= 29) reasons.push(`cf-score:${geo.botScore}`);
 
+  // Running JS with real engagement proves a browser and a person, whatever the
+  // network looks like. Record that separately so /resume can let a VPN or
+  // corporate-proxy visitor through without opening the door to scrapers.
+  const behaviourOk = !uaCheck.bot && !body.webdriver && engaged;
+  if (behaviourOk && env.VISITS) {
+    const id = await visitorHash(request, env.IP_SALT);
+    await env.VISITS.put(`h:${id}`, '1', { expirationTtl: 3600 });
+  }
+
   if (reasons.length) {
     // Counted, never notified. Lets /api/stats show the human-vs-bot split
     // and, for a short while, why a specific hit was rejected.
