@@ -2,7 +2,7 @@
 // Routing downloads through here catches direct links and shared URLs too,
 // not just clicks that happen on the page.
 import {
-  classifyUA, geoFrom, placeString, visitorHash, flag, notifyDiscord, json
+  classifyUA, geoFrom, placeString, visitorHash, flag, notifyDiscord, logReject
 } from './_lib.js';
 
 const PDF = '/Mridul_Negi_Software_Developer_Resume.pdf';
@@ -15,9 +15,15 @@ export async function onRequestGet(ctx) {
   const ua = request.headers.get('user-agent') || '';
   const uaCheck = classifyUA(ua);
   const geo = geoFrom(request);
-  const isBot = uaCheck.bot || !!geo.verifiedBot || geo.knownBotIsp;
+  const reasons = [];
+  if (uaCheck.bot) reasons.push(`ua:${uaCheck.why}`);
+  if (geo.verifiedBot) reasons.push(`verified-bot:${geo.verifiedBot}`);
+  if (geo.knownBotIsp) reasons.push(`isp:${geo.isp}`);
+  if (geo.datacenter) reasons.push(`datacenter:${geo.isp}`);
 
-  if (!isBot) {
+  if (reasons.length) {
+    ctx.waitUntil(logReject(env, { kind: 'resume', reasons, geo, ua }));
+  } else {
     const id = await visitorHash(request, env.IP_SALT);
     let notify = true;
 

@@ -29,6 +29,26 @@ export function classifyUA(ua) {
 // looks human (JS ran, some scroll happened via a headless browser, etc).
 const BOT_ISP = ['internet archive', 'wayback machine'];
 
+// Hosting, VPS and proxy networks. A person reading a portfolio comes from a
+// residential or corporate ISP, not from a rented server. Deliberately omits
+// Cloudflare, Akamai, Fastly and Apple: those carry iCloud Private Relay
+// traffic, which is real people on iPhones.
+const DC_ISP = [
+  'ovh', 'digitalocean', 'linode', 'hetzner', 'vultr', 'contabo', 'choopa',
+  'leaseweb', 'm247', 'datacamp', 'colocrossing', 'code200', 'oxylabs',
+  'brightdata', 'bright data', 'packethub', 'scaleway', 'upcloud', 'kamatera',
+  'quadranet', 'psychz', 'zenlayer', 'servers.com', 'serverius', 'hostwinds',
+  'ionos', 'aruba s.p.a.', 'hostinger', 'namecheap', 'godaddy',
+  'amazon', 'aws', 'google cloud', 'azure', 'alibaba', 'tencent', 'oracle cloud',
+  'digital ocean', 'hosting', 'datacenter', 'data center', 'colo', 'vps'
+];
+
+function matches(isp, list) {
+  if (!isp) return false;
+  const s = isp.toLowerCase();
+  return list.some(x => s.includes(x));
+}
+
 export function geoFrom(request) {
   const cf = request.cf || {};
   const isp = cf.asOrganization || null;
@@ -41,7 +61,8 @@ export function geoFrom(request) {
     colo: cf.colo || null,
     botScore: cf.botManagement ? cf.botManagement.score : null,
     verifiedBot: cf.verifiedBotCategory || null,
-    knownBotIsp: isp ? BOT_ISP.some(b => isp.toLowerCase().includes(b)) : false
+    knownBotIsp: matches(isp, BOT_ISP),
+    datacenter: matches(isp, DC_ISP)
   };
 }
 
@@ -149,6 +170,24 @@ export function clean(v, max = 120) {
     .replace(/[\u0000-\u001f\u007f]/g, '')
     .replace(/[`*_~|@]/g, '')
     .slice(0, max);
+}
+
+// Short-lived log of rejected hits, so a "why didn't I get pinged" question
+// can be answered from /api/stats instead of a visitor's dev tools.
+export async function logReject(env, { kind, reasons, geo, ua, extra }) {
+  if (!env.VISITS) return;
+  const rec = {
+    t: new Date().toISOString(),
+    kind: kind || 'visit',
+    reasons,
+    place: placeString(geo),
+    isp: geo.isp,
+    ua: clean(ua, 160),
+    ...(extra || {})
+  };
+  await env.VISITS.put(`rj:${rec.t}`, JSON.stringify(rec), {
+    expirationTtl: 60 * 60 * 24 * 3 // 3 days is plenty for debugging
+  });
 }
 
 // Cap how many alerts can fire in one hour, so the open beacon endpoint cannot
